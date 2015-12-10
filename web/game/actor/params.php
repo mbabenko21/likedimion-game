@@ -10,7 +10,10 @@ if (!defined('ROOT')) {
 }
 $title = "Параметры";
 $baseParams = $player["base_stats"];
-$page .= "<div class='panel panel-default'><div class='panel-heading text-uppercase strong text-muted'>базовые параметры</div>";
+if($player["base_stats_points"]){
+    $stmp = '<span class="badge bg-danger"><span id="or">'.$player["base_stats_points"].'</span> '.\Likedimion\Helper\View::getNumEnding($player["base_stats_points"], ["очко", "очка", "очков"]).' развития</span>';
+}
+$page .= "<div class='panel panel-default'><div class='panel-heading text-uppercase strong text-muted'>базовые параметры ".$stmp."</div>";
 $page .= '<ul class="list-group text-left">';
 for($i = 0; $i < count($lang["base_params"]); $i++){
     $page .= '<li class="list-group-item little_block">

@@ -21,6 +21,9 @@ class Game
     const CLASS_MAG = "mag";
     const CLASS_ASS = "ass";
 
+    const SEX_MAN = "m";
+    const SEX_WMAN = "w";
+
     //Рассы
 
 }

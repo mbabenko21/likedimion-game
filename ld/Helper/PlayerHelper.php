@@ -151,6 +151,8 @@ class PlayerHelper
             $journalMsg = "Вы достигли нового уровня!";
             $journalEvent = new JournalEvent($journalMsg, JournalEvent::JOURNAL_ME);
             $this->getDispatcher()->dispatch($journalEvent);
+            $this->_player["base_stats_points"]++;
+            $this->_player["war_skills_points"]++;
             $this->addExp($ost);
         } else{
             $this->_player["experience"] += $expCount;
@@ -158,6 +160,11 @@ class PlayerHelper
         $journalMsg = "Вы получили %d опыта";
         $journalEvent = new JournalEvent(sprintf($journalMsg, $expCount), JournalEvent::JOURNAL_ME);
         $this->getDispatcher()->dispatch($journalEvent);
+    }
+
+    public function addBaseStat($statId, $countAdd){
+        $this->_player["base_stats"][$statId] += $countAdd;
+        return $this;
     }
 
     /**

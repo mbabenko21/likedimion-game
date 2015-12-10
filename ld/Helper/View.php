@@ -77,7 +77,7 @@ EOFF;
             $card = "";
         }
         $card = preg_replace('/<a(.*)?href="(\.?\/)?\?(.*)">/i', '<a$1href="$2?$3&r=' . self::generateRandomString(rand(2, 9)) . '">', $card);
-        $stmp = $stmp . $card . "</div>".self::footerBlock() . $footBlock;
+        $stmp = $stmp . $card . "</div>" . self::footerBlock() . $footBlock;
         echo $stmp;
     }
 
@@ -249,7 +249,8 @@ BTN;
 
     }
 
-    public static function link($href, $anchor){
+    public static function link($href, $anchor)
+    {
         return <<<BTN
 <a class="tabs__link" href="{$href}">{$anchor}</a>
 BTN;
@@ -287,5 +288,41 @@ CARD;
                 break;
         }
         return $card;
+    }
+
+    /**
+     * @param int $number
+     * @param array $endingArray  Массив слов или окончаний для чисел (1, 4, 5),
+     *          апример array('яблоко', 'яблока', 'яблок')
+     * @return string
+     */
+    public static function getNumEnding($number, $endingArray)
+    {
+        $number = $number % 100;
+        if ($number >= 11 && $number <= 19) {
+            $ending=$endingArray[2];
+        } else {
+            $i = $number % 10;
+            switch ($i){
+                case (1): $ending = $endingArray[0]; break;
+                case (2):
+                case (3):
+                case (4): $ending = $endingArray[1]; break;
+                default: $ending=$endingArray[2]; break;
+            }
+        }
+        return $ending;
+    }
+
+    /**
+     * @param $n
+     * @return bool|string
+     */
+    public static function numberFormat($n){
+        if(!is_numeric($n)) return false;
+        if($n>1000000000000) return round(($n/1000000000000),2).' Т';
+        else if($n>1000000000) return round(($n/1000000000),2).' М';
+        else if($n>1000000) return round(($n/1000000),2).' КК';
+        else if($n>1000) return round(($n/1000),2).' К';
     }
 }

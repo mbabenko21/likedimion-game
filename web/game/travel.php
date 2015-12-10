@@ -14,11 +14,14 @@ $page = "";
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;
 $manaPercent = $player["char_params"][2] / $player["char_params"][3] * 100;
 $expirPercent = $player["experience"] / $playerHelper->getNeedExp($player["level"]+1) * 100;
+$exp = View::numberFormat($player["experience"]);
+$needExp = View::numberFormat($playerHelper->getNeedExp($player["level"]+1));
+$regen = $playerHelper->getRegen(4)[1]*1000;
 $page .= <<<PAGE
 <div class="progerss__bar">
     <div class="progress">
-        <div class="fill life" style="width: {$lifePercent}%"></div>
-        <div class="text strong">{$player["char_params"][0]} / {$player["char_params"][1]}</div>
+        <div id="life_bar" class="fill life" style="width: {$lifePercent}%"></div>
+        <div id="life_bar_text" class="text strong">{$player["char_params"][0]} / {$player["char_params"][1]}</div>
     </div>
     <div class="progress">
         <div class="fill mana" style="width: {$manaPercent}%"></div>
@@ -26,11 +29,31 @@ $page .= <<<PAGE
     </div>
     <div class="progress">
         <div class="fill expir" style="width: {$expirPercent}%"></div>
-        <div class="text strong">{$player["experience"]} / {$playerHelper->getNeedExp($player["level"]+1)}</div>
+        <div class="text strong">{$exp} / {$needExp}</div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var curr = {$player["char_params"][0]};
+        var max = {$player["char_params"][1]};
+        function barInit(currVal, maxVal, id){
+            id = "#"+id;
+            var percent = currVal/maxVal*100;
+            $(id).css({width: percent+"%"});
+            $(id+"_text").text(curr+" / "+max);
+        }
+        if(curr < max){
+            setInterval(function(){
+                console.log('iteration')
+                curr++;
+                barInit(curr, max, 'life_bar');
+            }, {$regen});
+        }
+    });
+</script>
 PAGE;
 //БАФФЫ
+//$playerHelper->addBaseStat(4, 40);
 $page .= View::toMainButton('обновить')."<div class='hr'></div>";
 if($player["role"] == \Likedimion\Game::ROLE_ADMIN){
     $page .= View::link("/?admin=main", "админка")."<div class='hr'></div>";
