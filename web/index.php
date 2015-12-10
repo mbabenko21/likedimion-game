@@ -11,6 +11,7 @@ $l_timers = [];
 if(session_status() != PHP_SESSION_ACTIVE){
     session_start();
 }
+
 $addr = ($_ENV["ENV"] == "production") ? $config["game"]["mongodb"]["production"] : $config["game"]["mongodb"]["development"];
 $mongoClient = new MongoClient($addr);
 $ld = $mongoClient->likedimion;

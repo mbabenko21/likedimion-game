@@ -13,9 +13,10 @@ $baseParams = $player["base_stats"];
 $page .= "<div class='panel panel-default'><div class='panel-heading text-uppercase strong text-muted'>базовые параметры</div>";
 $page .= '<ul class="list-group text-left">';
 for($i = 0; $i < count($lang["base_params"]); $i++){
-    $page .= '<li class="list-group-item">
-    <h6 class="list-group-item-heading strong text-uppercase">'.$lang["base_params"][$i].'</h6>
-    <p class="list-group-item-text">'.$lang["info"]["base_params"][$i].'</p>
+    $page .= '<li class="list-group-item little_block">
+    <span class="badge bg-danger">'.$baseParams[$i].'</span>
+    <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="$(\'#info_'.$i.'\').removeClass(\'hidden\');">'.$lang["base_params"][$i].'</a></h6>
+    <p id="info_'.$i.'" class="list-group-item-text hidden">'.$lang["info"]["base_params"][$i].'<br/><a href="#" onclick="$(\'#info_'.$i.'\').addClass(\'hidden\');">скрыть</a></p>
 </li>';
 }
 $page .= '</ul></div> ';
