@@ -46,4 +46,4 @@ switch($act){
         break;
 }
 
-\Likedimion\Helper\View::display($page, "Магия/Приемы", \Likedimion\Helper\View::CARD_DEFAULT);
+\Likedimion\Helper\View::display($page, $title, \Likedimion\Helper\View::CARD_DEFAULT);

@@ -9,7 +9,7 @@ if (!defined('ROOT')) {
     header("Location: /?");
 }
 $playerMagic = $player["magic"];
-
+$title = "Магия/Приемы";
 $page .= "";
 
 if($playerMagic and count($playerMagic) > 0){

@@ -8,7 +8,7 @@
 if (!defined('ROOT')) {
     header("Location: /?");
 }
-
+$title = "Параметры";
 $baseParams = $player["base_stats"];
 $page .= "<div class='panel panel-default'><div class='panel-heading text-uppercase strong text-muted'>базовые параметры</div>";
 $page .= '<ul class="list-group text-left">';
