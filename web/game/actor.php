@@ -39,6 +39,7 @@ switch($act){
         break;
     default:
         require ROOT."/404.php";
+        return;
         break;
 }
 

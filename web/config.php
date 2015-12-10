@@ -16,5 +16,8 @@ $config = [
     ],
     "magic" => [
         "max_level" => 5
+    ],
+    "skills" => [
+        "max_level" => 5
     ]
 ];

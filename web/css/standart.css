@@ -1,0 +1,897 @@
+@font-face {
+    font-family: Ubuntu; /* Имя шрифта */
+    src: url(fonts/3976.ttf); /* Путь к файлу со шрифтом */
+}
+
+body {
+    background-color: #333333;
+    font-family : Ubuntu,serif;
+}
+
+a:hover {
+    color: #990;
+    font-weight: bold
+}
+
+body, table {
+    font-size: 14px;
+    background-color: #333333;
+    color: #ccc;
+}
+
+body, input, select, textarea {
+    font-family: verdana, tahoma, arial, sans-serif;
+}
+
+body, form, div, span, input, select, h1, h2, h3, h4, textarea, p {
+    padding: 0;
+}
+
+ul {
+    padding: 5px 0 5px 20px;
+    margin: 0;
+}
+
+input, select, textarea {
+    font-size: 100%;
+    border: 1px solid gray;
+    color: #000000;
+    background-color: #EEEEEE;
+    max-width: 600px;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+}
+
+div img, h1 img, h2 img, a img, span img, img {
+    vertical-align: middle;
+}
+
+div, h1, h2, h3, h4 {
+    padding: 0;
+}
+
+a {
+    text-decoration: underline;
+    color: #FFDF8C;
+}
+
+#a:visited {
+    text-decoration: underline;
+    color: #FFDF8C;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 120%;
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 2px 0;
+}
+
+h2 {
+    font-size: 110%;
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 2px 0;
+}
+
+em {
+    font-style: normal;
+}
+
+hr {
+    padding: 0;
+    margin: 6px 0;
+    height: 0;
+    color: #666666;
+    background-color: #666666;
+    border-top: none;
+    border-bottom: #666666 solid 1px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+}
+
+table.bordered td {
+    border: 1px solid burlywood;
+}
+
+.maps {
+    font-size: 5pt;
+    border: 1px outset gray;
+    border-collapse: separate;
+    background-color: gray;
+}
+
+ul.help {
+    list-style: circle;
+}
+
+ul.help li {
+    list-style: circle;
+    margin-left: 16px;
+}
+
+.small {
+    font-size: 80%;
+}
+
+.white {
+    color: white;
+}
+
+.health {
+    color: #FF9999;
+}
+
+.notify {
+    color: #FFF559;
+}
+
+.energy {
+    color: #9999FF;
+}
+
+.money {
+    color: #CC9900;
+}
+
+.buff {
+    color: #00ccff;
+}
+
+.minor {
+    color: gray;
+}
+
+.major {
+    color: #DD6666;
+}
+
+.info {
+    color: #6FCD72;
+}
+
+.notice {
+    color: #00D0FF;
+}
+
+.link {
+    color: #FFDF8C;
+}
+
+.admin {
+    color: #00D0FF;
+}
+
+.moderator {
+    color: #90EE90;
+}
+
+.level {
+    color: #7cfc00;
+}
+
+a.money {
+    color: #CC9900
+}
+
+a.buff {
+    color: #00ccff;
+}
+
+a.money {
+    color: #CC9900;
+}
+
+a.info {
+    color: #6FCD72;
+}
+
+a.info:visited {
+    color: #6FCD72;
+}
+
+a.major {
+    color: #DD6666;
+}
+
+a.major:visited {
+    color: #DD6666;
+}
+
+a.minor {
+    color: gray;
+}
+
+a.minor:visited {
+    color: gray;
+}
+
+a.block {
+    display: block;
+}
+
+a.admin {
+    color: #00D0FF;
+}
+
+.itemGood {
+    color: #6FCD72;
+}
+
+.itemBad {
+    color: chocolate;
+}
+
+.waiting {
+    color: #9999FF;
+}
+
+.spaces {
+    color: #FF6600;
+}
+
+.odnoklassniki {
+    color: #CCFF99;
+}
+
+.mailru {
+    color: #3232CC;
+}
+
+.mailrucatalog {
+    color: #3232CC;
+}
+
+div.hr {
+    border-bottom: 1px dotted #666666;
+    margin: 6px 0;
+}
+
+div.block {
+    padding: 10px 5px;
+    background-color: #404040;
+    border: 1px dashed #666666;
+}
+
+/*feed back section begin*/
+li.feedbackPanelERROR {
+    padding: 0;
+}
+
+.feedbackPanelERROR {
+    color: #DD6666;
+}
+
+li.feedbackPanelINFO {
+    padding: 0;
+}
+
+.feedbackPanelINFO {
+    color: #00DD00;
+}
+
+/*feed back section end*/
+
+.txtal {
+    text-align: left;
+}
+
+.inbl {
+    display: inline-block;
+/ / display: inline;
+/ / zoom: 1;
+}
+
+.m5 {
+    margin: 5px;
+}
+
+.ml5 {
+    margin-left: 5px;
+}
+
+.fsm {
+    font-size: medium;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.ml15 {
+    margin-left: 15px;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+.mt7 {
+    margin-top: 7px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mb2 {
+    margin-bottom: 2px;
+}
+
+.mb5 {
+    margin-bottom: 5px;
+}
+
+.mr5 {
+    margin-right: 5px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.lh1 {
+    line-height: 1 !important;
+}
+
+.bl {
+    display: block;
+}
+
+.cntr {
+    text-align: center;
+}
+
+.nwr {
+    white-space: nowrap;
+}
+
+.fll {
+    float: left;
+}
+
+.flr {
+    float: right;
+}
+
+.clb {
+    clear: both;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.w995 {
+    width: 99.5%;
+}
+
+.w80 {
+    width: 80%;
+}
+
+.ntfy {
+    text-align: center;
+    border: 2px solid #818181;
+    padding: 5px;
+    margin: 3px 0;
+    background-color: #3e3e3e;
+    border-radius: 4px;
+}
+
+.ntfy .ln {
+    border-top: 1px solid #5b5b5b;
+    border-bottom: 1px solid #818181;
+}
+
+.sale {
+    color: #ee96ff;
+}
+
+a.sale {
+    color: #ee96ff;
+}
+
+a.sale:hover {
+    color: #C187FD;
+}
+
+.percent {
+    color: #6FCD72;
+}
+
+.tdn, .tdn a {
+    text-decoration: none !important;
+}
+
+.tdu, .tdu a {
+    text-decoration: underline !important;
+}
+
+.submit {
+    padding: 2px 10px;
+}
+
+.al1 {
+    color: #96392C;
+}
+
+.al2 {
+    color: red;
+}
+
+.al8 {
+    color: #00A7F7;
+}
+
+.main {
+    margin: 0 auto;
+    max-width: 480px;
+}
+
+.button {
+    margin-top: 5px;
+    font-size: 14px;
+    background-color: #333;
+    display: inline-block;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 0 5px;
+    margin-right: 8px;
+    border: 2px solid #FFDF8C;
+    color: #FFDF8C;
+    font-weight: bold;
+}
+.input {
+    margin-top: 5px;
+    font-size: 14px;
+    background-color: #333;
+    display: inline-block;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 0 5px;
+    margin-right: 8px;
+    border: 2px solid #FFDF8C;
+    color: #FFDF8C;
+    font-weight: bold;
+}
+
+.button_back {
+    background-color: #FFDF8C;
+    color: #333;
+}
+
+.button_back:before {
+    content: "";
+    position: absolute;
+    border-top: 9px solid rgba(113, 101, 58, 0);
+    border-bottom: 9px solid rgba(113, 101, 58, 0);
+    border-right: 9px solid #FFDF8C;
+    left: -10px;
+    /*top: -1px;*/
+}
+
+.button:hover {
+    background-color: #FFDF8C;
+    color: #333;
+}
+
+.button_warn {
+    border: 2px solid #C01818;
+    color: #C01818;
+}
+
+.button_warn:hover {
+    background-color: #C01818;
+}
+
+.button_info {
+    border: 2px solid #00FF40;
+    color: #00FF40;
+}
+
+.button_info:hover {
+    background-color: #00FF40;
+}
+
+.button_notice {
+    border: 2px solid #00D0FF;
+    color: #00D0FF;
+}
+
+.button_notice:hover {
+    background-color: #00D0FF;
+}
+
+.button_health {
+    border: 2px solid #FF9999;
+    color: #FF9999;
+}
+
+.button_health:hover {
+    background-color: #FF9999;
+}
+
+.button_major {
+    border: 2px solid #DD6666;
+    color: #DD6666;
+}
+
+.button_major:hover {
+    background-color: #DD6666;
+}
+
+.button_money {
+    border: 2px solid #CC9900;
+    color: #CC9900;
+}
+
+.button_money:hover {
+    background-color: #CC9900;
+}
+
+.input_warn {
+    border: 2px solid #C01818;
+    color: #C01818;
+}
+
+
+.input_info {
+    border: 2px solid #00FF40;
+    color: #00FF40;
+}
+
+.input_notice {
+    border: 2px solid #00D0FF;
+    color: #00D0FF;
+}
+
+.input_health {
+    border: 2px solid #FF9999;
+    color: #FF9999;
+}
+
+.input_major {
+    border: 2px solid #DD6666;
+    color: #DD6666;
+}
+
+
+.input_money {
+    border: 2px solid #CC9900;
+    color: #CC9900;
+}
+
+a.button {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+table th {
+    text-align: left;
+}
+
+table td {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}
+
+/* The CSS */
+select {
+    padding: 2px;
+    margin: 0;
+    border: 2px solid #FFDF8C;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #333;
+    color: #FFDF8C;
+    outline: none;
+    display: inline-block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+/* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    select {
+        padding-right: 18px
+    }
+}
+
+label:after {
+    content: '<>';
+    font: 14px "Consolas", monospace;
+    color: #FFDF8C;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 8px;
+    top: -2px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #FFDF8C;
+    position: absolute;
+    pointer-events: none;
+}
+
+label:before {
+    content: '';
+    right: 6px;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    background: #333;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+}
+
+
+
+#life-bar {
+    background-color: #9D3C31;
+}
+
+#mana-bar {
+    background-color: #0095B5;
+}
+
+#dp-bar {
+    background-color: #BD5F00;
+}
+
+#exp-bar {
+    background-color: #79590F;
+}
+
+.left-block {
+    float: left;
+}
+
+.right-block {
+    float: right;
+}
+
+.hpmp-block {
+    display: inline-block;
+}
+
+.g-row {
+    zoom: 1;
+    margin: 20px 0 0;
+}
+
+.g-row:before,
+.g-row:after {
+    display: table;
+    content: '';
+}
+
+.g-row:after {
+    clear: both;
+}
+
+.g-row:first-child {
+    margin-top: 0;
+}
+
+.g-row > [class^='g-'] {
+    float: left;
+    margin: 0 0 0 20px;
+}
+
+.g-row > [class^='g-']:first-child {
+    margin-left: 0;
+}
+
+.g-1 {
+    width: 60px;
+}
+
+.g-2 {
+    width: 140px;
+}
+
+.g-3 {
+    width: 220px;
+}
+
+.g-4 {
+    width: 300px;
+}
+
+.g-5 {
+    width: 380px;
+}
+
+.g-6 {
+    width: 460px;
+}
+
+.g-7 {
+    width: 540px;
+}
+
+.g-8 {
+    width: 620px;
+}
+
+.g-9 {
+    width: 700px;
+}
+
+.g-10 {
+    width: 780px;
+}
+
+.g-11 {
+    width: 860px;
+}
+
+.g-12 {
+    width: 940px;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+input[type=checkbox]:not(old),
+input[type=radio   ]:not(old){
+    width   : 28px;
+    margin  : 0;
+    padding : 0;
+    opacity : 0;
+}
+
+input[type=checkbox]:not(old) + label,
+input[type=radio   ]:not(old) + label{
+    display      : inline-block;
+    margin-left  : -28px;
+    padding-left : 28px;
+    background   : url('checks.png') no-repeat 0 0;
+    line-height  : 24px;
+}
+
+input[type=checkbox]:not(old):checked + label{
+    background-position : 0 -24px;
+}
+
+input[type=radio]:not(old):checked + label{
+    background-position : 0 -48px;
+}
+
+
+.ex {
+    margin-bottom: 1.5em;
+}
+.rt {
+    font-family: Rurintania;
+}
+
+.progress {
+    height: 20px;
+        margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #808080;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+}
+
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+}
+
+.progress-striped .progress-bar,
+.progress-bar-striped {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    -webkit-background-size: 40px 40px;
+    background-size: 40px 40px;
+}
+
+.progress.active .progress-bar,
+.progress-bar.active {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    -o-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
+}
+
+.progress-bar-success {
+    background-color: #5cb85c;
+}
+
+.progress-striped .progress-bar-success {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-info {
+    background-color: #5bc0de;
+}
+
+.progress-striped .progress-bar-info {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-warning {
+    background-color: #333;
+}
+
+.progress-striped .progress-bar-warning {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-danger {
+    background-color: #d9534f;
+}
+
+.progress-striped .progress-bar-danger {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
