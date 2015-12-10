@@ -1,0 +1,12 @@
+{
+  "require" : {
+    "ext-mongo": "*",
+    "react/react": "*"
+  },
+  "require-dev": {
+    "heroku/heroku-buildpack-php": "*"
+  },
+  "autoload": {
+  	"psr-4": { "Likedimion\\": ["ld/"] }
+  }
+}
