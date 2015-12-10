@@ -37,6 +37,9 @@ switch($act){
     case "magic":
         require ROOT."/game/actor/magic.php";
         break;
+    case "params":
+        require ROOT."/game/actor/params.php";
+        break;
     default:
         require ROOT."/404.php";
         return;

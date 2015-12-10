@@ -5,7 +5,9 @@
  * Date: 09.12.2015
  * Time: 23:59
  */
-
+if (!defined('ROOT')) {
+    header("Location: /?");
+}
 $playerMagic = $player["magic"];
 
 $page .= "";
