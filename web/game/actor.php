@@ -35,18 +35,11 @@ $page.="</ul><div class='hr'></div>";
 
 
 switch($act){
-    case "magic":
-        require ROOT."/game/actor/magic.php";
-        break;
-    case "params":
-        require ROOT."/game/actor/params.php";
-        break;
-    case "info":
-        require ROOT."/game/look/player.php";
-        break;
-    default:
-        require ROOT."/404.php";
-        return;
+    case "magic":       require ROOT."/game/actor/magic.php";break;
+    case "params":      require ROOT."/game/actor/params.php";break;
+    case "info":        require ROOT."/game/look/player.php";break;
+    case "skills":      require ROOT."/game/actor/skills.php";break;
+    default:require ROOT."/404.php";return;
         break;
 }
 

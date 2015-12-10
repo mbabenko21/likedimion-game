@@ -87,9 +87,27 @@ class PlayerHelper
         if($charParams[3] < $charParams[2]) {
             $charParams[2] = $charParams[3];
         }
-
         $player["char_params"] = $charParams;
-        $this->_player = $player;
+        $this->_player = $this->regeneration($player);
+    }
+
+    private function regeneration($player){
+        $charParams = $player["char_params"];
+        if(!isset($player["timers"])){
+            $player["timers"] = [];
+        }
+        $regenLife = $this->getRegen(4);
+
+        $lastRegen = isset($player["timers"]["regen_life"]) ? $player["timers"]["regen_life"] : DateHelper::microtimeFloat(microtime());
+        $curr = DateHelper::microtimeFloat(microtime());
+        if($lastRegen < $curr and $charParams[0] < $charParams[1]){
+            $minus = $curr - $lastRegen; //10
+            $regenVal = floor($minus/$regenLife[1])+1;
+            $player["timers"]["regen_life"] = $curr+$regenLife[1];
+            $charParams[0]+=$regenVal;
+        }
+        $player["char_params"] = $charParams;
+        return $player;
     }
 
     private function getStats($player, $statsKey)

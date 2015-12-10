@@ -21,6 +21,7 @@ $player = $ld->players->findOne(["_id" => $_SESSION["pid"]]);
 if($player) {
     $playerHelper = new \Likedimion\Helper\PlayerHelper($player);
     $playerHelper->setDispatcher($eventDispatcher);
+    $playerHelper->calcParams();
     $loc_i = [];
     if (false === $adminSession) {
         $fName = ROOT . "/game/" . $_GET["game"] . ".php";
