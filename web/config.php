@@ -7,7 +7,7 @@
  */
 
 $config = [
-    "env" => "development",
+    "env" => "production",
     "game" => [
         "mongodb" => [
             "development" => "mongodb://localhost:27017",
