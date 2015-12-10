@@ -14,13 +14,15 @@ $page = "";
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;
 $manaPercent = $player["char_params"][2] / $player["char_params"][3] * 100;
 $page .= <<<PAGE
-<div class="progress">
-    <div class="fill life" style="width: {$lifePercent}%"></div>
-    <div class="text strong">{$player["char_params"][0]} / {$player["char_params"][1]}</div>
-</div>
-<div class="progress">
-    <div class="fill mana" style="width: {$manaPercent}%"></div>
-    <div class="text strong">{$player["char_params"][2]} / {$player["char_params"][3]}</div>
+<div class="progerss__bar">
+    <div class="progress">
+        <div class="fill life" style="width: {$lifePercent}%"></div>
+        <div class="text strong">{$player["char_params"][0]} / {$player["char_params"][1]}</div>
+    </div>
+    <div class="progress">
+        <div class="fill mana" style="width: {$manaPercent}%"></div>
+        <div class="text strong">{$player["char_params"][2]} / {$player["char_params"][3]}</div>
+    </div>
 </div>
 PAGE;
 //БАФФЫ

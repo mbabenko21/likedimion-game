@@ -57,7 +57,7 @@ PAGE;
         if (preg_match('/(^[а-яА-ЯёЁa-zA-Z0-9\-_ ]{3,15}$)/u', $title)) {
             switch ($_POST["class"]) {
                 case \Likedimion\Game::CLASS_WAR:
-                    $baseStats = [3, 1, 1, 5, 1];
+                    $baseStats = [3, 1, 1, 5, 10, 1];
                     break;
                 case \Likedimion\Game::CLASS_MAG:
                     $baseStats = [1, 3, 5, 1, 3];
