@@ -11,8 +11,8 @@ $l_timers = [];
 if(session_status() != PHP_SESSION_ACTIVE){
     session_start();
 }
-
-$mongoClient = new MongoClient($config["game"]["mongodb"][$config["env"]]);
+$addr = ($_ENV["ENV"] == "production") ? $config["game"]["mongodb"]["production"] : $config["game"]["mongodb"]["development"];
+$mongoClient = new MongoClient($addr);
 $ld = $mongoClient->likedimion;
 
 $admin = "mbabenko21@gmail.com";
