@@ -42,13 +42,15 @@ $page .= <<<PAGE
             $(id).css({width: percent+"%"});
             $(id+"_text").text(curr+" / "+max);
         }
-        if(curr < max){
+
             setInterval(function(){
-                console.log('iteration')
                 curr++;
-                barInit(curr, max, 'life_bar');
+                if(curr < max){
+                    barInit(curr, max, 'life_bar');
+                } else {
+                    return false;
+                }
             }, {$regen});
-        }
     });
 </script>
 PAGE;
