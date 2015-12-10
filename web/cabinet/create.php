@@ -60,13 +60,13 @@ PAGE;
                     $baseStats = [3, 1, 1, 5, 10, 1];
                     break;
                 case \Likedimion\Game::CLASS_MAG:
-                    $baseStats = [1, 3, 5, 1, 3];
+                    $baseStats = [1, 3, 5, 1, 1, 10];
                     break;
                 case \Likedimion\Game::CLASS_ASS:
-                    $baseStats = [2, 5, 2, 3, 3];
+                    $baseStats = [2, 5, 2, 3, 8, 3];
                     break;
                 default:
-                    $baseStats = [1, 1, 1, 1, 1];
+                    $baseStats = [1, 1, 1, 1, 1, 1];
                     break;
             }
 
@@ -77,12 +77,14 @@ PAGE;
                 "class" => $_POST["class"],
                 "sex" => $_POST["sex"],
                 "race" => $_POST["race"],
+                "create" => time(),
                 "loc" => "likedimion.3030.1520",
                 "level" => 1,
                 "base_stats" => $baseStats,
                 "base_stats_add" => [0, 0, 0, 0, 0],
                 "war_p_skills"  => [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                 "war_p_skills_add" => [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                "experience" => 0
             ];
             try{
                 $playerHelper = new \Likedimion\Helper\PlayerHelper($actor);

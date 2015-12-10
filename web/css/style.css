@@ -530,13 +530,15 @@ input.suggest__field {
     padding: 10px 15px;
     margin-bottom: -2px;
     background-color: #fff;
-    border: 2px solid #333;
+    border-left: 2px solid #333;
+    border-right: 2px solid #333;
+    border-radius: inherit;
     width: auto;
     height: 25px;
 }
 .progress:first-child{
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     border-top: 2px solid #333;
     border-left: 2px solid #333;
     border-right: 2px solid #333;
@@ -544,8 +546,8 @@ input.suggest__field {
 
 .progress:last-child {
     margin-bottom: 0;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     border-bottom: 2px solid #333;
     border-left: 2px solid #333;
     border-right: 2px solid #333;
@@ -570,6 +572,10 @@ input.suggest__field {
 
 .mana {
    background-color: #009bbe;
+}
+
+.expir {
+    background-color: #e38d13;
 }
 
 .little_block {

@@ -54,6 +54,14 @@ class PlayerHelper
         return $this;
     }
 
+    public function getRegen($stats = 4){
+        $baseStats = $this->getStats($this->_player, 'base_stats');
+        $endur = $baseStats[$stats];
+        $lifeInSecond = round($endur/60, 2);
+        $oneLifeTime = round(1/$lifeInSecond, 2);
+        return [$lifeInSecond, $oneLifeTime];
+    }
+
     /**
      * @return void
      */
@@ -64,13 +72,19 @@ class PlayerHelper
         $warSkills = $this->getStats($player, 'war_skills');
         $charParams = $player["char_params"];
 
-        $charParams[1] = 10 * $baseStats[3] + 5 * $baseStats[4] + 10;
+        $charParams[1] = 10 * $baseStats[3] + round($baseStats[4]/2) + 10;
         if (!$charParams[0]) {
+            $charParams[0] = $charParams[1];
+        }
+        if($charParams[1] < $charParams[0]) {
             $charParams[0] = $charParams[1];
         }
 
         $charParams[3] = 10 * $baseStats[2] + 5 *$baseStats[5] + 10;
         if (!$charParams[2]) {
+            $charParams[2] = $charParams[3];
+        }
+        if($charParams[3] < $charParams[2]) {
             $charParams[2] = $charParams[3];
         }
 
@@ -124,15 +138,15 @@ class PlayerHelper
      */
     public function getNeedExp($level)
     {
-        return 50 * (1.1) ^ $level;
+        return floor(50 * pow(1.1, $level+1));
     }
 
     public function addExp($expCount)
     {
-        if ($this->_player["experience"] + $expCount < $this->getNeedExp($this->_player["level"] + 1)) {
+        if ($this->_player["experience"] + $expCount >= $this->getNeedExp($this->_player["level"])) {
             $this->_player["experience"] += $expCount;
-            $ost = $this->getNeedExp($this->_player["level"] + 1) - $this->_player["experience"];
-            $this->_player["experience"] += $ost;
+            $ost =  $this->_player["experience"] - $this->getNeedExp($this->_player["level"]);
+            $this->_player["experience"] = $ost;
             $this->_player["level"]++;
             $journalMsg = "Вы достигли нового уровня!";
             $journalEvent = new JournalEvent($journalMsg, JournalEvent::JOURNAL_ME);

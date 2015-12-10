@@ -13,6 +13,6 @@ if (!defined('ROOT')) {
 
 $eventDispatcher = new \Likedimion\EventDispatcher();
 
-$eventDispatcher->addEventListener(Event::LVL_UP, 'Likedimion\Listeners\PlayerListener', 'onLvlUp')
-->addEventListener(Event::ADD_EXP, 'Likedimion\Listeners\PlayerListener', 'onAddExp')
+$eventDispatcher->addEventListener(Event::LVL_UP, 'Likedimion\Listener\PlayerListener', 'onLvlUp')
+->addEventListener(Event::ADD_EXP, 'Likedimion\Listener\PlayerListener', 'onAddExp')
 ;

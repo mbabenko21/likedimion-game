@@ -26,7 +26,7 @@ class EventDispatcher
     }
 
     public function dispatch(Event $event){
-        if($this->hasEventListener($event)){
+        if($this->hasEventListener($event->getName())){
             $listeners = $this->_listeners[$event->getName()];
             foreach($listeners as $callable){
                 $className = $callable["class"];

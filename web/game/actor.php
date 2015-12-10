@@ -9,9 +9,10 @@ if (!defined('ROOT')) {
     header("Location: /?");
 }
 
-$act = (isset($_GET["act"])) ? $_GET["act"] : "magic";
+$act = (isset($_GET["act"])) ? $_GET["act"] : "info";
 
 $header = [
+    "info" => "информация",
     "params" => "параметры",
     "magic" => "магия",
     "skills" => "навыки"
@@ -39,6 +40,9 @@ switch($act){
         break;
     case "params":
         require ROOT."/game/actor/params.php";
+        break;
+    case "info":
+        require ROOT."/game/look/player.php";
         break;
     default:
         require ROOT."/404.php";

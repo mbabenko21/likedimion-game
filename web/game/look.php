@@ -15,5 +15,7 @@ if(!isset($_GET["type"])){
         $page = '<div class="alert alert-danger">Странная вещь. Нет информации.</div>';
     }
 }
-
-\Likedimion\Helper\View::display($page, "Информация", "default");
+if(!$title){
+    $title = "Информация";
+}
+\Likedimion\Helper\View::display($page, $title, "default");
