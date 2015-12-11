@@ -8,7 +8,7 @@ if (!defined('ROOT')) {
  * Date: 11.12.2015
  * Time: 0:53
  */
-
+$title = "Навыки";
 $baseParams = $player["base_stats"];
 $warSkills = $player["war_p_skills"];
 if($player["base_stats_points"]){
@@ -33,7 +33,7 @@ for($i = 0; $i < count($lang["war_skills"]); $i++){
     $page .= '<li class="list-group-item little_block">
     <span class="badge bg-danger">'.$warSkills[$i].'</span>
     <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="info(\'skl_'.$i.'\');">'.$lang["war_skills"][$i].'</a></h6>
-    <p id="skl_'.$i.'" class="list-group-item-text hidden">'.$lang["info"]["war_skills"][$i].'</p>
+    <p id="skl_'.$i.'" class="list-group-item-text hidden">'.str_replace("\n", "<br/>", $lang["info"]["war_skills"][$i]).'</p>
 </li>';
 }
 $page .= '</ul></div> ';

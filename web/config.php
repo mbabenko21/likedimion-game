@@ -19,5 +19,12 @@ $config = [
     ],
     "skills" => [
         "max_level" => 5
+    ],
+    "base_stats" => [
+        "max_level" => 6,
+        "summ" => [
+            [[0,2], 12],
+            [[3,5], 20]
+        ]
     ]
 ];
