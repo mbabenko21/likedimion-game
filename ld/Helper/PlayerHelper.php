@@ -87,6 +87,35 @@ class PlayerHelper
         if($charParams[3] < $charParams[2]) {
             $charParams[2] = $charParams[3];
         }
+        $warStats = $player["war_stats"];
+        $warSkills = $player["war_p_skills"];
+        ##########
+        # РАСЧЕТ БОЕВЫХ ПАРАМЕТРОВ
+        #########
+        //АТАКА
+        $warStats[1] = 0;
+        $warStats[2] = 1;
+        if($player["equip"]["lhand"]){
+            $item = $player["equip"]["rhand"];
+            $warStats[1]+=$item["war_stats"][1];
+            $warStats[2]+=$item["war_stats"][2];
+        }
+        if($player["equip"]["lhand"]["type"] != "book") {
+            $warStats[1] += $baseStats[0];
+            $warStats[2] += $baseStats[0];
+        } else {
+            $warStats[1] += $baseStats[2];
+            $warStats[2] += $baseStats[2];
+        }
+        //УКЛОН
+        $vals = [];
+        $vals[] = ($baseStats[1] <= 5) ? $baseStats[1] * 2 : 10; //по 2% за уклон, но не более 5 единиц
+        $vals[] = -$baseStats[3]*0.5; //отнимается по 0.5% за каждую единицу конституции
+        $vals[] = $warSkills[2];
+        $vals[] = $warSkills[12]*5;
+        $warStats[12] = array_sum($vals);
+
+        $player["war_stats"] = $warStats;
         $player["char_params"] = $charParams;
         $this->_player = $this->regeneration($player);
     }
@@ -106,6 +135,7 @@ class PlayerHelper
             $player["timers"]["regen_life"] = $curr+$regenLife[1];
             $charParams[0]+=$regenVal;
         }
+
         $player["char_params"] = $charParams;
         return $player;
     }
