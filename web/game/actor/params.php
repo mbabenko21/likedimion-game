@@ -39,6 +39,22 @@ $page .= '<ul class="list-group text-left">';
     }
 
 $page .= "</ul></div>";
+
+$page .= "<div class='panel panel-default'><div class='panel-heading text-uppercase strong text-muted'>Уклон</div>";
+$page .= '<ul class="list-group text-left">';
+$page .= '<li class="list-group-item little_block">
+        <span class="badge bg-danger">'.$warStats[12].'%</span>
+        <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="info(\'stat_12\');">'.$lang["war_stats"][12].'</a></h6>
+        <p id="stat_12" class="list-group-item-text hidden">'.str_replace("\n", "<br/>", $lang["info"]["war_stats"][12]).'</p>
+    </li>';
+$page .= '<li class="list-group-item little_block">
+        <span class="badge bg-danger">'.$warStats[14].'%</span>
+        <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="info(\'stat_14\');">'.$lang["war_stats"][14].'</a></h6>
+        <p id="stat_14" class="list-group-item-text hidden">'.str_replace("\n", "<br/>", $lang["info"]["war_stats"][14]).'</p>
+    </li>';
+
+$page .= "</ul></div>";
+
 $page .= <<<EOF
 <script type="text/javascript">
             function info(id){

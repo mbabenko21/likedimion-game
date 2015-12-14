@@ -13,7 +13,10 @@ class Game
     const ROLE_MODER = 3;
     const ROLE_QUEST = 4;
 
-    const NPC_ROLE_NONE = 1;
+    const   NPC_ROLE_NONE = 1,
+            NPC_ROLE_GID = 2
+        ;
+
 
     const NPC_RACE_MANS = "mans";
     //Классы

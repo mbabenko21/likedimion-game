@@ -269,6 +269,9 @@ BTN;
         <a class="tabs__link" href="./?game=actor">персонаж</a>
     </li>
     <li class="tabs_item">
+        <a class="tabs__link" href="./?game=map">карта</a>
+    </li>
+    <li class="tabs_item">
         <a class="tabs__link" href="./?game=logout">выйти</a>
     </li>
 </ul>

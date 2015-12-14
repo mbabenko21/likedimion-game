@@ -69,10 +69,10 @@ class PlayerHelper
     {
         $player = $this->_player;
         $baseStats = $this->getStats($player, 'base_stats');
-        $warSkills = $this->getStats($player, 'war_skills');
+        $warSkills = $this->getStats($player, 'war_p_skills');
         $charParams = $player["char_params"];
 
-        $charParams[1] = 10 * $baseStats[3] + round($baseStats[4]/2) + 10;
+        $charParams[1] = 10 * $baseStats[3] + round($baseStats[4]/2) + round($baseStats[0]/2) + 10;
         if (!$charParams[0]) {
             $charParams[0] = $charParams[1];
         }
@@ -88,7 +88,7 @@ class PlayerHelper
             $charParams[2] = $charParams[3];
         }
         $warStats = $player["war_stats"];
-        $warSkills = $player["war_p_skills"];
+        //$warSkills = $player["war_p_skills"];
         ##########
         # РАСЧЕТ БОЕВЫХ ПАРАМЕТРОВ
         #########
@@ -107,13 +107,22 @@ class PlayerHelper
             $warStats[1] += $baseStats[2];
             $warStats[2] += $baseStats[2];
         }
-        //УКЛОН
-        $vals = [];
-        $vals[] = ($baseStats[1] <= 5) ? $baseStats[1] * 2 : 10; //по 2% за уклон, но не более 5 единиц
-        $vals[] = -$baseStats[3]*0.5; //отнимается по 0.5% за каждую единицу конституции
-        $vals[] = $warSkills[2];
-        $vals[] = $warSkills[12]*5;
-        $warStats[12] = array_sum($vals);
+        //Ф. УКЛОН
+        $pbVals = [];
+        $pbVals[] = ($baseStats[1] <= 5) ? $baseStats[1] * 2 : 10; //по 2% за уклон, но не более 5 единиц
+        $pbVals[] = -$baseStats[3]*0.5; //отнимается по 0.5% за каждую единицу конституции
+        $pbVals[] = $warSkills[2];
+        $pbVals[] = $warSkills[12]*5;
+        $warStats[12] = array_sum($pbVals);
+        //М. Уклон
+        $mbVals = [];
+        $mbVals[] = $warSkills[7]*0.2;
+        $mbVals[] = $warSkills[11]*0.2;
+        $mbVals[] = $warSkills[14]*5;
+        $mbVals[] = ($baseStats[2] <= 5) ? $baseStats[2] * 2 : 10;
+        $warStats[14] = array_sum($mbVals);
+
+
 
         $player["war_stats"] = $warStats;
         $player["char_params"] = $charParams;

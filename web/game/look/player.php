@@ -19,7 +19,7 @@ if(!is_null($player)){
     } else {
         $page .= "женщ.";
     }
-    $page .= ", в игре ".( floor( ( time() - $player["create"] ) / 3600 ) )." д.";
+    $page .= ", в игре ".( floor( ( time() - $player["create"] ) / (3600*24) ) )." д.";
     $page .= "<div class='hr'></div>";
     $lev = $player["level"];
     if ($lev<5) 		            $stmp.="Новичок";

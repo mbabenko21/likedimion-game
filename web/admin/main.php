@@ -17,6 +17,7 @@ ADMIN;
 $page .= View::button("/?admin=players", "игроки")."<br/>";
 $page .= View::button("/?admin=locations", "локации")."<br/>";
 $page .= View::button("/?admin=items", "предметы")."<br/>";
+$page .= View::button("/?admin=upgrade", "обновить мир")."<br/>";
 
 $page .= "<div class='hr'></div>";
 View::display($page, "Админ-панель", "default");

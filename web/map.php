@@ -11,4 +11,4 @@ require "./resize_crop.php";
 $coord = explode(".", $_GET["loc"]);
 $src = "public/".$coord[0].".png";
 
-crop($src, array($coord[1]-50, $coord[2], 144, 144),false);
+crop($src, array($coord[1]-50, $coord[2], 240, 320),false);
