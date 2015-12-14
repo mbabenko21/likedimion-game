@@ -17,6 +17,7 @@ $expirPercent = $player["experience"] / $playerHelper->getNeedExp($player["level
 $exp = View::numberFormat($player["experience"]);
 $needExp = View::numberFormat($playerHelper->getNeedExp($player["level"]+1));
 $regen = $playerHelper->getRegen(4)[1]*1000;
+$loc = $ld->locations->findOne(["lid" => $playerHelper->getPlayer()["loc"]]);
 $page .= <<<PAGE
 <div class="progerss__bar">
     <div class="progress">
@@ -55,6 +56,32 @@ $page .= <<<PAGE
 </script>
 PAGE;
 //БАФФЫ
+
+if($loc){
+    //npc
+    $page .= "<ul class='list-group'>";
+    foreach($loc["loc"] as $oid => $obj){
+        if(substr($oid, 0, 4) == "npc."){
+            $page .= "<li class='list-group-item strong'>
+<a href='/?game=dialog&dId=".$oid."'>".$obj["title"]."</a>
+</li>";
+        }
+    }
+    $page .= "</ul>";
+    //выходы
+    if($loc["doors"]){
+        $page .= "<ul class='list-group'>";
+        for($i = 0; $i < count($loc["doors"]); $i++){
+            $page .= "<li class='list-group-item strong'>
+<a href='/?game=go&move=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a>
+</li>";
+        }
+        $page .= "</ul>";
+    }
+} else {
+    $page.="<div class='alert alert-warning'>Какая-то безжизненная пустыня</div>";
+}
+
 //$playerHelper->addBaseStat(4, 40);
 $page .= View::toMainButton('обновить')."<div class='hr'></div>";
 if($player["role"] == \Likedimion\Game::ROLE_ADMIN){

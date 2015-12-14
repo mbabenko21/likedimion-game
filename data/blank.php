@@ -16,12 +16,29 @@ function addNpc($nId){
     return $npc;
 }
 
+function addItem($iId){
+    global $ld;
+    $itemCollection = $ld->items;
+    if($item = $itemCollection->findOne(["iid" => $iId])){
+        return $item;
+    }
+    throw new Exception("Npc $iId not found");
+}
+
 $locations = [
     [
         "lid" => "likedimion.3030.1520",
+        "doors" => [
+            ["на север по долине", \Likedimion\Helper\LocationHelper::DOOR_N],
+            ["на юг по долине", \Likedimion\Helper\LocationHelper::DOOR_S],
+            ["на запад по долине", \Likedimion\Helper\LocationHelper::DOOR_W],
+            ["на восток по долине", \Likedimion\Helper\LocationHelper::DOOR_E]
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [
             "npc.lukas" => addNpc("lukas"),
-            "npc.uin" => addNpc("uin")
+            "npc.uin" => addNpc("uin"),
+            "item.news" => addItem("i.s.news")
         ],
     ]
 ];

@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(E_WARNING|E_ERROR);
 define("ROOT", __DIR__);
 require "../vendor/autoload.php";
 require "config.php";
@@ -13,7 +13,7 @@ if(session_status() != PHP_SESSION_ACTIVE){
     session_start();
 }
 
-$addr = ($_ENV["ENV"] == "production") ? $config["game"]["mongodb"]["production"] : $config["game"]["mongodb"]["development"];
+$addr = ($_ENV["ENV"] && $_ENV["ENV"] == "production") ? $config["game"]["mongodb"]["production"] : $config["game"]["mongodb"]["development"];
 $mongoClient = new MongoClient($addr);
 $ld = $mongoClient->likedimion;
 
