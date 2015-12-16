@@ -17,38 +17,48 @@ if (empty($_GET["game"])) {
 if (!empty($_GET["admin"])) {
     $adminSession = true;
 }
-$player = $ld->players->findOne(["_id" => $_SESSION["pid"]]);
-if($player) {
-    $playerHelper = new \Likedimion\Helper\PlayerHelper($player);
-    $playerHelper->setDispatcher($eventDispatcher);
-    $playerHelper->calcParams();
-    $loc_i = [];
-    if (false === $adminSession) {
-        $fName = ROOT . "/game/" . $_GET["game"] . ".php";
-        if (file_exists($fName)) {
-            require $fName;
-        } else {
-            require ROOT . "/404.php";
-        }
-    } elseif ($player["role"] == \Likedimion\Game::ROLE_ADMIN) {
-        $fName = ROOT . "/admin/" . $_GET["admin"] . ".php";
-        if (file_exists($fName)) {
-            require $fName;
-        } else {
-            require ROOT . "/404.php";
-        }
+if ($_SESSION["pid"]) {
+    $player = $ld->players->findOne(["_id" => $_SESSION["pid"]]);
+    if ($player) {
+            $playerHelper = new \Likedimion\Helper\PlayerHelper($player);
+            $playerHelper->setDispatcher($eventDispatcher);
+            $playerHelper->calcParams();
+            $loc_i = [];
+            if (false === $adminSession) {
+                $fName = ROOT . "/game/" . $_GET["game"] . ".php";
+                if (file_exists($fName)) {
+                    require $fName;
+                } else {
+                    require ROOT . "/404.php";
+                }
+            } elseif ($player["role"] == \Likedimion\Game::ROLE_ADMIN) {
+                $fName = ROOT . "/admin/" . $_GET["admin"] . ".php";
+                if (file_exists($fName)) {
+                    require $fName;
+                } else {
+                    require ROOT . "/404.php";
+                }
+            } else {
+                require ROOT . "/503.php";
+            }
+
+            $playerHelper->calcParams();
+            if (!$ld->players->update(["_id" => $_SESSION["pid"]], $playerHelper->getPlayer())) {
+                throw new MongoException("Not update");
+            };
     } else {
-        require ROOT . "/503.php";
-    }
+        if ($_SESSION["pid"]) {
+            unset($_SESSION["pid"]);
+        }
 
-    $playerHelper->calcParams();
-    if(!$ld->players->update(["_id" => $_SESSION["pid"]], $playerHelper->getPlayer())){
-        throw new MongoException("Not update");
-    };
+        header("Location: /?");
+    }
 } else {
-    if($_SESSION["pid"]){
-        unset($_SESSION["pid"]);
-    }
+    $page = <<<EOT
+        <p class="tabs__link tabs__link_active">Ваш персонаж покинул игру.</p>
+        <div class="hr"></div>
+        <a class="tabs__link" href="/?">повторить</a> вход
+EOT;
 
-    header("Location: /?");
+    \Likedimion\Helper\View::display($page, "Ошибка.");
 }

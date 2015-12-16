@@ -27,12 +27,16 @@ function addItem($iId){
 
 $locations = [
     [
-        "lid" => "ld.790.1430",
+        "lid" => "ld.790.1380",
         "doors" => [
             ["на север по долине", \Likedimion\Helper\LocationHelper::DOOR_N],
             ["на юг по долине", \Likedimion\Helper\LocationHelper::DOOR_S],
             ["на запад по долине", \Likedimion\Helper\LocationHelper::DOOR_W],
             ["на восток по долине", \Likedimion\Helper\LocationHelper::DOOR_E]
+        ],
+        "gate" => [
+            "title" => "Ворота деревни Фаиль",
+            "move" => "fail.gate"
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [

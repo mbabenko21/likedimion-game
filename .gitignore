@@ -4,4 +4,4 @@ vendor/
 .git
 composer.phar
 .phpintel
-/nbproject/private/
+/nbproject*

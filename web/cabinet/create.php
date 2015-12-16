@@ -80,7 +80,7 @@ PAGE;
                 "sex" => $_POST["sex"],
                 "race" => $_POST["race"],
                 "create" => time(),
-                "loc" => "ld.790.1430",
+                "loc" => "ld.790.1380",
                 "level" => 1,
                 "base_stats" => $baseStats,
                 "base_stats_add" => [0, 0, 0, 0, 0, 0],
@@ -108,7 +108,7 @@ PAGE;
                             "war_p_skills_add" => [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                             "base_stats_add" => [0, 0, 0, 0, 0, 0],
                             "slots" => [],
-                            "war_stats" => [0, 2, 3],
+                            "war_stats" => [8, 2, 3],
                         ]
                     ],
 
@@ -129,8 +129,8 @@ PAGE;
                         "item" => [
                             "cost" => 10,
                             "armor" => 1,
-                            "war_p_skills_add" => [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                            "base_stats_add" => [0, 1, 0, 0, 1, 1],
+                            "war_p_skills_add" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            "base_stats_add" => [0, 1, 0, 0, 1, 0],
                             "slots" => []
                         ]
                     ],
@@ -150,8 +150,8 @@ PAGE;
                         "item" => [
                             "cost" => 10,
                             "armor" => 1,
-                            "war_p_skills_add" => [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                            "base_stats_add" => [0, 1, 0, 0, 1, 1],
+                            "war_p_skills_add" => [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                            "base_stats_add" => [0, 1, 0, 0, 1, 0],
                             "slots" => []
                         ]
                     ],
@@ -171,8 +171,8 @@ PAGE;
                         "item" => [
                             "cost" => 10,
                             "armor" => 1,
-                            "war_p_skills_add" => [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                            "base_stats_add" => [0, 1, 0, 0, 1, 1],
+                            "war_p_skills_add" => [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                            "base_stats_add" => [0, 1, 0, 0, 1, 0],
                             "slots" => []
                         ]
                     ]

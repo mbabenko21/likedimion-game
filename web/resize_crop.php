@@ -105,7 +105,7 @@ function crop($file_input, $crop = 'square',$percent = false) {
 		header("Content-type: image/".$ext);
 		$eX = $x_o;
 		$eY = $y_o;
-		imagefilledellipse($img_o,50,50,7,7,$ink);
+		imagefilledellipse($img_o,50,50,5,5,$ink);
 		return $func($img_o);
 	}
 }

@@ -14,8 +14,8 @@ $page = "";
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;
 $manaPercent = $player["char_params"][2] / $player["char_params"][3] * 100;
 $expirPercent = $player["experience"] / $playerHelper->getNeedExp($player["level"]+1) * 100;
-$exp = View::numberFormat($player["experience"]);
-$needExp = View::numberFormat($playerHelper->getNeedExp($player["level"]+1));
+$exp = $player["experience"];
+$needExp = $playerHelper->getNeedExp($player["level"]+1);
 $regen = $playerHelper->getRegen(4)[1]*1000;
 $loc = $ld->locations->findOne(["lid" => $playerHelper->getPlayer()["loc"]]);
 $page .= <<<PAGE

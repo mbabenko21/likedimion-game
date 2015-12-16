@@ -54,8 +54,34 @@ class LocationHelper
      * @return $this
      */
     public function removePlayer($pid){
-        if(isset($this->_loc["loc"]["player.".$pid])){
-            unset($this->_loc["loc"]["player.".$pid]);
+        if(isset($this->_loc["loc"]["player_".$pid])){
+            unset($this->_loc["loc"]["player_".$pid]);
+        }
+        return $this;
+    }
+
+    /**
+     * @param $npc
+     * @return $this
+     */
+    public function addNpc($npc){
+        $this->_loc["loc"][$npc["nid"]."_".View::generateRandomString(rand(5,7))] = $npc;
+        return $this;
+    }
+
+    /**
+     * @param array $item
+     * @param int $count
+     * @return $this
+     */
+    public function addItem($item, $count){
+        $this->_loc["loc"][$item["iid"]] = $item;
+        if($count >0){
+            $this->_loc["loc"][$item["iid"]]["count"] += $count;
+        } elseif($count <= 0 and $this->_loc["loc"][$item["iid"]]["count"] - $count > 0) {
+            $this->_loc["loc"][$item["iid"]]["count"] -= $count;
+        } else {
+            unset($this->_loc["loc"][$item["iid"]]);
         }
         return $this;
     }
