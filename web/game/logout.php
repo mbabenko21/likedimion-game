@@ -23,6 +23,16 @@ if(!isset($_GET["ok"])){
 OK;
 \Likedimion\Helper\View::display($page, "Выход");
 } else {
+    $player = $playerHelper->getPlayer();
+    $loc = $ld->locations->findOne(["lid" => $player["loc"]]);
+    if(isset($loc["loc"]["player_".$player["_id"]])) {
+        unset($loc["loc"]["player_".$player["_id"]]);
+        try {
+            $ld->locations->update(["lid" => $loc["lid"]], $loc);
+        } catch(MongoException $e){
+            die($e->getMessage());
+        }
+    }
     if($_SESSION["pid"]){
         unset($_SESSION["pid"]);
     }
