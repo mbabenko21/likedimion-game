@@ -61,10 +61,22 @@ if($loc){
     //npc
     $page .= "<ul class='list-group'>";
     foreach($loc["loc"] as $oid => $obj){
-        if(substr($oid, 0, 4) == "npc."){
+        if(substr($oid, 0, 4) == "npc_"){
             $page .= "<li class='list-group-item strong'>
-<a href='/?game=dialog&dId=".$oid."'>".$obj["title"]."</a>
-</li>";
+<a href='#' onclick='menu(\"menu_".str_replace(".", "_",$oid)."\")'>".$obj["title"]."</a>
+</li>
+<li id='menu_".str_replace(".", "_",$oid)."' class='list-group-item menu hidden'>
+<ul class=\"tabs tabs_mobile list-inline\">
+    <li class=\"tabs_item list-inline\">
+        <a class='tabs__link' href='/?game=dialog&dId=$oid'>говорить</a>
+    </li>
+    <li class=\"tabs_item list-inline\">
+        <a class='tabs__link' href='/?game=look&type=npc&nId=$oid'>инфо</a>
+    </li>
+</ul>
+
+</li>
+";
         }
     }
     $page .= "</ul>";
@@ -87,4 +99,23 @@ $page .= View::toMainButton('обновить')."<div class='hr'></div>";
 if($player["role"] == \Likedimion\Game::ROLE_ADMIN){
     $page .= View::link("/?admin=main", "админка")."<div class='hr'></div>";
 }
+
+$page .= <<<EOF
+<script type='text/javascript'>
+            function menu(id){
+            $(".menu").each(function(){
+                if(!$(this).hasClass('hidden')){
+                    $(this).removeClass('open').addClass('hidden');
+                }
+            });
+            id = "#"+id;
+                if($(id).hasClass('hidden')){
+                    $(id).removeClass('hidden').addClass('open');
+                } else {
+                    $(id).addClass('hidden').removeClass('open');
+                }
+            }
+    </script>
+
+EOF;
 View::display($page, "Likedimion", \Likedimion\Helper\View::CARD_MAIN);

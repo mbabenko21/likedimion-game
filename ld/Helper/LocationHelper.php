@@ -45,7 +45,7 @@ class LocationHelper
      * @return $this
      */
     public function addPlayer($pid){
-        $this->_loc["loc"]["player.".$pid] = new \MongoId($pid);
+        $this->_loc["loc"]["player_".$pid] = time();
         return $this;
     }
 

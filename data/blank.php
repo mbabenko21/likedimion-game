@@ -27,7 +27,7 @@ function addItem($iId){
 
 $locations = [
     [
-        "lid" => "likedimion.3030.1520",
+        "lid" => "ld.790.1430",
         "doors" => [
             ["на север по долине", \Likedimion\Helper\LocationHelper::DOOR_N],
             ["на юг по долине", \Likedimion\Helper\LocationHelper::DOOR_S],
@@ -36,9 +36,9 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [
-            "npc.lukas" => addNpc("lukas"),
-            "npc.uin" => addNpc("uin"),
-            "item.news" => addItem("i.s.news")
+            "npc_lukas" => addNpc("lukas"),
+            "npc_uin" => addNpc("uin"),
+            "item_news" => addItem("i.s.news")
         ],
     ]
 ];

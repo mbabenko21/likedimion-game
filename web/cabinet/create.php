@@ -1,5 +1,7 @@
 <?php
-if(!defined('ROOT')){header("Location: /?");}
+if (!defined('ROOT')) {
+    header("Location: /?");
+}
 /**
  * Created by PhpStorm.
  * User: babenoff
@@ -57,13 +59,13 @@ PAGE;
         if (preg_match('/(^[а-яА-ЯёЁa-zA-Z0-9\-_ ]{3,15}$)/u', $title)) {
             switch ($_POST["class"]) {
                 case \Likedimion\Game::CLASS_WAR:
-                    $baseStats = [3, 1, 1, 5, 10, 1];
+                    $baseStats = [2, 1, 1, 2, 2, 1];
                     break;
                 case \Likedimion\Game::CLASS_MAG:
-                    $baseStats = [1, 3, 5, 1, 1, 10];
+                    $baseStats = [1, 2, 2, 1, 1, 2];
                     break;
                 case \Likedimion\Game::CLASS_ASS:
-                    $baseStats = [2, 5, 2, 3, 8, 3];
+                    $baseStats = [1, 2, 1, 1, 2, 1];
                     break;
                 default:
                     $baseStats = [1, 1, 1, 1, 1, 1];
@@ -78,21 +80,113 @@ PAGE;
                 "sex" => $_POST["sex"],
                 "race" => $_POST["race"],
                 "create" => time(),
-                "loc" => "likedimion.3030.1520",
+                "loc" => "ld.790.1430",
                 "level" => 1,
                 "base_stats" => $baseStats,
-                "base_stats_add" => [0, 0, 0, 0, 0],
-                "war_p_skills"  => [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                "war_p_skills_add" => [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                "experience" => 0
+                "base_stats_add" => [0, 0, 0, 0, 0, 0],
+                "war_p_skills" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                "war_p_skills_add" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                "experience" => 0,
+                "inventory" => [],
+                "equip" => [
+                    "rhand" => [
+                        "iid" => "i.w.snov",
+                        "type" => \Likedimion\Helper\ItemHelper::ITEM_SWORD,
+                        "titles" => [
+                            "nom" => "меч новобранца",
+                            "gen" => "меча новобранца",
+                            "dat" => "мечу новобранца",
+                            "acc" => "меч новобраца",
+                            "inst" => "мечом новобранца",
+                            "prep" => "о мече новобранца",
+                            "plural" => "мечи новобранца"
+                        ],
+                        "info" => "Немного потрепаная рубашка, но все равно имеет довольно приличный вид.",
+                        "item" => [
+                            "cost" => 10,
+                            "armor" => 1,
+                            "war_p_skills_add" => [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                            "base_stats_add" => [0, 0, 0, 0, 0, 0],
+                            "slots" => [],
+                            "war_stats" => [0, 2, 3],
+                        ]
+                    ],
+
+                    "head" => [],
+                    "bodyarm" => [
+                        "iid" => "i.a.bnov",
+                        "type" => \Likedimion\Helper\ItemHelper::ITEM_BODYARM,
+                        "titles" => [
+                            "nom" => "рубуха новобранца",
+                            "gen" => "рубаху новобранца",
+                            "dat" => "рубахе новобранца",
+                            "acc" => "рубаху новобраца",
+                            "inst" => "рубахой новобранца",
+                            "prep" => "о рубахе новобранца",
+                            "plural" => "рубахи новобранца"
+                        ],
+                        "info" => "Немного потрепаная рубашка, но все равно имеет довольно приличный вид.",
+                        "item" => [
+                            "cost" => 10,
+                            "armor" => 1,
+                            "war_p_skills_add" => [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            "base_stats_add" => [0, 1, 0, 0, 1, 1],
+                            "slots" => []
+                        ]
+                    ],
+                    "legs" => [
+                        "iid" => "i.a.lnov",
+                        "type" => \Likedimion\Helper\ItemHelper::ITEM_LEGS,
+                        "titles" => [
+                            "nom" => "штаны новобранца",
+                            "gen" => "штанов новобранца",
+                            "dat" => "штанам новобранца",
+                            "acc" => "штаны новобраца",
+                            "inst" => "штанами новобранца",
+                            "prep" => "о штанах новобранца",
+                            "plural" => "штаны новобранца"
+                        ],
+                        "info" => "Немного потрепаные штаны, но все равно имеет довольно приличный вид.",
+                        "item" => [
+                            "cost" => 10,
+                            "armor" => 1,
+                            "war_p_skills_add" => [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                            "base_stats_add" => [0, 1, 0, 0, 1, 1],
+                            "slots" => []
+                        ]
+                    ],
+                    "shoes" => [
+                        "iid" => "i.a.snov",
+                        "type" => \Likedimion\Helper\ItemHelper::ITEM_SHOES,
+                        "titles" => [
+                            "nom" => "сапоги новобранца",
+                            "gen" => "сапогов новобранца",
+                            "dat" => "сапогам новобранца",
+                            "acc" => "сапоги новобраца",
+                            "inst" => "сапогами новобранца",
+                            "prep" => "о сапогах новобранца",
+                            "plural" => "сапоги новобранца"
+                        ],
+                        "info" => "Немного потрепаная рубашка, но все равно имеет довольно приличный вид.",
+                        "item" => [
+                            "cost" => 10,
+                            "armor" => 1,
+                            "war_p_skills_add" => [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                            "base_stats_add" => [0, 1, 0, 0, 1, 1],
+                            "slots" => []
+                        ]
+                    ]
+                ],
             ];
-            try{
+            try {
                 $playerHelper = new \Likedimion\Helper\PlayerHelper($actor);
                 $playerHelper->addMagic("base.punch", 1, $magic);
                 $playerHelper->calcParams();
                 $ld->players->insert($playerHelper->getPlayer());
+
+
                 header("Location: /?");
-            } catch(MongoException $e){
+            } catch (MongoException $e) {
                 $page = <<<IBASE_PRP_PAGE_BUFFERS
 <div class="alert alert-warning">
 Ошибка подключения к базе данных.<br/>

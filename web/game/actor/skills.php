@@ -9,10 +9,22 @@ if (!defined('ROOT')) {
  * Time: 0:53
  */
 $title = "Навыки";
+$player = $playerHelper->getPlayer();
 $baseParams = $player["base_stats"];
 $baseParamsAdd = $player["base_stats_add"];
 $warSkills = $player["war_p_skills"];
 $warSkillsAdd = $player["war_p_skills_add"];
+
+foreach ($player["equip"] as $slot) {
+
+    if($slot["item"]["base_stats_add"]){
+        $baseParamsAdd = $playerHelper->array_add($baseParamsAdd, $slot["item"]["base_stats_add"]);
+    }
+    if($slot["item"]["war_p_skills_add"]){
+        $warSkillsAdd = $playerHelper->array_add($warSkillsAdd, $slot["item"]["war_p_skills_add"]);
+    }
+}
+
 if($player["base_stats_points"]){
     $stmp = '<span class="badge bg-danger"><span id="or">'.$player["base_stats_points"].'</span> '.\Likedimion\Helper\View::getNumEnding($player["base_stats_points"], ["очко", "очка", "очков"]).' развития</span>';
 }

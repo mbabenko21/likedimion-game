@@ -95,12 +95,21 @@ class PlayerHelper
         //АТАКА
         $warStats[1] = 0;
         $warStats[2] = 1;
-        if($player["equip"]["lhand"]){
+        if($player["equip"]["rhand"]){
             $item = $player["equip"]["rhand"];
             $warStats[1]+=$item["war_stats"][1];
             $warStats[2]+=$item["war_stats"][2];
+            //точность
+            switch($player["equip"]["rhand"]){
+                case ItemHelper::ITEM_SWORD:
+                    $warStats[0] = $warSkills[1]*10 + $baseStats[1] * 5;
+                    break;
+                default:
+                    $warStats[0] = $warSkills[0]*10 + $baseStats[1] * 5;
+                    break;
+            }
         }
-        if($player["equip"]["lhand"]["type"] != "book") {
+        if($player["equip"]["rhand"]["type"] != ItemHelper::ITEM_BOOK) {
             $warStats[1] += $baseStats[0];
             $warStats[2] += $baseStats[0];
         } else {
@@ -155,6 +164,7 @@ class PlayerHelper
         $statsAdd = (isset($player[$statsKey . "_add"])) ? $player[$statsKey . "_add"] : [];
         $buffs = is_array($player[$statsKey . "_buffs"]) ? $player[$statsKey . "_buffs"] : [];
         $effects = is_array($player[$statsKey . "_effects"]) ? $player[$statsKey . "_effects"] : [];
+        $itemsAdd = [];
         $buffsAdd = [];
         $effectsAdd = [];
         if (is_array($buffs)) {
@@ -175,10 +185,20 @@ class PlayerHelper
                 }
             }
         }
-        return $this->array_add($stats, $statsAdd, $buffsAdd, $effects);
+        foreach($player["equip"] as $slot){
+            if(isset($slot["item"][$statsKey."_add"])){
+                $itemsAdd = $this->array_add($itemsAdd, $slot["item"][$statsKey."_add"]);
+            }
+        }
+        return $this->array_add($stats, $statsAdd, $buffsAdd, $effects, $itemsAdd);
     }
 
-    private function array_add(array $a1, array $a2)
+    /**
+     * @param array $a1
+     * @param array $a2
+     * @return array
+     */
+    public function array_add(array $a1, array $a2)
     {  // ...
         // adds the values at identical keys together
         $aRes = $a1;
