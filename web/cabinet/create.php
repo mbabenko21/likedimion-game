@@ -86,101 +86,39 @@ PAGE;
                 "base_stats_add" => [0, 0, 0, 0, 0, 0],
                 "war_p_skills" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 "war_p_skills_add" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                "war_stats" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
                 "experience" => 0,
                 "inventory" => [],
                 "equip" => [
-                    "rhand" => [
-                        "iid" => "i.w.snov",
-                        "type" => \Likedimion\Helper\ItemHelper::ITEM_SWORD,
-                        "titles" => [
-                            "nom" => "меч новобранца",
-                            "gen" => "меча новобранца",
-                            "dat" => "мечу новобранца",
-                            "acc" => "меч новобраца",
-                            "inst" => "мечом новобранца",
-                            "prep" => "о мече новобранца",
-                            "plural" => "мечи новобранца"
-                        ],
-                        "info" => "Немного потрепаная рубашка, но все равно имеет довольно приличный вид.",
-                        "item" => [
-                            "cost" => 10,
-                            "armor" => 1,
-                            "war_p_skills_add" => [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                            "base_stats_add" => [0, 0, 0, 0, 0, 0],
-                            "slots" => [],
-                            "war_stats" => [8, 2, 3],
-                        ]
-                    ],
-
+                    "rhand" => [],
+                    "lhand" => [],
                     "head" => [],
-                    "bodyarm" => [
-                        "iid" => "i.a.bnov",
-                        "type" => \Likedimion\Helper\ItemHelper::ITEM_BODYARM,
-                        "titles" => [
-                            "nom" => "рубуха новобранца",
-                            "gen" => "рубаху новобранца",
-                            "dat" => "рубахе новобранца",
-                            "acc" => "рубаху новобраца",
-                            "inst" => "рубахой новобранца",
-                            "prep" => "о рубахе новобранца",
-                            "plural" => "рубахи новобранца"
-                        ],
-                        "info" => "Немного потрепаная рубашка, но все равно имеет довольно приличный вид.",
-                        "item" => [
-                            "cost" => 10,
-                            "armor" => 1,
-                            "war_p_skills_add" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                            "base_stats_add" => [0, 1, 0, 0, 1, 0],
-                            "slots" => []
-                        ]
-                    ],
-                    "legs" => [
-                        "iid" => "i.a.lnov",
-                        "type" => \Likedimion\Helper\ItemHelper::ITEM_LEGS,
-                        "titles" => [
-                            "nom" => "штаны новобранца",
-                            "gen" => "штанов новобранца",
-                            "dat" => "штанам новобранца",
-                            "acc" => "штаны новобраца",
-                            "inst" => "штанами новобранца",
-                            "prep" => "о штанах новобранца",
-                            "plural" => "штаны новобранца"
-                        ],
-                        "info" => "Немного потрепаные штаны, но все равно имеет довольно приличный вид.",
-                        "item" => [
-                            "cost" => 10,
-                            "armor" => 1,
-                            "war_p_skills_add" => [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                            "base_stats_add" => [0, 1, 0, 0, 1, 0],
-                            "slots" => []
-                        ]
-                    ],
-                    "shoes" => [
-                        "iid" => "i.a.snov",
-                        "type" => \Likedimion\Helper\ItemHelper::ITEM_SHOES,
-                        "titles" => [
-                            "nom" => "сапоги новобранца",
-                            "gen" => "сапогов новобранца",
-                            "dat" => "сапогам новобранца",
-                            "acc" => "сапоги новобраца",
-                            "inst" => "сапогами новобранца",
-                            "prep" => "о сапогах новобранца",
-                            "plural" => "сапоги новобранца"
-                        ],
-                        "info" => "Немного потрепаная рубашка, но все равно имеет довольно приличный вид.",
-                        "item" => [
-                            "cost" => 10,
-                            "armor" => 1,
-                            "war_p_skills_add" => [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                            "base_stats_add" => [0, 1, 0, 0, 1, 0],
-                            "slots" => []
-                        ]
-                    ]
+                    "bodyarm" => [],
+                    "cloack" => [],
+                    "hand" => [],
+                    "gloves"=> [],
+                    "leg" => [],
+                    "shoes" => [],
                 ],
             ];
             try {
                 $playerHelper = new \Likedimion\Helper\PlayerHelper($actor);
+                $itemHelper = new \Likedimion\Helper\ItemHelper($ld->items);
                 $playerHelper->addMagic("base.punch", 1, $magic);
+                switch($actor["class"]){
+                    case \Likedimion\Game::CLASS_WAR:
+                        $playerHelper->equip('rhand', $itemHelper->getItem('i.w.snov'));
+                        break;
+                    case \Likedimion\Game::CLASS_MAG:
+                        $playerHelper->equip('rhand', $itemHelper->getItem('i.w.booknov'));
+                        break;
+                    case \Likedimion\Game::CLASS_ASS:
+                        $playerHelper->equip('rhand', $itemHelper->getItem('i.w.pairnov'));
+                        break;
+                }
+                $playerHelper->equip(\Likedimion\Helper\ItemHelper::ITEM_BODYARM, $itemHelper->getItem('i.a.bnov'))
+                    ->equip(\Likedimion\Helper\ItemHelper::ITEM_LEGS, $itemHelper->getItem('i.a.lnov'))
+                    ->equip(\Likedimion\Helper\ItemHelper::ITEM_SHOES, $itemHelper->getItem('i.a.snov'));
                 $playerHelper->calcParams();
                 $ld->players->insert($playerHelper->getPlayer());
 

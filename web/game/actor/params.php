@@ -18,41 +18,49 @@ $page .= "<span class='admin strong text-uppercase'>мана</span> ".$regenMana
 $page .= "</div>";
 $warStats = $player["war_stats"];
 
-$page .= "<div class='panel panel-default'><div class='panel-heading text-uppercase strong text-muted'>атака</div>";
+$page .= "<div class='panel panel-default'><div class='panel-heading text-uppercase strong text-muted'>параметры</div>";
 $page .= '<ul class="list-group text-left">';
+    if($player["equip"]["rhand"]){
+        $att = $player["equip"]["rhand"]["titles"]["inst"];
+    } else {
+        $att = "кулаками";
+    }
     $page .= '<li class="list-group-item little_block">
-        <span class="badge bg-danger">'.$warStats[1].'-'.$warStats[2].'</span>
-        <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="info(\'stat_1\');">'.$lang["war_stats"][1].'</a></h6>
-        <p id="stat_1" class="list-group-item-text hidden">'.str_replace("\n", "<br/>", $lang["info"]["war_stats"][1]).'</p>
+        <span class="badge bg-danger">'.$warStats[2].'-'.$warStats[3].'</span>
+        <span class="strong">атака ('.$att.')</span>
     </li>';
     $page .= '<li class="list-group-item little_block">
         <span class="badge bg-danger">'.$warStats[0].'%</span>
-        <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="info(\'stat_0\');">'.$lang["war_stats"][0].'</a></h6>
-        <p id="stat_0" class="list-group-item-text hidden">'.str_replace("\n", "<br/>", $lang["info"]["war_stats"][0]).'</p>
+        <span class="strong">'.$lang["war_stats"][0].'</span>
+    </li>';
+    $page .= '<li class="list-group-item little_block">
+        <span class="badge bg-danger">'.$warStats[1].'%</span>
+        <span class="strong">'.$lang["war_stats"][1].'</span>
+    </li>';
+    $page .= '<li class="list-group-item little_block">
+        <span class="badge">'.$warStats[4].' сек</span>
+        <span class="strong text-capitalise">'.$lang["war_stats"][4].'</span>
+    </li>';
+    $page .= '<li class="list-group-item little_block">
+        <span class="badge bg-danger">'.$warStats[5].' / '.$warStats[6].'</span>
+        <span class="strong text-capitalise">'.$lang["war_stats"][5].'/'.$lang["war_stats"][6].'</span>
     </li>';
     if($player["equip"]["rhand"]["type"] == \Likedimion\Helper\ItemHelper::ITEM_BOOK){
         $page .= '<li class="list-group-item little_block">
-        <span class="badge bg-danger">'.$warStats[5].'%</span>
-        <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="info(\'stat_4\');">'.$lang["war_stats"][4].'</a></h6>
-        <p id="stat_4" class="list-group-item-text hidden">'.str_replace("\n", "<br/>", $lang["info"]["war_stats"][4]).'</p>
+        <span class="badge bg-danger">'.$warStats[12].'%</span>
+        <span class="strong">'.$lang["war_stats"][12].'</span>
         </li>';
     }
-
-$page .= "</ul></div>";
-
-$page .= "<div class='panel panel-default'><div class='panel-heading text-uppercase strong text-muted'>Уклон</div>";
-$page .= '<ul class="list-group text-left">';
-$page .= '<li class="list-group-item little_block">
-        <span class="badge bg-danger">'.$warStats[12].'%</span>
-        <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="info(\'stat_12\');">'.$lang["war_stats"][12].'</a></h6>
-        <p id="stat_12" class="list-group-item-text hidden">'.str_replace("\n", "<br/>", $lang["info"]["war_stats"][12]).'</p>
+    $page .= '<li class="list-group-item little_block">
+        <div class="hr"></div>
     </li>';
-$page .= '<li class="list-group-item little_block">
-        <span class="badge bg-danger">'.$warStats[14].'%</span>
-        <h6 class="list-group-item-heading strong text-uppercase"><a href="#" onclick="info(\'stat_14\');">'.$lang["war_stats"][14].'</a></h6>
-        <p id="stat_14" class="list-group-item-text hidden">'.str_replace("\n", "<br/>", $lang["info"]["war_stats"][14]).'</p>
-    </li>';
-
+    for($i = 7; $i < count($lang["war_stats"]); $i++){
+            $dob = "";
+            $page .= '<li class="list-group-item little_block">
+        <span class="badge bg-danger">'.$warStats[$i].'%</span>
+        <span class="fw600">'.$lang["war_stats"][$i].'</span>
+        </li>';
+    }
 $page .= "</ul></div>";
 
 $page .= <<<EOF

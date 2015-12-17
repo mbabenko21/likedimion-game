@@ -37,92 +37,25 @@ if (!is_null($player)) {
     if ($lev >= 90 && $lev < 100) $stmp .= "Лорд";
     if ($lev >= 100) $stmp .= "Великий лорд";
     $page .= "<span class='text-justify strong'>" . $stmp . " " . $lang["class"][$player["class"]] . ", " . $player["level"] . " ур.</span>";
-    if ($player["equip"]["rhand"]) {
-        $page .= "<div class='hr'></div>в руках <a class='strong' href=''>" . $player["equip"]["rhand"]["titles"]["nom"] . "</a>";
-        if ($player["equip"]["rhand"]["type"] == \Likedimion\Helper\ItemHelper::ITEM_SWORD
-            and $player["equip"]["lhand"]
-        ) {
-            $page .= ", <a class='strong' href=''>" . $player["equip"]["lhand"]["titles"]["nom"] . "</a>";
-        }
-    } else {
-        $page .= "<div class='hr'></div>в руках нет оружия";
-    }
+    $page .= "<div class='hr'></div>";
     //Экипировка
-    $page .= "<ul class='list-group'>";
-    if (!empty($player["equip"]["head"])) {
-        $page .= <<<EOF
-    <li class='list-group-item text-muted strong'>
-        <a href="">{$player["equip"]["head"]["titles"]["nom"]}</a>
-    </li>
-EOF;
+    if($_GET["getEquip"]) {
+        $page .= "<ul class='list-group'>";
+        foreach ($player["equip"] as $slot => $item) {
+            $slotName = (isset($lang["equip"][$slot])) ? $lang["equip"][$slot] : $slot;
+            $page .= "<li class='list-group-item'><h6 class='list-group-item-heading strong text-uppercase'>" . $slotName . "</h6>";
+            if (!empty($item)) {
+                $page .= "<a href='/?game=look&type=item&iId=" . $item["iid"] . "&from=equip." . $slot . "'>" . $item["titles"]["nom"] . "</a>";
+            } else {
+                $page .= "<span class='text-muted strong'>ничего не одето</span>";
+            }
+            $page .= "</li>";
+        }
+        $page .= "</ul>";
+        $page .= "<a class='button' href='/?game=actor&pid=".$player["_id"]."'>скрыть экипировку</a>";
     } else {
-        $page .= "<li class='list-group-item text-muted strong'>голова</li>";
+        $page .= "<a class='button' href='/?game=actor&pid=".$player["_id"]."&getEquip=1'>показать экипировку</a>";
     }
-    if (!empty($player["equip"]["amulet"])) {
-        $page .= <<<EOF
-    <li class='list-group-item text-muted strong'>
-        <a href="">{$player["equip"]["amulet"]["titles"]["nom"]}</a>
-    </li>
-EOF;
-    } else {
-        $page .= "<li class='list-group-item text-muted strong'>шея</li>";
-    }
-    if (!empty($player["equip"]["bodyarm"])) {
-        $page .= <<<EOF
-    <li class='list-group-item text-muted strong'>
-        <a href="">{$player["equip"]["bodyarm"]["titles"]["nom"]}</a>
-    </li>
-EOF;
-    } else {
-        $page .= "<li class='list-group-item text-muted strong'>доспехи</li>";
-    }
-    if (!empty($player["equip"]["hands"])) {
-        $page .= <<<EOF
-    <li class='list-group-item text-muted strong'>
-        <a href="">{$player["equip"]["hands"]["titles"]["nom"]}</a>
-    </li>
-EOF;
-    } else {
-        $page .= "<li class='list-group-item text-muted strong'>поручи</li>";
-    }
-    if (!empty($player["equip"]["gloves"])) {
-        $page .= <<<EOF
-    <li class='list-group-item text-muted strong'>
-        <a href="">{$player["equip"]["gloves"]["titles"]["nom"]}</a>
-    </li>
-EOF;
-    } else {
-        $page .= "<li class='list-group-item text-muted strong'>перчатки</li>";
-    }
-    if (!empty($player["equip"]["ring"])) {
-        $page .= <<<EOF
-    <li class='list-group-item text-muted strong'>
-        <a href="">{$player["equip"]["ring"]["titles"]["nom"]}</a>
-    </li>
-EOF;
-    } else {
-        $page .= "<li class='list-group-item text-muted strong'>кольцо</li>";
-    }
-    if (!empty($player["equip"]["legs"])) {
-        $page .= <<<EOF
-    <li class='list-group-item text-muted strong'>
-        <a href="">{$player["equip"]["legs"]["titles"]["nom"]}</a>
-    </li>
-EOF;
-    } else {
-        $page .= "<li class='list-group-item text-muted strong'>поножи</li>";
-    }
-    if (!empty($player["equip"]["shoes"])) {
-        $page .= <<<EOF
-    <li class='list-group-item text-muted strong'>
-        <a href="">{$player["equip"]["shoes"]["titles"]["nom"]}</a>
-    </li>
-EOF;
-    } else {
-        $page .= "<li class='list-group-item text-muted strong'>сапоги</li>";
-    }
-
-    $page .= "</ul>";
 } else {
     $page .= "Не на кого смотреть";
 }

@@ -11,6 +11,7 @@ namespace Likedimion\Helper;
 
 use Likedimion\EventDispatcher;
 use Likedimion\Events\JournalEvent;
+use Likedimion\Game;
 
 class PlayerHelper
 {
@@ -54,11 +55,12 @@ class PlayerHelper
         return $this;
     }
 
-    public function getRegen($stats = 4){
+    public function getRegen($stats = 4)
+    {
         $baseStats = $this->getStats($this->_player, 'base_stats');
         $endur = $baseStats[$stats];
-        $lifeInSecond = round($endur/60, 2);
-        $oneLifeTime = round(1/$lifeInSecond, 2);
+        $lifeInSecond = round($endur / 60, 2);
+        $oneLifeTime = round(1 / $lifeInSecond, 2);
         return [$lifeInSecond, $oneLifeTime];
     }
 
@@ -72,65 +74,112 @@ class PlayerHelper
         $warSkills = $this->getStats($player, 'war_p_skills');
         $charParams = $player["char_params"];
 
-        $charParams[1] = 10 * $baseStats[3] + round($baseStats[4]/2) + round($baseStats[0]/2) + 10;
+        $charParams[1] = 10 * $baseStats[3] + round($baseStats[4] / 2) + round($baseStats[0] / 2) + 10;
         if (!$charParams[0]) {
             $charParams[0] = $charParams[1];
         }
-        if($charParams[1] < $charParams[0]) {
+        if ($charParams[1] < $charParams[0]) {
             $charParams[0] = $charParams[1];
         }
 
-        $charParams[3] = 10 * $baseStats[2] + 5 *$baseStats[5] + 10;
+        $charParams[3] = 10 * $baseStats[2] + 5 * $baseStats[5] + 10;
         if (!$charParams[2]) {
             $charParams[2] = $charParams[3];
         }
-        if($charParams[3] < $charParams[2]) {
+        if ($charParams[3] < $charParams[2]) {
             $charParams[2] = $charParams[3];
         }
-        $warStats = $player["war_stats"];
+        $warStats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
         //$warSkills = $player["war_p_skills"];
         ##########
         # РАСЧЕТ БОЕВЫХ ПАРАМЕТРОВ
         #########
+        $warStats[4] = 2; //базовый отдых после атаки
         //АТАКА
-        $warStats[1] = 0;
-        $warStats[2] = 1;
-        if($player["equip"]["rhand"]){
-            $item = $player["equip"]["rhand"];
-            $warStats[1]+=$item["war_stats"][1];
-            $warStats[2]+=$item["war_stats"][2];
+        $warStats[2] = 0;
+        $warStats[3] = 1;
+        $warStats[1] = $baseStats[2] * 2;
+        if ($player["equip"]["rhand"]) {
             //точность
-            switch($player["equip"]["rhand"]){
-                case ItemHelper::ITEM_SWORD:
-                    $warStats[0] = $warSkills[1]*10 + $baseStats[1] * 5;
+            switch ($player["equip"]["rhand"]["type"]) {
+                case ItemHelper::ITEM_SWORD;
+                case ItemHelper::ITEM_DUAL_SWORD;
+                    $warStats[0] = $warSkills[1] * 10 + $baseStats[1] * 5;
+                    break;
+                case ItemHelper::ITEM_PAIR_SWORDS;
+                case ItemHelper::ITEM_PAIR_KNIFES;
+                    $warStats[0] = $warSkills[4] * 10 + $baseStats[1] * 8;
+                    break;
+                case ItemHelper::ITEM_BOW:
+                    $warStats[0] = $warSkills[2] * 12 + $baseStats[1] * 8;
+                    break;
+                case ItemHelper::ITEM_AXE;
+                case ItemHelper::ITEM_DUAL_AXE;
+                    $warStats[0] = $warSkills[6] * 10 + $baseStats[1] * 2;
+                    break;
+                case ItemHelper::ITEM_SPEAR:
+                    $warStats[0] = $warSkills[4] * 10 + $baseStats[1] * 4;
+                    break;
+                case ItemHelper::ITEM_MACE;
+                case ItemHelper::ITEM_DUAL_MACE;
+                    $warStats[0] = $warSkills[5] * 10 + $baseStats[1] * 3;
+                    break;
+                case ItemHelper::ITEM_BOOK:
+                    $warStats[0] = $warSkills[7] * 10 + $baseStats[1] * 3;
                     break;
                 default:
-                    $warStats[0] = $warSkills[0]*10 + $baseStats[1] * 5;
-                    break;
+                    $warStats[0] = $warSkills[0] * 10 + $baseStats[1] * 5;
             }
         }
-        if($player["equip"]["rhand"]["type"] != ItemHelper::ITEM_BOOK) {
-            $warStats[1] += $baseStats[0];
+        if ($player["equip"]["rhand"]["type"] != ItemHelper::ITEM_BOOK) {
             $warStats[2] += $baseStats[0];
+            $warStats[3] += $baseStats[0];
         } else {
-            $warStats[1] += $baseStats[2];
             $warStats[2] += $baseStats[2];
+            $warStats[3] += $baseStats[2];
         }
         //Ф. УКЛОН
         $pbVals = [];
         $pbVals[] = ($baseStats[1] <= 5) ? $baseStats[1] * 2 : 10; //по 2% за уклон, но не более 5 единиц
-        $pbVals[] = -$baseStats[3]*0.5; //отнимается по 0.5% за каждую единицу конституции
+        $pbVals[] = -$baseStats[3] * 0.5; //отнимается по 0.5% за каждую единицу конституции
         $pbVals[] = $warSkills[2];
-        $pbVals[] = $warSkills[12]*5;
-        $warStats[12] = array_sum($pbVals);
+        $pbVals[] = $warSkills[12] * 5;
+        $warStats[7] = array_sum($pbVals);
         //М. Уклон
         $mbVals = [];
-        $mbVals[] = $warSkills[7]*0.2;
-        $mbVals[] = $warSkills[11]*0.2;
-        $mbVals[] = $warSkills[14]*5;
+        $mbVals[] = $warSkills[7] * 0.2;
+        $mbVals[] = $warSkills[11] * 0.2;
+        $mbVals[] = $warSkills[14] * 5;
         $mbVals[] = ($baseStats[2] <= 5) ? $baseStats[2] * 2 : 10;
-        $warStats[14] = array_sum($mbVals);
+        $warStats[8] = array_sum($mbVals);
+        //Парирование (9, 10)
+        $ppVals = [];
+        $ppVals[] = $baseStats[0] * 2;
+        $ppVals[] = $warSkills[9] * 5;
+        $ppVals[] = $warSkills[1] + $warSkills[5] + $warSkills[6];
+        $warStats[9] = array_sum($ppVals);
 
+        $mpVals = [];
+        $mpVals[] = $baseStats[2] * 2;
+        $mpVals[] = $warSkills[15] * 5;
+        $mpVals[] = $warSkills[9] * 0.2;
+        $warStats[10] = array_sum($mpVals);
+
+        $warStats[11] = $warSkills[16] * 2;
+        //ф. крит
+        $warStats[12] = $baseStats[1];
+        if ($player["class"] == Game::CLASS_ASS) {
+            $warStats[12] += $baseStats[1];
+        }
+        $warStats[13] = $baseStats[1];
+
+        foreach ($player["equip"] as $slot => $item) {
+            if (is_array($item["item"]["war_stats"])) {
+                for ($i = 0; $i < count($item["item"]["war_stats"]); $i++) {
+                    $warStats[$i] += $item["item"]["war_stats"][$i];
+                }
+            }
+        }
 
 
         $player["war_stats"] = $warStats;
@@ -138,20 +187,21 @@ class PlayerHelper
         $this->_player = $this->regeneration($player);
     }
 
-    private function regeneration($player){
+    private function regeneration($player)
+    {
         $charParams = $player["char_params"];
-        if(!isset($player["timers"])){
+        if (!isset($player["timers"])) {
             $player["timers"] = [];
         }
         $regenLife = $this->getRegen(4);
 
         $lastRegen = isset($player["timers"]["regen_life"]) ? $player["timers"]["regen_life"] : DateHelper::microtimeFloat(microtime());
         $curr = DateHelper::microtimeFloat(microtime());
-        if($lastRegen < $curr and $charParams[0] < $charParams[1]){
+        if ($lastRegen < $curr and $charParams[0] < $charParams[1]) {
             $minus = $curr - $lastRegen; //10
-            $regenVal = floor($minus/$regenLife[1])+1;
-            $player["timers"]["regen_life"] = $curr+$regenLife[1];
-            $charParams[0]+=$regenVal;
+            $regenVal = floor($minus / $regenLife[1]) + 1;
+            $player["timers"]["regen_life"] = $curr + $regenLife[1];
+            $charParams[0] += $regenVal;
         }
 
         $player["char_params"] = $charParams;
@@ -185,9 +235,9 @@ class PlayerHelper
                 }
             }
         }
-        foreach($player["equip"] as $slot){
-            if(isset($slot["item"][$statsKey."_add"])){
-                $itemsAdd = $this->array_add($itemsAdd, $slot["item"][$statsKey."_add"]);
+        foreach ($player["equip"] as $slot) {
+            if (isset($slot["item"][$statsKey . "_add"])) {
+                $itemsAdd = $this->array_add($itemsAdd, $slot["item"][$statsKey . "_add"]);
             }
         }
         return $this->array_add($stats, $statsAdd, $buffsAdd, $effects, $itemsAdd);
@@ -215,14 +265,14 @@ class PlayerHelper
      */
     public function getNeedExp($level)
     {
-        return floor(50 * pow(1.1, $level+1));
+        return floor(50 * pow(1.1, $level + 1));
     }
 
     public function addExp($expCount)
     {
         if ($this->_player["experience"] + $expCount >= $this->getNeedExp($this->_player["level"])) {
             $this->_player["experience"] += $expCount;
-            $ost =  $this->_player["experience"] - $this->getNeedExp($this->_player["level"]);
+            $ost = $this->_player["experience"] - $this->getNeedExp($this->_player["level"]);
             $this->_player["experience"] = $ost;
             $this->_player["level"]++;
             $journalMsg = "Вы достигли нового уровня!";
@@ -231,7 +281,7 @@ class PlayerHelper
             $this->_player["base_stats_points"]++;
             $this->_player["war_skills_points"]++;
             $this->addExp($ost);
-        } else{
+        } else {
             $this->_player["experience"] += $expCount;
         }
         $journalMsg = "Вы получили %d опыта";
@@ -239,7 +289,8 @@ class PlayerHelper
         $this->getDispatcher()->dispatch($journalEvent);
     }
 
-    public function addBaseStat($statId, $countAdd){
+    public function addBaseStat($statId, $countAdd)
+    {
         $this->_player["base_stats"][$statId] += $countAdd;
         return $this;
     }
@@ -258,5 +309,22 @@ class PlayerHelper
     public function setDispatcher($dispatcher)
     {
         $this->dispatcher = $dispatcher;
+    }
+
+    /**
+     * @param $slot
+     * @param $item
+     * @return $this
+     */
+    public function equip($slot, $item)
+    {
+        $player = $this->_player;
+        if (!empty($player["equip"][$slot])) {
+            $player["inventory"][$player["equip"][$slot]["iid"]] += 1;
+            $player["equip"][$slot] = [];
+        }
+        $player["equip"][$slot] = $item;
+        $this->_player = $player;
+        return $this;
     }
 }

@@ -585,3 +585,11 @@ input.suggest__field {
     border: none;
 }
 
+.list-group-item > .badge {
+    background-color: #c12e2a;
+}
+
+.fw600{
+    font-weight: 600;
+}
+

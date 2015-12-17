@@ -11,7 +11,7 @@ require "./resize_crop.php";
 $coord = explode(".", $_GET["loc"]);
 $src = __DIR__."/public/".$coord[0].".png";
 if(file_exists($src)) {
-    crop($src, array($coord[1] - 50, $coord[2], 320, 240), false);
+    crop($src, array($coord[1] - 50, $coord[2], 240, 320), false);
 } else {
     // Тип содержимого
     header('Content-Type: image/png');
