@@ -85,4 +85,35 @@ class LocationHelper
         }
         return $this;
     }
+
+    /**
+     * @param $msg
+     * @param bool|\MongoId $noPlayer1
+     * @param bool|\MongoId$noPlayer2
+     * @return $this
+     */
+    public function addJournal($msg, $noPlayer1 = false, $noPlayer2 = false){
+        $this->_loc["journal"][] = [
+            "msg" => $msg,
+            "no_player_1" => $noPlayer1,
+            "no_player_2" => $noPlayer2,
+            "time" => time()
+        ];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearJournal(){
+        $this->_loc["journal"] = [];
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getJournal(){
+        return (is_array($this->_loc["journal"])) ? $this->_loc["journal"] : [];
+    }
 }

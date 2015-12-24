@@ -1,6 +1,7 @@
 <?php
 
 namespace Likedimion;
+use Likedimion\Helper\PlayerHelper;
 
 /**
  * summary
@@ -29,4 +30,7 @@ class Game
 
     //Рассы
 
+    public static function AI($player){
+        $playerHelper = new PlayerHelper($player);
+    }
 }

@@ -18,6 +18,12 @@ $exp = $player["experience"];
 $needExp = $playerHelper->getNeedExp($player["level"]+1);
 $regen = $playerHelper->getRegen(4)[1]*1000;
 $loc = $ld->locations->findOne(["lid" => $playerHelper->getPlayer()["loc"]]);
+if($playerHelper->getCountNewMsg() > 0){
+    $msgTitle = $playerHelper->getCountNewMsg() . " " .
+        View::getNumEnding($playerHelper->getCountNewMsg(), ["новое", "новых", "новых"]) . " " .
+        View::getNumEnding($playerHelper->getCountNewMsg(), ["сообщение", "сообщения", "сообщений"]);
+    $page .= "<a href='/?game=msg'>".$msgTitle."</a><div class='hr'></div><a href='/?game=msg&action=readAll'>прочитать позже</a> | <a href='/?game=msg&action=clear'>удалить все</a>";
+}
 $page .= <<<PAGE
 <div class="progerss__bar">
     <div class="progress">
@@ -33,31 +39,32 @@ $page .= <<<PAGE
         <div class="text strong">{$exp} / {$needExp}</div>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function(){
-        var curr = {$player["char_params"][0]};
-        var max = {$player["char_params"][1]};
-        function barInit(currVal, maxVal, id){
-            id = "#"+id;
-            var percent = currVal/maxVal*100;
-            $(id).css({width: percent+"%"});
-            $(id+"_text").text(curr+" / "+max);
-        }
-
-            setInterval(function(){
-                curr++;
-                if(curr < max){
-                    barInit(curr, max, 'life_bar');
-                } else {
-                    return false;
-                }
-            }, {$regen});
-    });
-</script>
 PAGE;
 //БАФФЫ
 
 if($loc){
+    $locHelper = new \Likedimion\Helper\LocationHelper($loc);
+    $journalAll = array_merge($playerHelper->getJournal(), $locHelper->getJournal());
+    $size = count($journalAll)-1;
+    for ($i = $size; $i>=0; $i--) {
+        for ($j = 0; $j<=($i-1); $j++)
+            if ($journalAll[$j]["time"]>$journalAll[$j+1]["time"]) {
+                $k = $journalAll[$j]["time"];
+                $journalAll[$j]["time"] = $journalAll[$j+1]["time"];
+                $journalAll[$j+1]["time"] = $k;
+            }
+    }
+    //ЖУРНАЛ
+    if(count($journalAll) > 0) {
+        $page .= '<div id="journal">';
+        while (list($key, $journalMsg) = each($journalAll)) {
+            if($journalMsg["no_player_1"] != $player["_id"] and $journalMsg["no_player_2"] != $player["_id"]){
+                $page .= "<div>".$journalMsg["msg"]."</div>";
+            }
+            next($journalAll);
+        }
+        $page .= "<div class='hr'></div><a onclick='$(\"#journal\").html(\"\");' href='#'>дальше</a></div>";
+    }
     //npc
     $page .= "<ul class='list-group'>";
     foreach($loc["loc"] as $oid => $obj){
@@ -90,6 +97,9 @@ if($loc){
         }
         $page .= "</ul>";
     }
+    $locHelper->clearJournal();
+    $playerHelper->clearJournal();
+    $ld->locations->update(["_id" => new MongoId($loc["_id"])], $locHelper->getLoc());
 } else {
     $page.="<div class='alert alert-warning'>Какая-то безжизненная пустыня</div>";
 }

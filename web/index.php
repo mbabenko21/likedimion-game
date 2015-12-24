@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_WARNING|E_ERROR);
+//error_reporting(E_WARNING|E_ERROR);
 define("ROOT", __DIR__);
 require "../vendor/autoload.php";
 require "config.php";

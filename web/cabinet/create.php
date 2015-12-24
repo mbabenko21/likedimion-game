@@ -100,6 +100,10 @@ PAGE;
                     "leg" => [],
                     "shoes" => [],
                 ],
+                "journal" => [],
+                "msg" => [],
+                "friends" => [],
+                "config" => [],
             ];
             try {
                 $playerHelper = new \Likedimion\Helper\PlayerHelper($actor);
@@ -119,7 +123,7 @@ PAGE;
                 $playerHelper->equip(\Likedimion\Helper\ItemHelper::ITEM_BODYARM, $itemHelper->getItem('i.a.bnov'))
                     ->equip(\Likedimion\Helper\ItemHelper::ITEM_LEGS, $itemHelper->getItem('i.a.lnov'))
                     ->equip(\Likedimion\Helper\ItemHelper::ITEM_SHOES, $itemHelper->getItem('i.a.snov'));
-                $playerHelper->calcParams();
+                $playerHelper->update();
                 $ld->players->insert($playerHelper->getPlayer());
 
 

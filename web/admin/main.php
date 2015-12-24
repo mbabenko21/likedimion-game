@@ -14,6 +14,7 @@ use Likedimion\Helper\View;
 $page = <<<ADMIN
 
 ADMIN;
+$page .= View::button("/?admin=add_news", "добавить новость")."<div class='hr'></div>";
 $page .= View::button("/?admin=players", "игроки")."<br/>";
 $page .= View::button("/?admin=locations", "локации")."<br/>";
 $page .= View::button("/?admin=items", "предметы")."<br/>";

@@ -593,3 +593,7 @@ input.suggest__field {
     font-weight: 600;
 }
 
+.pagination {
+    margin: auto;
+}
+

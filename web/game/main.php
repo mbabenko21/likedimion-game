@@ -22,9 +22,10 @@ if ($_SESSION["pid"]) {
     if ($player) {
             $playerHelper = new \Likedimion\Helper\PlayerHelper($player);
             $playerHelper->setDispatcher($eventDispatcher);
-            $playerHelper->calcParams();
+            $playerHelper->update();
             $loc_i = [];
             if (false === $adminSession) {
+                \Likedimion\Game::AI($player);
                 $fName = ROOT . "/game/" . $_GET["game"] . ".php";
                 if (file_exists($fName)) {
                     require $fName;
@@ -42,7 +43,7 @@ if ($_SESSION["pid"]) {
                 require ROOT . "/503.php";
             }
 
-            $playerHelper->calcParams();
+            $playerHelper->update();
             if (!$ld->players->update(["_id" => $_SESSION["pid"]], $playerHelper->getPlayer())) {
                 throw new MongoException("Not update");
             };

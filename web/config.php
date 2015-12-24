@@ -26,5 +26,7 @@ $config = [
             [[0,2], 12],
             [[3,5], 12]
         ]
-    ]
+    ],
+    "items_per_page" => 5,
+    "max_friends" => 50,
 ];

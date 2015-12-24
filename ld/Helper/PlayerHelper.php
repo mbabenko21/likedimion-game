@@ -67,7 +67,7 @@ class PlayerHelper
     /**
      * @return void
      */
-    public function calcParams()
+    public function update()
     {
         $player = $this->_player;
         $baseStats = $this->getStats($player, 'base_stats');
@@ -326,5 +326,168 @@ class PlayerHelper
         $player["equip"][$slot] = $item;
         $this->_player = $player;
         return $this;
+    }
+
+    /**
+     * @param string $msg
+     * @return $this
+     */
+    public function addJournal($msg){
+        $this->_player["journal"][] = [
+            "msg" => $msg,
+            "time" => time(),
+        ];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearJournal(){
+        $this->_player["journal"] = [];
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getJournal(){
+        return (is_array($this->_player["journal"])) ? $this->_player["journal"] : [];
+    }
+
+    /**
+     * @param array $from
+     * @param $msg
+     * @return $this
+     */
+    public function addMsg(array $from, $msg){
+        //$id = View::generateRandomString(8);
+        $this->_player["msg"][] = [
+            "title" => $from["title"],
+            "msg" => $msg,
+            "is_read" => false,
+            "time" => time(),
+        ];
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCountNewMsg(){
+        $count = 0;
+        foreach($this->_player["msg"] as $msg){
+            if($msg["is_read"] === false){
+                $count++;
+            }
+        }
+        return $count;
+    }
+
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function markMsgIsRead($id){
+        if($this->isMsg($id)){
+            $this->_player["msg"][$id]["is_read"] = true;
+        }
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function markAllMsgIsRead(){
+        while(list($id, $msg) = each($this->_player["msg"])){
+            $this->markMsgIsRead($id);
+        }
+        return $this;
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function isMsg($id){
+        return isset($this->_player["msg"][$id]);
+    }
+
+    /**
+     * Удаление сообщения
+     * @param $id
+     * @return $this
+     */
+    public function removeMsg($id){
+        if(isset($this->_player["msg"][$id])){
+            unset($this->_player["msg"][$id]);
+        }
+        return $this;
+    }
+
+    public function getMsg(){
+        return (is_array($this->_player["msg"])) ? $this->_player["msg"] : [];
+    }
+
+    /**
+     * Очистка сообщений
+     */
+    public function clearMsg(){
+        $this->_player["msg"] = [];
+    }
+
+    /**
+     * Добавление друга
+     * @param $player
+     * @return $this
+     * @internal param $friend
+     */
+    public function addFriend($player){
+        if(!in_array($player["_id"], $this->_player["friends"])){
+            $this->_player["friends"][] = $player["_id"];
+        }
+        return $this;
+    }
+
+    /**
+     * @param array $player
+     * @return bool
+     */
+    public function isFriend($player){
+        return (in_array($player["_id"], $this->_player["friends"]));
+    }
+
+    /**
+     * @param $player
+     * @return bool
+     */
+    public function removeFriend($player){
+        if($this->isFriend($player)){
+            while(list($key, $fid) = each($this->_player["friends"])){
+                if($fid == $player["_id"]){
+                    unset($this->_player["friends"][$key]);
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearFriendList(){
+        $this->_player["friends"] = [];
+        return $this;
+    }
+
+    public function getFriendList(){
+        return (is_array($this->_player["friends"])) ? $this->_player["friends"] : [];
+    }
+
+    public function getGameConfig(){
+        $cfg = (isset($this->_player["config"])) ? $this->_player["config"] : [];
+        return new GameConfig($cfg);
     }
 }
