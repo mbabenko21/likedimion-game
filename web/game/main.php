@@ -6,7 +6,7 @@
  * Time: 15:58
  */
 use Likedimion\Helper\View;
-
+define("START_TIME", \Likedimion\Helper\DateHelper::microtimeFloat(microtime()));
 if (!defined('ROOT')) {
     header("Location: /?");
 }
@@ -44,6 +44,7 @@ if ($_SESSION["pid"]) {
             }
 
             $playerHelper->update();
+            $playerHelper->addTimer('last_action', 0);
             if (!$ld->players->update(["_id" => $_SESSION["pid"]], $playerHelper->getPlayer())) {
                 throw new MongoException("Not update");
             };

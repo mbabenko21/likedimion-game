@@ -29,21 +29,40 @@ $locations = [
     [
         "lid" => "ld.790.1380",
         "doors" => [
-            ["на север по долине", \Likedimion\Helper\LocationHelper::DOOR_N],
-            ["на юг по долине", \Likedimion\Helper\LocationHelper::DOOR_S],
-            ["на запад по долине", \Likedimion\Helper\LocationHelper::DOOR_W],
-            ["на восток по долине", \Likedimion\Helper\LocationHelper::DOOR_E]
+            ["на север по долине", "ld.790.1370"],
+            ["на юг по долине", "ld.790.1390"],
+            ["на запад по долине", "ld.800.1380"],
+            ["на восток по долине", "ld.780.1380"],
+            ["войти в деревню", "fail.gate"]
         ],
         "gate" => [
             "title" => "Ворота деревни Фаиль",
             "move" => "fail.gate"
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
-        "loc" => [
-            "npc_lukas" => addNpc("lukas"),
-            "npc_uin" => addNpc("uin"),
-            "item_news" => addItem("i.s.news")
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "ld.790.1370",
+        "doors" => [
+            ["на юг по долине", "ld.790.1380"],
         ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "ld.790.1390",
+        "doors" => [
+            ["на север по долине", "ld.790.1380"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
     ]
 ];
 

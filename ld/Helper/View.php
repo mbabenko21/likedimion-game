@@ -194,9 +194,13 @@ EOFF;
 
     public static function footerBlock()
     {
+        $currentTime = DateHelper::microtimeFloat(microtime());
+        $tmn = $currentTime - START_TIME;
+        $tmn = round($tmn, 4);
         $page = <<<EOT
     <div id="footer">
         <p class="strong">&copy; Created by babenoff, 2015</p>
+        <p class="text-muted strong">{$tmn} сек.</p>
     </div>
 EOT;
         return $page;

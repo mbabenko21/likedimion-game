@@ -65,6 +65,15 @@ class PlayerHelper
     }
 
     /**
+     * @param $loc
+     * @return $this
+     */
+    public function move($loc){
+        $this->_player["loc"] = $loc;
+        return $this;
+    }
+
+    /**
      * @return void
      */
     public function update()
@@ -489,5 +498,49 @@ class PlayerHelper
     public function getGameConfig(){
         $cfg = (isset($this->_player["config"])) ? $this->_player["config"] : [];
         return new GameConfig($cfg);
+    }
+
+    /**
+     * @param $timerId
+     * @param $milliseconds
+     * @return $this
+     */
+    public function addTimer($timerId, $milliseconds){
+        $this->_player["timers"][$timerId] = DateHelper::microtimeFloat(microtime() + $milliseconds);
+        return $this;
+    }
+
+    /**
+     * @param $timerId
+     * @return bool
+     */
+    public function isTimer($timerId){
+        return (isset($this->_player["timers"][$timerId]));
+    }
+
+    /**
+     * @param $timerId
+     * @return $this
+     */
+    public function removeTimer($timerId){
+        if($this->isTimer($timerId)){
+            unset($this->_player["timers"][$timerId]);
+        }
+        return $this;
+    }
+
+    public function clearTimers(){
+        $this->_player["timers"] = [];
+    }
+
+    /**
+     * @param $timerId
+     * @return float
+     */
+    public function getTimer($timerId){
+        if($this->isTimer($timerId)){
+            return $this->_player["timers"][$timerId];
+        }
+        return DateHelper::microtimeFloat(microtime());
     }
 }

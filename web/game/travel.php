@@ -8,7 +8,9 @@ if(!defined('ROOT')){header("Location: /?");}
  */
 
 use Likedimion\Helper\View;
-
+if($_GET["go"]){
+    require "go.php";
+}
 $page = "";
 //$snap = file_get_contents(ROOT."/public/likedimion.svg");
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;
@@ -92,7 +94,7 @@ if($loc){
         $page .= "<ul class='list-group'>";
         for($i = 0; $i < count($loc["doors"]); $i++){
             $page .= "<li class='list-group-item strong'>
-<a href='/?game=go&move=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a>
+<a href='/?game=travel&go=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a>
 </li>";
         }
         $page .= "</ul>";

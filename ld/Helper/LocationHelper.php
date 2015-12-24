@@ -41,6 +41,34 @@ class LocationHelper
     }
 
     /**
+     * @param $doorId
+     * @return bool
+     */
+    public function doorExists($doorId){
+        $doors = $this->_loc["doors"];
+        foreach($doors as $door){
+            if($door[1] == $doorId){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $doorId
+     * @return bool
+     */
+    public function getDoorName($doorId){
+        $doors = $this->_loc["doors"];
+        foreach($doors as $door){
+            if($door[1] == $doorId){
+                return $door[0];
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param $pid
      * @return $this
      */
@@ -92,13 +120,15 @@ class LocationHelper
      * @param bool|\MongoId$noPlayer2
      * @return $this
      */
-    public function addJournal($msg, $noPlayer1 = false, $noPlayer2 = false){
-        $this->_loc["journal"][] = [
-            "msg" => $msg,
-            "no_player_1" => $noPlayer1,
-            "no_player_2" => $noPlayer2,
-            "time" => time()
-        ];
+    public function addJournal($msg, \MongoCollection $players, $noPlayer1 = false, $noPlayer2 = false){
+        $plrs = $players->find(["loc" => $this->_loc["lid"]]);
+        foreach($plrs as $plr){
+            if($plr["_id"] != $noPlayer1 and $plr["_id"] != $noPlayer2 and $plr){
+                $plrHelper = new PlayerHelper($plr);
+                $plrHelper->addJournal($msg);
+                $players->update(["_id" => $plr["_id"]], ['$set' => ["journal"=>$plrHelper->getJournal()]]);
+            }
+        }
         return $this;
     }
 
