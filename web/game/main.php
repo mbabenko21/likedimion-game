@@ -6,7 +6,7 @@
  * Time: 15:58
  */
 use Likedimion\Helper\View;
-define("START_TIME", \Likedimion\Helper\DateHelper::microtimeFloat(microtime()));
+
 if (!defined('ROOT')) {
     header("Location: /?");
 }
