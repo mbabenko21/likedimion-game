@@ -22,7 +22,7 @@ if($playerHelper->getCountNewMsg() > 0){
     $msgTitle = $playerHelper->getCountNewMsg() . " " .
         View::getNumEnding($playerHelper->getCountNewMsg(), ["новое", "новых", "новых"]) . " " .
         View::getNumEnding($playerHelper->getCountNewMsg(), ["сообщение", "сообщения", "сообщений"]);
-    $page .= "<a href='/?game=msg'>".$msgTitle."</a><div class='hr'></div><a href='/?game=msg&action=readAll'>прочитать позже</a> | <a href='/?game=msg&action=clear'>удалить все</a>";
+    $page .= "<a href='/?game=msg'>".$msgTitle."</a><div class='hr'></div><a href='/?game=msg&action=readAll'>прочитать позже</a>";
 }
 $page .= <<<PAGE
 <div class="progerss__bar">
