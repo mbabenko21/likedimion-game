@@ -196,14 +196,13 @@ EOFF;
     {
         $currentTime = DateHelper::microtimeFloat(microtime());
         $tmn = $currentTime - START_TIME;
-        $tmn = round($tmn, 4);
         $page = <<<EOT
     <div id="footer">
         <p class="strong">&copy; Created by babenoff, 2015</p>
-        <p class="text-muted strong">{$tmn} сек.</p>
+        <p class="text-muted strong">%01.4f сек.</p>
     </div>
 EOT;
-        return $page;
+        return sprintf($page, $tmn);
     }
 
     public static function compressOutputGzip($output)
