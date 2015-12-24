@@ -46,8 +46,8 @@ PAGE;
 
 if($loc){
     $locHelper = new \Likedimion\Helper\LocationHelper($loc);
-    $journalAll = array_merge($playerHelper->getJournal(), $locHelper->getJournal());
-    $size = count($journalAll)-1;
+    $journalAll = $playerHelper->getJournal();
+    $size = count($journalAll);
     for ($i = $size; $i>=0; $i--) {
         for ($j = 0; $j<=($i-1); $j++)
             if ($journalAll[$j]["time"]>$journalAll[$j+1]["time"]) {
@@ -63,7 +63,7 @@ if($loc){
             if($journalMsg["no_player_1"] != $player["_id"] and $journalMsg["no_player_2"] != $player["_id"]){
                 $page .= "<div>".$journalMsg["msg"]."</div>";
             }
-            next($journalAll);
+            //next($journalAll);
         }
         $page .= "<div class='hr'></div><a onclick='$(\"#journal\").html(\"\");' href='#'>дальше</a></div>";
     }
@@ -91,15 +91,17 @@ if($loc){
     $page .= "</ul>";
     //выходы
     if($loc["doors"]){
+        $locHelper->setCollection($ld->locations);
         $page .= "<div class='list-group'>";
         for($i = 0; $i < count($loc["doors"]); $i++){
+            $added = str_repeat("!", $locHelper->getCountNpc($loc["doors"][$i][1]));
             $page .= "<div class='list-group-item little_block_center'>
-<a id='center' class='strong' href='/?game=travel&go=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a>
+<a id='center' class='strong' href='/?game=travel&go=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a> <span class='label label-warning'>".substr($added, 0, 3)."</span>
 </div>";
         }
         $page .= "</div>";
     }
-    $locHelper->clearJournal();
+    //$locHelper->clearJournal();
     $playerHelper->clearJournal();
     $ld->locations->update(["_id" => new MongoId($loc["_id"])], $locHelper->getLoc());
 } else {

@@ -24,6 +24,10 @@ class LocationHelper
         TERRITORY_UNGUARD = "unguard"
         ;
     /**
+     * @var \MongoCollection
+     */
+    protected $_collection;
+    /**
      * @var array
      */
     private $_loc;
@@ -88,6 +92,12 @@ class LocationHelper
         return $this;
     }
 
+    public function update(){
+        if($this->_collection){
+            $this->_collection->update(["lid" => $this->_loc["lid"]], $this->getLoc());
+        }
+    }
+
     /**
      * @param $npc
      * @return $this
@@ -123,7 +133,7 @@ class LocationHelper
     public function addJournal($msg, \MongoCollection $players, $noPlayer1 = false, $noPlayer2 = false){
         $plrs = $players->find(["loc" => $this->_loc["lid"]]);
         foreach($plrs as $plr){
-            if($plr["_id"] != $noPlayer1 and $plr["_id"] != $noPlayer2 and $plr){
+            if($plr["_id"] != $noPlayer1 and $plr["_id"] != $noPlayer2){
                 $plrHelper = new PlayerHelper($plr);
                 $plrHelper->addJournal($msg);
                 $players->update(["_id" => $plr["_id"]], ['$set' => ["journal"=>$plrHelper->getJournal()]]);
@@ -132,18 +142,40 @@ class LocationHelper
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function clearJournal(){
-        $this->_loc["journal"] = [];
-        return $this;
+    public function doAi(){
+
     }
 
     /**
-     * @return array
+     * @param $lid
+     * @return int
      */
-    public function getJournal(){
-        return (is_array($this->_loc["journal"])) ? $this->_loc["journal"] : [];
+    public function getCountNpc($lid){
+        $location = $this->getCollection()->findOne(["lid" => $lid]);
+        $count = 0;
+        if($location) {
+            while (list($key, $val) = each($location["loc"])) {
+                if (preg_match("/(npc[_\.]|player[_\.])/i", $key)) {
+                    $count++;
+                }
+            }
+        }
+        return $count;
+    }
+
+    /**
+     * @return \MongoCollection
+     */
+    public function getCollection()
+    {
+        return $this->_collection;
+    }
+
+    /**
+     * @param \MongoCollection $collection
+     */
+    public function setCollection($collection)
+    {
+        $this->_collection = $collection;
     }
 }

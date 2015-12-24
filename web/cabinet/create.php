@@ -123,7 +123,7 @@ PAGE;
                 $playerHelper->equip(\Likedimion\Helper\ItemHelper::ITEM_BODYARM, $itemHelper->getItem('i.a.bnov'))
                     ->equip(\Likedimion\Helper\ItemHelper::ITEM_LEGS, $itemHelper->getItem('i.a.lnov'))
                     ->equip(\Likedimion\Helper\ItemHelper::ITEM_SHOES, $itemHelper->getItem('i.a.snov'));
-                $playerHelper->update();
+                $playerHelper->calcParams();
                 $ld->players->insert($playerHelper->getPlayer());
 
 

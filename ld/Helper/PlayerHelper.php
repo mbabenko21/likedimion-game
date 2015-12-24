@@ -20,6 +20,10 @@ class PlayerHelper
      * @var EventDispatcher
      */
     protected $dispatcher;
+    /**
+     * @var \MongoCollection
+     */
+    protected $_collection;
 
     public function __construct(array $player)
     {
@@ -76,7 +80,7 @@ class PlayerHelper
     /**
      * @return void
      */
-    public function update()
+    public function calcParams()
     {
         $player = $this->_player;
         $baseStats = $this->getStats($player, 'base_stats');
@@ -506,7 +510,9 @@ class PlayerHelper
      * @return $this
      */
     public function addTimer($timerId, $milliseconds){
-        $this->_player["timers"][$timerId] = DateHelper::microtimeFloat(microtime() + $milliseconds);
+        $t = microtime(true);
+        $tmr = $t + $milliseconds/1000;
+        $this->_player["timers"][$timerId] = $tmr;
         return $this;
     }
 
@@ -516,6 +522,20 @@ class PlayerHelper
      */
     public function isTimer($timerId){
         return (isset($this->_player["timers"][$timerId]));
+    }
+
+    /**
+     * @param $timerId
+     * @return bool
+     */
+    public function isTimed($timerId){
+        $t = microtime(true);
+        if($this->isTimer($timerId)){
+            $timer = $this->getTimer($timerId);
+            $time = $t - $timer;
+            return ($time >= 0);
+        }
+        return false;
     }
 
     /**
@@ -542,5 +562,32 @@ class PlayerHelper
             return $this->_player["timers"][$timerId];
         }
         return DateHelper::microtimeFloat(microtime());
+    }
+
+    public function getTimers(){
+        return $this->_player["timers"];
+    }
+
+    public function update(){
+        return $this->getCollection()->update(
+            ["_id" => $this->_player["_id"]],
+            $this->_player
+        );
+    }
+
+    /**
+     * @return \MongoCollection
+     */
+    public function getCollection()
+    {
+        return $this->_collection;
+    }
+
+    /**
+     * @param \MongoCollection $collection
+     */
+    public function setCollection($collection)
+    {
+        $this->_collection = $collection;
     }
 }

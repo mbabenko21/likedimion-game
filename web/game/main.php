@@ -19,10 +19,15 @@ if (!empty($_GET["admin"])) {
 }
 if ($_SESSION["pid"]) {
     $player = $ld->players->findOne(["_id" => $_SESSION["pid"]]);
+    $loc = $ld->locations->findOne(["lid" => $player["loc"]]);
+    $locationHelper = new \Likedimion\Helper\LocationHelper($loc);
+    $locationHelper->setCollection($ld->locations);
     if ($player) {
-            $playerHelper = new \Likedimion\Helper\PlayerHelper($player);
+        $playerHelper = new \Likedimion\Helper\PlayerHelper($player);
+        $playerHelper->setCollection($ld->players);
+        if (!$playerHelper->isTimed("online")) {
             $playerHelper->setDispatcher($eventDispatcher);
-            $playerHelper->update();
+            $playerHelper->calcParams();
             $loc_i = [];
             if (false === $adminSession) {
                 \Likedimion\Game::AI($player);
@@ -43,11 +48,23 @@ if ($_SESSION["pid"]) {
                 require ROOT . "/503.php";
             }
 
-            $playerHelper->update();
-            $playerHelper->addTimer('last_action', 0);
+            $playerHelper->calcParams();
+            $playerHelper->addTimer('last_action', 0)
+                ->addTimer("online", $config["online_time"]);
             if (!$ld->players->update(["_id" => $_SESSION["pid"]], $playerHelper->getPlayer())) {
                 throw new MongoException("Not update");
             };
+        } else {
+            $locationHelper->removePlayer($_SESSION["pid"])
+                ->update();
+            $page = <<<EOT
+        <p class="tabs__link tabs__link_active">Ваш персонаж покинул игру.</p>
+        <div class="hr"></div>
+        <a class="tabs__link" href="/?">повторить</a> вход
+EOT;
+            unset($_SESSION["pid"]);
+            \Likedimion\Helper\View::display($page, "Ошибка.");
+        }
     } else {
         if ($_SESSION["pid"]) {
             unset($_SESSION["pid"]);

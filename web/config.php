@@ -29,4 +29,5 @@ $config = [
     ],
     "items_per_page" => 5,
     "max_friends" => 50,
+    "online_time" => 300000,
 ];

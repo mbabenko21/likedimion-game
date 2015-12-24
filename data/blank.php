@@ -39,7 +39,7 @@ $locations = [
             "title" => "Ворота деревни Фаиль",
             "move" => "fail.gate"
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
