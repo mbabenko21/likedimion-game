@@ -7,7 +7,7 @@ body {
 }
 .page{
     max-width: 768px;
-    margin: 0px auto;
+    margin: 0 auto;
     border-radius: 5px;
     padding: 4px;
     max-height: 100%;
@@ -555,10 +555,10 @@ input.suggest__field {
 
 .progress .fill{
     position: absolute;
-    left: 0px;
-    top:0px;
-    bottom: 0px;
-    width: 0%;
+    left: 0;
+    top:0;
+    bottom: 0;
+    width: 0;
 }
 .progress .text{
     position: relative;
@@ -581,6 +581,12 @@ input.suggest__field {
 .little_block {
     padding: 2px;
     text-align: left;
+    margin: 3px;
+    border: none;
+}
+
+.little_block_center{
+    padding: 2px;
     margin: 3px;
     border: none;
 }

@@ -91,13 +91,13 @@ if($loc){
     $page .= "</ul>";
     //выходы
     if($loc["doors"]){
-        $page .= "<ul class='list-group'>";
+        $page .= "<div class='list-group'>";
         for($i = 0; $i < count($loc["doors"]); $i++){
-            $page .= "<li class='list-group-item strong'>
-<a href='/?game=travel&go=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a>
-</li>";
+            $page .= "<div class='list-group-item little_block_center'>
+<a id='center' class='strong' href='/?game=travel&go=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a>
+</div>";
         }
-        $page .= "</ul>";
+        $page .= "</div>";
     }
     $locHelper->clearJournal();
     $playerHelper->clearJournal();
