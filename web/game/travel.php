@@ -71,7 +71,7 @@ if($loc){
     $page .= "<ul class='list-group'>";
     foreach($loc["loc"] as $oid => $obj){
         if(substr($oid, 0, 4) == "npc_"){
-            $page .= "<li class='list-group-item strong'>
+            $page .= "<li class='list-group-item little_block_center strong'>
 <a href='#' onclick='menu(\"menu_".str_replace(".", "_",$oid)."\")'>".$obj["title"]."</a>
 </li>
 <li id='menu_".str_replace(".", "_",$oid)."' class='list-group-item menu hidden'>
@@ -86,6 +86,32 @@ if($loc){
 
 </li>
 ";
+        }
+        if(substr($oid, 0, 7) == "player_"){
+            $plId = substr($oid, 7);
+            if($plId != $player["_id"]) {
+                $owner = $playerHelper->getCollection()->findOne(["_id" => new MongoId($plId)]);
+                $page .= "<li class='list-group-item little_block_center strong'>";
+                $page .= <<<END_PLAYER
+    <div class="ui_player" id="ui_player{$owner["_id"]}" onclick="menu('player{$owner["_id"]}_menu');"><span class="game_ui_icon icon_{$owner["class"]}"></span><span>{$owner["title"]}</span></div>
+    <div id="player{$owner["_id"]}_menu" class="menu" style="display: none;">
+        <form id="speak{$owner["_id"]}" action="/?game=travel&section=speak&to={$owner["_id"]}" method="POST">
+            <textarea rows="2" cols="22" name="speak" placeholder="Сообщение..."></textarea>
+            <div class="clear"></div>
+            <input id="prvt" type="checkbox" name="private">
+            <label for="prvt">Приватно</label>
+            <div class="clear"></div>
+            <a href="#" onclick="document.getElementById('speak{$owner["_id"]}').submit();">говорить</a>
+        </form>
+        <div class="hr"></div>
+        <a href="/?game=travel&section=attack&to={$owner["_id"]}">атаковать</a>
+        <div class="hr"></div>
+        <a href="/?game=look&type=player&pid={$owner["_id"]}">инфо</a>
+    </div>
+END_PLAYER;
+
+                $page .= "</li>";
+            }
         }
     }
     $page .= "</ul>";
@@ -117,17 +143,32 @@ if($player["role"] == \Likedimion\Game::ROLE_ADMIN){
 $page .= <<<EOF
 <script type='text/javascript'>
             function menu(id){
-            $(".menu").each(function(){
-                if(!$(this).hasClass('hidden')){
-                    $(this).removeClass('open').addClass('hidden');
-                }
-            });
-            id = "#"+id;
-                if($(id).hasClass('hidden')){
-                    $(id).removeClass('hidden').addClass('open');
+                close_all_menus(id)
+                console.log($('#'+id).css('display'));
+                if($('#'+id).css('display') == 'block'){
+                        close_menu(id);
                 } else {
-                    $(id).addClass('hidden').removeClass('open');
+                      open_menu(id);
                 }
+            }
+
+            function close_all_menus(no_id){
+                $('.menu').each(function(i, v){
+                    if($(v).css('display') == 'block' && $(v).attr('id') != no_id){
+                        //console.log($(v).css('display'));
+                        $(v).hide();
+                    }
+                });
+            }
+
+            function open_menu(id){
+            console.log("open//");
+                $('#'+id).show();
+            }
+
+            function close_menu(id){
+            console.log("close//");
+                $('#'+id).hide();
             }
     </script>
 
