@@ -113,8 +113,32 @@ if($loc){
                     $iItems .= "<li><a href='/?game=travel&a=use&section=item&cell=".($i-1)."&to=".$owner["_id"]."'>".$i."</a></li>";
                 }
                 $iItems .= "</ul>";
+                $r = $player["level"] - $owner["level"];
+                $add = "primary";
+                if($r >= 10) {
+                    $add = "success";
+                }
+                if($r >= -5 and $r < 10){
+                    $add = "warning";
+                }
+                if($r < -5){
+                    $add = "danger";
+                }
+                $oTitle = "<span class='label label-".$add."'>".$owner["level"]."</span> ".$owner["title"];
+                switch ($owner["status"]){
+                    case \Likedimion\Helper\PlayerHelper::STATUS_GHOST:
+                        $oTitle.=" <span class='label label-success'>[!]</span>";
+                        break;
+                    case \Likedimion\Helper\PlayerHelper::STATUS_CRIM;
+                    case \Likedimion\Helper\PlayerHelper::STATUS_MARADEUR;
+                        $oTitle.=" <span class='label label-danger'>[#]</span>";
+                        break;
+                }
                 $page .= <<<END_PLAYER
-    <div class="ui_player" id="ui_player{$owner["_id"]}" onclick="menu('player{$owner["_id"]}_menu');"><span class="game_ui_icon icon_{$owner["class"]}"></span><span>{$owner["title"]}</span></div>
+    <div class="ui_player" id="ui_player{$owner["_id"]}" onclick="menu('player{$owner["_id"]}_menu');">
+    <span class="game_ui_icon icon_{$owner["class"]}"></span>
+    <span>{$oTitle}</span>
+    </div>
     <div id="player{$owner["_id"]}_menu" class="menu" style="display: none;">
         <form id="speak{$owner["_id"]}" action="/?game=travel&section=speak&to={$owner["_id"]}" method="POST">
             <textarea rows="2" cols="22" name="speak_msg" placeholder="Сообщение..."></textarea>

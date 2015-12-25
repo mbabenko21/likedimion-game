@@ -6,6 +6,8 @@
  * Time: 21:27
  */
 if($_POST["speak_msg"]) {
+    $_POST["speak_msg"] = strip_tags($_POST["speak_msg"]);
+    $_POST["speak_msg"] = \Likedimion\Censure\Censure::parse($_POST["speak_msg"], 3, "\xe2\x80\xa6", true, "[бип]");
     $loc = $ld->locations->findOne(["lid" => $player["loc"]]);
     if($loc) {
         $locHelper = new \Likedimion\Helper\LocationHelper($loc);
@@ -31,7 +33,7 @@ if($_POST["speak_msg"]) {
                     $msgAll = $player["title"] . " говорит " . $toPlayer["title"] . ": " . $_POST["speak_msg"];
                     $playerHelper->addJournal($msgFrom)->update();
                     $toPlayerHelper->addJournal($msgTo)->update();
-                    $locHelper->addJournal($msgAll, $ld->players, $player, $toPlayer)->update();
+                    $locHelper->addJournal($msgAll, $ld->players, $player["_id"], $toPlayer["_id"])->update();
                 }
             } else {
                 $playerHelper->addJournal('Некому говорить.')->update();

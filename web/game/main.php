@@ -18,6 +18,9 @@ if (!empty($_GET["admin"])) {
     $adminSession = true;
 }
 if ($_SESSION["pid"]) {
+    \Likedimion\Game::init()->setDb($ld);
+    \Likedimion\Game::init()->setPlayer($_SESSION["pid"]);
+    \Likedimion\Game::init()->ai();
     $player = $ld->players->findOne(["_id" => $_SESSION["pid"]]);
     $loc = $ld->locations->findOne(["lid" => $player["loc"]]);
     $locationHelper = new \Likedimion\Helper\LocationHelper($loc);
@@ -30,7 +33,6 @@ if ($_SESSION["pid"]) {
             $playerHelper->calcParams();
             $loc_i = [];
             if (false === $adminSession) {
-                \Likedimion\Game::AI($player);
                 $fName = ROOT . "/game/" . $_GET["game"] . ".php";
                 if (file_exists($fName)) {
                     require $fName;
@@ -57,6 +59,9 @@ if ($_SESSION["pid"]) {
         } else {
             $locationHelper->removePlayer($_SESSION["pid"])
                 ->update();
+            $playerHelper->clearJournal()->update();
+            $msg = $player["title"] . (($player["sex"] == "m") ? " исчез " : " исчезла ");
+            //$locationHelper->addJournal($msg, $ld->players);
             $page = <<<EOT
         <p class="tabs__link tabs__link_active">Ваш персонаж покинул игру.</p>
         <div class="hr"></div>

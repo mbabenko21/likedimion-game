@@ -82,6 +82,7 @@ PAGE;
                 "create" => time(),
                 "loc" => "ld.790.1380",
                 "level" => 1,
+                "game_status" => "alive",
                 "base_stats" => $baseStats,
                 "base_stats_add" => [0, 0, 0, 0, 0, 0],
                 "war_p_skills" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

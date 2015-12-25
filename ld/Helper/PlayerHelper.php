@@ -15,6 +15,11 @@ use Likedimion\Game;
 
 class PlayerHelper
 {
+    const STATUS_ALIVE = "alive";
+    const STATUS_GHOST = "ghost";
+    const STATUS_CRIM = "crim";
+    const STATUS_MARADEUR = "maradeur";
+
     private $_player = [];
     /**
      * @var EventDispatcher
@@ -588,5 +593,22 @@ class PlayerHelper
     public function setCollection($collection)
     {
         $this->_collection = $collection;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(){
+        $status = ($this->_player["status"]) ? $this->_player["status"] : self::STATUS_ALIVE;
+        return $status;
+    }
+
+    /**
+     * @param string $status
+     * @return $this
+     */
+    public function setStatus($status = self::STATUS_ALIVE){
+        $this->_player["status"] = $status;
+        return $this;
     }
 }
