@@ -131,12 +131,14 @@ class LocationHelper
      * @return $this
      */
     public function addJournal($msg, \MongoCollection $players, $noPlayer1 = false, $noPlayer2 = false){
-        $plrs = $players->find(["loc" => $this->_loc["lid"]]);
-        foreach($plrs as $plr){
-            if($plr["_id"] != $noPlayer1 and $plr["_id"] != $noPlayer2){
+        $locPlayers = $this->getPlayers();
+        for($i = 0; $i < count($locPlayers); $i++){
+            $plr = $players->findOne(["_id" => new \MongoId($locPlayers[$i])]);
+            if($plr["loc"] == $this->_loc["lid"] and $plr["_id"] != $noPlayer1 and $plr["_id"] != $noPlayer2){
                 $plrHelper = new PlayerHelper($plr);
-                $plrHelper->addJournal($msg);
-                $players->update(["_id" => $plr["_id"]], ['$set' => ["journal"=>$plrHelper->getJournal()]]);
+                $plrHelper->addJournal($msg)->setCollection($players);
+                $plrHelper->update();
+                unset($plrHelper);
             }
         }
         return $this;
@@ -144,6 +146,20 @@ class LocationHelper
 
     public function doAi(){
 
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlayers(){
+        $loc = $this->_loc["loc"];
+        $players = [];
+        while(list($oid, $data) = each($loc)){
+            if(substr($oid, 0, 7) == "player_"){
+                $players[] = substr($oid, 7);
+            }
+        }
+        return $players;
     }
 
     /**

@@ -19,6 +19,8 @@ if(isset($_GET["pid"])){
         $loc = $ld->locations->findOne(["lid" => $player["loc"]]);
         $lHelper = new \Likedimion\Helper\LocationHelper($loc);
         $lHelper->addPlayer($player["_id"]);
+        $msg = (($player["sex"] == "m") ? " появился " : " появилась ") . $player["title"];
+        $lHelper->addJournal($msg, $ld->players, $player["_id"]);
         try {
             $ld->locations->update(["_id" =>  new MongoId($lHelper->getLoc()["_id"])], $lHelper->getLoc());
             header("Location: /?");

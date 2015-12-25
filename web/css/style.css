@@ -603,3 +603,101 @@ input.suggest__field {
     margin: auto;
 }
 
+.player_panel {
+    padding: 0;
+    margin: 0;
+    -webkit-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+    max-width: 20%;
+}
+.player_panel:after {
+    clear: both;
+    content: '';
+    display: table
+}
+
+.player_panel_head {
+    margin: 0 12px;
+    text-align: center;
+}
+
+.player_panel_head:after {
+    clear: both;
+    content: '';
+    display: table
+}
+
+.player_panel__avatar {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: 7px 9px 0 0;
+    border-radius: 50%
+}
+
+.player_panel__avatar img {
+    display: block;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    width: 32px;
+    height: 32px;
+}
+
+.player_panel__side {
+    overflow: hidden;
+    line-height: 1.3em;
+    margin-top: 5px;
+    position: relative
+}
+
+.player_panel__player_title {
+    color: #333;
+    font-size: 14px;
+    line-height: 35px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+    width: 100%;
+    display: inline-block
+}
+
+.menu {
+    /*position: absolute;*/
+    border: 1px solid #333;
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.ui_player {
+    cursor: pointer;
+}
+.game_ui_icon {
+    /*position: absolute;*/
+    /*left: 0;*/
+    margin: 0 2px 0 0;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.icon_heart {
+    background: url("../public/game_ui.png") no-repeat scroll 0 0 transparent;
+}
+
+.icon_war {
+    background: url("../public/game_ui.png") no-repeat scroll 0 -112px transparent;
+}
+
+.icon_mag {
+    background: url("../public/game_ui.png") no-repeat scroll 0 -64px transparent;
+}
+
+.icon_ass {
+    background: url("../public/game_ui.png") no-repeat scroll 0 -96px transparent;
+}
+
