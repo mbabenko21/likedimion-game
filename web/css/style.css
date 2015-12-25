@@ -527,14 +527,14 @@ input.suggest__field {
 .progress{
     position: relative;
     display: block;
-    padding: 10px 15px;
+    /*padding: 10px 15px;*/
     margin-bottom: -2px;
     background-color: #fff;
     border-left: 2px solid #333;
     border-right: 2px solid #333;
     border-radius: inherit;
     width: auto;
-    height: 25px;
+    height: 18px;
 }
 .progress:first-child{
     border-top-left-radius: 10px;
@@ -545,7 +545,7 @@ input.suggest__field {
 }
 
 .progress:last-child {
-    margin-bottom: 0;
+    margin-bottom: 2px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom: 2px solid #333;
@@ -563,7 +563,23 @@ input.suggest__field {
 .progress .text{
     position: relative;
     text-align: center;
-    margin: -8px;
+    font-size: 10px;
+    margin: 0;
+}
+
+.progress .text > span.game_ui_icon {
+    position: absolute;
+    left: 10px;
+    float: left;
+}
+
+.progress .text > span.title {
+    position: absolute;
+    left: 28px;
+    top: 1px;
+    float: left;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
 .life {
@@ -674,6 +690,12 @@ input.suggest__field {
     text-align: center;
     /*background-color: rgba(0, 0, 0, 0.53);*/
 }
+.menu textarea {
+    width: 198px;
+    height: 20px;
+    border: 0;
+    outline: none;
+}
 
 
 .ui_player {
@@ -692,6 +714,13 @@ input.suggest__field {
     background: url("../public/game_ui.png") no-repeat scroll 0 0 transparent;
 }
 
+.icon_light {
+    background: url("../public/game_ui.png") no-repeat scroll 0 -32px transparent;
+}
+
+.icon_star {
+    background: url("../public/game_ui.png") no-repeat scroll 0 -16px transparent;
+}
 .icon_war {
     background: url("../public/game_ui.png") no-repeat scroll 0 -112px transparent;
 }
@@ -702,5 +731,9 @@ input.suggest__field {
 
 .icon_ass {
     background: url("../public/game_ui.png") no-repeat scroll 0 -96px transparent;
+}
+
+label {
+    cursor: pointer;
 }
 

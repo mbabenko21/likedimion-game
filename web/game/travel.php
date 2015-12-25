@@ -8,9 +8,8 @@ if(!defined('ROOT')){header("Location: /?");}
  */
 
 use Likedimion\Helper\View;
-if($_GET["go"]){
-    require "go.php";
-}
+require "travel_router.php";
+
 $page = "";
 //$snap = file_get_contents(ROOT."/public/likedimion.svg");
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;
@@ -30,15 +29,27 @@ $page .= <<<PAGE
 <div class="progerss__bar">
     <div class="progress">
         <div id="life_bar" class="fill life" style="width: {$lifePercent}%"></div>
-        <div id="life_bar_text" class="text strong">{$player["char_params"][0]} / {$player["char_params"][1]}</div>
+        <div id="life_bar_text" class="text strong">
+        <span class="game_ui_icon icon_heart"></span>
+        <span class="title strong">жизнь</span>
+        <span id="data">{$player["char_params"][0]} / {$player["char_params"][1]}</span>
+        </div>
     </div>
     <div class="progress">
         <div class="fill mana" style="width: {$manaPercent}%"></div>
-        <div class="text strong">{$player["char_params"][2]} / {$player["char_params"][3]}</div>
+        <div class="text strong">
+        <span class="game_ui_icon icon_light"></span>
+        <span class="title strong">мана</span>
+        <span id="data">{$player["char_params"][2]} / {$player["char_params"][3]}</span>
+        </div>
     </div>
     <div class="progress">
         <div class="fill expir" style="width: {$expirPercent}%"></div>
-        <div class="text strong">{$exp} / {$needExp}</div>
+        <div class="text strong">
+        <span class="game_ui_icon icon_star"></span>
+        <span class="title strong">опыт</span>
+        <span id="data">{$exp} / {$needExp}</span>
+        </div>
     </div>
 </div>
 PAGE;
@@ -104,9 +115,9 @@ if($loc){
                 $iItems .= "</ul>";
                 $page .= <<<END_PLAYER
     <div class="ui_player" id="ui_player{$owner["_id"]}" onclick="menu('player{$owner["_id"]}_menu');"><span class="game_ui_icon icon_{$owner["class"]}"></span><span>{$owner["title"]}</span></div>
-    <div onclick="menu('player{$owner["_id"]}_menu');" id="player{$owner["_id"]}_menu" class="menu" style="display: none;">
+    <div id="player{$owner["_id"]}_menu" class="menu" style="display: none;">
         <form id="speak{$owner["_id"]}" action="/?game=travel&section=speak&to={$owner["_id"]}" method="POST">
-            <textarea rows="2" cols="22" name="speak" placeholder="Сообщение..."></textarea>
+            <textarea rows="2" cols="22" name="speak_msg" placeholder="Сообщение..."></textarea>
             <div class="clear"></div>
             <input id="prvt" type="checkbox" name="private">
             <label for="prvt">Приватно</label>
@@ -189,4 +200,5 @@ $page .= <<<EOF
     </script>
 
 EOF;
+
 View::display($page, "Likedimion", \Likedimion\Helper\View::CARD_MAIN);
