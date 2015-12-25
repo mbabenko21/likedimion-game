@@ -104,7 +104,7 @@ if($loc){
                 $iItems .= "</ul>";
                 $page .= <<<END_PLAYER
     <div class="ui_player" id="ui_player{$owner["_id"]}" onclick="menu('player{$owner["_id"]}_menu');"><span class="game_ui_icon icon_{$owner["class"]}"></span><span>{$owner["title"]}</span></div>
-    <div id="player{$owner["_id"]}_menu" class="menu" style="display: none;">
+    <div onclick="menu('player{$owner["_id"]}_menu');" id="player{$owner["_id"]}_menu" class="menu" style="display: none;">
         <form id="speak{$owner["_id"]}" action="/?game=travel&section=speak&to={$owner["_id"]}" method="POST">
             <textarea rows="2" cols="22" name="speak" placeholder="Сообщение..."></textarea>
             <div class="clear"></div>
