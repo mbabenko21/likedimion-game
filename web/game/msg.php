@@ -131,8 +131,26 @@ WRITE_MSG_PAGE;
             $page .= "<p>Список контактов пуст</p>";
         }
         break;
+    case "add":
+        if($_GET["pid"]) {
+            $friend = $ld->players->findOne(["_id" => new MongoId($_GET["pid"])]);
+            if($friend) {
+                if (!$playerHelper->isFriend($friend)) {
+                    $playerHelper->addFriend($friend);
+                    $playerHelper->update();
+                    $page = "<div class='alert alert-info'>Вы добавили " . $friend["title"] . " в список своих контактов.</div>";
+                } else {
+                    $page = "<div class='alert alert-info'>" . $friend["title"] . " уже есть в списве ваших контактов.</div>";
+                }
+            } else {
+                $page = "<div class='alert alert-info'>Такого игрока не существует.</div>";
+            }
+        } else {
+            $page = "<div class='alert alert-info'>Нет такого игрока.</div>";
+        }
+        break;
     default:
-        $page = "<div class='alert alert-info'>Нет такого раздела</div>";
+        $page = "<div class='alert alert-info'>Нет такого раздела.</div>";
         break;
 }
 

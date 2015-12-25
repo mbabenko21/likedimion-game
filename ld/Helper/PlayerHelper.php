@@ -453,7 +453,6 @@ class PlayerHelper
      * Добавление друга
      * @param $player
      * @return $this
-     * @internal param $friend
      */
     public function addFriend($player){
         if(!in_array($player["_id"], $this->_player["friends"])){

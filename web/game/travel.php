@@ -92,6 +92,16 @@ if($loc){
             if($plId != $player["_id"]) {
                 $owner = $playerHelper->getCollection()->findOne(["_id" => new MongoId($plId)]);
                 $page .= "<li class='list-group-item little_block_center strong'>";
+                $skillsButtons = "<ul class='pagination pagination-sm'>";
+                for($i = 1; $i <= 5; $i++){
+                    $skillsButtons .= "<li><a href='/?game=travel&a=use&section=skill&cell=".($i-1)."&to=".$owner["_id"]."'>".$i."</a></li>";
+                }
+                $skillsButtons .= "</ul>";
+                $iItems = "<ul class='pagination pagination-sm'>";
+                for($i = 1; $i <= 5; $i++){
+                    $iItems .= "<li><a href='/?game=travel&a=use&section=item&cell=".($i-1)."&to=".$owner["_id"]."'>".$i."</a></li>";
+                }
+                $iItems .= "</ul>";
                 $page .= <<<END_PLAYER
     <div class="ui_player" id="ui_player{$owner["_id"]}" onclick="menu('player{$owner["_id"]}_menu');"><span class="game_ui_icon icon_{$owner["class"]}"></span><span>{$owner["title"]}</span></div>
     <div id="player{$owner["_id"]}_menu" class="menu" style="display: none;">
@@ -104,9 +114,15 @@ if($loc){
             <a href="#" onclick="document.getElementById('speak{$owner["_id"]}').submit();">говорить</a>
         </form>
         <div class="hr"></div>
-        <a href="/?game=travel&section=attack&to={$owner["_id"]}">атаковать</a>
+        <a href="/?game=travel&section=attack&to={$owner["_id"]}">атаковать</a><br/>
+        использовать навык
+        {$skillsButtons}
         <div class="hr"></div>
-        <a href="/?game=look&type=player&pid={$owner["_id"]}">инфо</a>
+        использовать предмет
+        {$iItems}
+        <div class="hr"></div>
+        <a href="/?game=look&type=player&pid={$owner["_id"]}">инфо</a><br/>
+        <a href="/?game=msg&action=add&pid={$owner["_id"]}">в контакты</a>
     </div>
 END_PLAYER;
 
