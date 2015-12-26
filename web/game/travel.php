@@ -10,7 +10,7 @@ if(!defined('ROOT')){header("Location: /?");}
 use Likedimion\Helper\View;
 require "travel_router.php";
 
-$page = "";
+$page = "<script src=\"/js/jquery.slimscroll.min.js\"></script>";
 //$snap = file_get_contents(ROOT."/public/likedimion.svg");
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;
 $manaPercent = $player["char_params"][2] / $player["char_params"][3] * 100;
@@ -69,14 +69,14 @@ if($loc){
     }
     //ЖУРНАЛ
     if(count($journalAll) > 0) {
-        $page .= '<div id="journal">';
+        $page .= '<div id="journalContainer"><div id="journal">';
         while (list($key, $journalMsg) = each($journalAll)) {
             if($journalMsg["no_player_1"] != $player["_id"] and $journalMsg["no_player_2"] != $player["_id"]){
                 $page .= "<div>".$journalMsg["msg"]."</div>";
             }
             //next($journalAll);
         }
-        $page .= "<div class='hr'></div><a onclick='$(\"#journal\").html(\"\");' href='#'>дальше</a></div>";
+        $page .= "</div><div class='hr'></div><a onclick='$(\"#journalContainer\").hide();' href='#'>дальше</a></div>";
     }
     //npc
     $page .= "<ul class='list-group'>";
@@ -221,6 +221,14 @@ $page .= <<<EOF
             console.log("close//");
                 $('#'+id).hide();
             }
+            $(document).ready(function(){
+                $("#journal").slimScroll({
+                    color: '#333',
+                    size: '10px',
+                    height: '120px',
+                    alwaysVisible: true
+                });
+            });
     </script>
 
 EOF;

@@ -697,6 +697,32 @@ input.suggest__field {
     outline: none;
 }
 
+.nav textarea {
+    width: 100%;
+    max-width: 748px;
+    height: 32px;
+    border: 0;
+    outline: none;
+}
+.nav textarea[placeholder]{
+    text-align: center;
+    text-overflow:ellipsis;
+    cursor: pointer;
+}
+.nav textarea::-webkit-input-placeholder textarea::-moz-placeholder textarea:-moz-placeholder textarea:-ms-input-placeholder {
+    text-align: center;
+    text-overflow:ellipsis;
+    cursor: pointer;
+}
+
+.nav textarea[placeholder]:hover{
+    font-style: normal;
+    font-weight: bold;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
 
 .ui_player {
     cursor: pointer;

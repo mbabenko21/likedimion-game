@@ -265,6 +265,7 @@ BTN;
         switch ($type) {
             case "main":
                 $card = <<<CARD
+                <div class="nav">
 <ul class="tabs tabs_mobile list-inline">
     <li class="tabs_item">
         <a class="tabs__link" href="./?game=inv">инвентарь</a>
@@ -282,6 +283,12 @@ BTN;
         <a class="tabs__link" href="./?game=logout">выйти</a>
     </li>
 </ul>
+<form id="speakForm" action="/?game=travel&section=speak" method="POST">
+    <textarea rows="2" cols="22" name="speak_msg" placeholder="Сказать в локации..."></textarea>
+    <div class="clear"></div>
+    <a class="strong" href="#" onclick="document.getElementById('speakForm').submit();">сказать</a>
+</form>
+</div>
 CARD;
                 break;
             default:
