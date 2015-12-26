@@ -222,12 +222,14 @@ $page .= <<<EOF
                 $('#'+id).hide();
             }
             $(document).ready(function(){
+            if($("#journalContainer").height() >= 100){
                 $("#journal").slimScroll({
                     color: '#333',
                     size: '10px',
-                    height: '120px',
+                    height: '100px',
                     alwaysVisible: true
                 });
+               }
             });
     </script>
 
