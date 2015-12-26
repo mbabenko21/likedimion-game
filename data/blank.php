@@ -35,10 +35,6 @@ $locations = [
             ["на восток по долине", "ld.780.1380"],
             ["войти в деревню", "fail.gate"]
         ],
-        "gate" => [
-            "title" => "Ворота деревни Фаиль",
-            "move" => "fail.gate"
-        ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
         "loc_add" => [],
@@ -60,6 +56,16 @@ $locations = [
             ["на север по долине", "ld.790.1380"],
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.gate",
+        "doors" => [
+            ["выйти за ворота", "ld.790.1380"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []

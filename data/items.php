@@ -21,7 +21,6 @@ $items = [
         ],
         "info" => "Серебрянные монеты, за них можно что-нибудь купить у торговцев"
     ],
-
     [
         "iid" => "i.a.bnov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_BODYARM,
@@ -43,7 +42,6 @@ $items = [
             "slots" => []
         ]
     ],
-
     [
         "iid" => "i.a.lnov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_LEGS,
@@ -66,7 +64,6 @@ $items = [
             "slots" => []
         ]
     ],
-
     [
         "iid" => "i.a.snov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_SHOES,

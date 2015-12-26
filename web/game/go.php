@@ -20,7 +20,7 @@ if($_GET["go"] and $_GET["go"] != $player["loc"]){
         $playerHelper->update();
         if($oldLoc["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_GUARD and $newLoc["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD){
             $playerHelper->addJournal("Вы покунули охраняемую территорию.");
-        } else {
+        } elseif($oldLoc["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD and $newLoc["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_GUARD) {
             $playerHelper->addJournal("Вы на охраняемой территории.");
         }
         $outmsg = $player["title"] . (($player["sex"] == "m") ? " ушел " : " ушла ") . $oldLocHelper->getDoorName($_GET["go"]);
