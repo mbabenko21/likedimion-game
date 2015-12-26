@@ -39,7 +39,7 @@ if ($_SESSION["pid"]) {
                 } else {
                     require ROOT . "/404.php";
                 }
-            } elseif ($player["role"] == \Likedimion\Game::ROLE_ADMIN) {
+            } elseif ($player["role"] == \Likedimion\Game::ROLE_ADMIN or $player["role"] == \Likedimion\Game::ROLE_RAZRAB) {
                 $fName = ROOT . "/admin/" . $_GET["admin"] . ".php";
                 if (file_exists($fName)) {
                     require $fName;

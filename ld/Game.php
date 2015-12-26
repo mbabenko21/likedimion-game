@@ -15,6 +15,7 @@ class Game
     const ROLE_ADMIN = 2;
     const ROLE_MODER = 3;
     const ROLE_QUEST = 4;
+    const ROLE_RAZRAB = 5;
 
     const   NPC_ROLE_NONE = 1,
             NPC_ROLE_GID = 2

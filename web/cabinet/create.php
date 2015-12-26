@@ -53,7 +53,7 @@ PAGE;
 } else {
     //'/^[а-яА-ЯёЁa-zA-Z0-9]+$/u'
     $title = htmlspecialchars($_POST["title"]);
-    $actor = $ld->players->findOne(["title" => $title]);
+    $actor = $ld->players->findOne(["title" => strtolower($title)]);
     $acc = $ld->accounts->findOne(["_id" => $_SESSION["aid"]]);
     if (is_null($actor)) {
         if (preg_match('/(^[а-яА-ЯёЁa-zA-Z0-9\-_ ]{3,15}$)/u', $title)) {
@@ -80,7 +80,7 @@ PAGE;
                 "sex" => $_POST["sex"],
                 "race" => $_POST["race"],
                 "create" => time(),
-                "loc" => "ld.790.1380",
+                "loc" => "ld.790.1370",
                 "level" => 1,
                 "game_status" => "alive",
                 "base_stats" => $baseStats,

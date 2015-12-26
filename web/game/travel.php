@@ -11,6 +11,7 @@ use Likedimion\Helper\View;
 require "travel_router.php";
 
 $page = "<script src=\"/js/jquery.slimscroll.min.js\"></script>";
+$title = $loc["title"] ? $loc["title"] : "Likedimion";
 //$snap = file_get_contents(ROOT."/public/likedimion.svg");
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;
 $manaPercent = $player["char_params"][2] / $player["char_params"][3] * 100;
@@ -124,7 +125,8 @@ if($loc){
                 if($r < -5){
                     $add = "danger";
                 }
-                $oTitle = "<span class='label label-".$add."'>".$owner["level"]."</span> ".$owner["title"];
+                $ownerTitle = View::compilePlayerTitle($owner);
+                $oTitle = "<span class='label label-".$add."'>".$owner["level"]."</span> ".$ownerTitle;
                 switch ($owner["status"]){
                     case \Likedimion\Helper\PlayerHelper::STATUS_GHOST:
                         $oTitle.=" <span class='label label-success'>[!]</span>";
@@ -172,7 +174,15 @@ END_PLAYER;
         $page .= "<div class='list-group'>";
         for($i = 0; $i < count($loc["doors"]); $i++){
             $added = str_repeat("!", $locHelper->getCountNpc($loc["doors"][$i][1]));
-            $page .= "<div class='list-group-item little_block_center'>
+            $doorData = $locHelper->getCollection()->findOne(["lid" => $loc["doors"][$i][1]], ["terr"]);
+            if($doorData["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD and $locHelper->getLoc()["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_GUARD){
+                $guard = "<span class='label label-danger'>#</span>";
+            } elseif($doorData["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_GUARD and $locHelper->getLoc()["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD) {
+                $guard = "<span class='label label-success'>!</span>";
+            } else {
+                $guard = "";
+            }
+            $page .= "<div class='list-group-item little_block_center'>".$guard."
 <a id='center' class='strong' href='/?game=travel&go=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a> <span class='label label-warning'>".substr($added, 0, 3)."</span>
 </div>";
         }
@@ -187,7 +197,7 @@ END_PLAYER;
 
 //$playerHelper->addBaseStat(4, 40);
 $page .= View::toMainButton('обновить')."<div class='hr'></div>";
-if($player["role"] == \Likedimion\Game::ROLE_ADMIN){
+if($player["role"] == \Likedimion\Game::ROLE_ADMIN or $player["role"] == \Likedimion\Game::ROLE_RAZRAB){
     $page .= View::link("/?admin=main", "админка")."<div class='hr'></div>";
 }
 
@@ -235,4 +245,4 @@ $page .= <<<EOF
 
 EOF;
 
-View::display($page, "Likedimion", \Likedimion\Helper\View::CARD_MAIN);
+View::display($page, $title, \Likedimion\Helper\View::CARD_MAIN);

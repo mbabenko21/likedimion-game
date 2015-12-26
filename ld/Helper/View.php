@@ -9,6 +9,8 @@
 namespace Likedimion\Helper;
 
 
+use Likedimion\Game;
+
 class View
 {
     const CARD_MAIN = "main";
@@ -341,5 +343,28 @@ CARD;
         else if($n>1000000000) return round(($n/1000000000),2).' М';
         else if($n>1000000) return round(($n/1000000),2).' КК';
         else if($n>1000) return round(($n/1000),2).' К';
+    }
+
+    /**
+     * @param $player
+     * @return string
+     */
+    public static function compilePlayerTitle($player){
+        $title = "";
+        switch($player["role"]){
+            case Game::ROLE_ADMIN:
+                $title .= "<span class='label label-info'>админ</span>";
+                break;
+            case Game::ROLE_MODER:
+                $title .= "<span class='label label-info'>модератор</span>";
+                break;
+            case Game::ROLE_QUEST:
+                $title .= "<span class='label label-info'>квестовод</span>";
+                break;
+            case Game::ROLE_RAZRAB:
+                $title .= "<span class='label label-danger'>разработчик</span>";
+                break;
+        }
+        return $player["title"]." ".$title;
     }
 }
