@@ -218,7 +218,7 @@ $locations = [
         "title" => "Внутри склада",
         "global" => "Фаиль",
         "doors" => [
-            ["к выходу", "fail.sklad2"],
+            ["к выходу", "fail.sklad"],
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
         "loc" => [],
