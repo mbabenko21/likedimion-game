@@ -48,7 +48,7 @@ class PlayerHelper
         //global $magic;
         $mid = preg_split("/[\._-]/", $mid);
         if (isset($magic[$mid[0]][$mid[1]])) {
-            $this->_player["magic"][implode("_", $mid)] = $magic[$mid[0]][$mid[1]];
+            $this->_player["magic"][implode("_", $mid)] = [];
             $this->_player["magic"][implode("_", $mid)]["level"] = $level;
         } else {
             throw new \Exception(sprintf("Magic %s not exists", implode(".", $mid)));

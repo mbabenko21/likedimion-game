@@ -11,6 +11,7 @@ use Likedimion\Helper\View;
 require "travel_router.php";
 
 $page = "<script src=\"/js/jquery.slimscroll.min.js\"></script>";
+$loc = $ld->locations->findOne(["lid" => $playerHelper->getPlayer()["loc"]]);
 $title = $loc["title"] ? $loc["title"] : "Likedimion";
 //$snap = file_get_contents(ROOT."/public/likedimion.svg");
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;

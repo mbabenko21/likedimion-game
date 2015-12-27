@@ -25,6 +25,9 @@ if ($_GET["m"]) {
         }
         $page = "<div class='alert alert-danger upper strong'>" . $m["title"] . ", уровень " . $level . "</div>";
         $page .= "<span class='text-muted strong'>" . $m["info"] . "</span><div class='hr'></div>";
+        if($m["words"]){
+            $page .= "<span class='text-muted strong'>" . $m["words"] . "</span><div class='hr'>";
+        }
         if ($m["effect"]) {
             $currEff = preg_replace_callback('/\[(.*)\]/', function ($matches) use ($level) {
                 $effectsBase = explode(",", $matches[1]);

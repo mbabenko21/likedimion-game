@@ -1,0 +1,299 @@
+.is1 {
+  /*border: 2px solid #333;*/
+  /*position: absolute;*/
+  /*left: 0;*/
+  /*margin: 0 2px 0 0;*/
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  /*.border-radius(4px);*/
+  cursor: pointer;
+}
+.sk_sword1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -1px -851px;
+}
+.sk_sword2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -35px -851px;
+}
+.sk_sword3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -69px -851px;
+}
+.sk_sword4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -103px -851px;
+}
+.sk_sword5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -137px -851px;
+}
+.sk_sword6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -171px -851px;
+}
+.sk_sword7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -205px -851px;
+}
+.sk_sword8 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -239px -851px;
+}
+.sk_sword9 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -273px -851px;
+}
+.sk_sword10 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -851px;
+}
+.sk_sword11 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -851px;
+}
+.sk_sword12 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -851px;
+}
+.sk_buff1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -1px -885px;
+}
+.sk_buff2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -35px -885px;
+}
+.sk_buff3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -69px -885px;
+}
+.sk_buff4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -103px -885px;
+}
+.sk_buff5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -137px -885px;
+}
+.sk_buff6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -171px -885px;
+}
+.sk_buff7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -205px -885px;
+}
+.sk_buff8 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -239px -885px;
+}
+.sk_buff9 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -273px -885px;
+}
+.sk_buff10 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -885px;
+}
+.sk_buff11 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -341px -885px;
+}
+.sk_buff12 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -375px -885px;
+}
+.sk_buff13 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -409px -885px;
+}
+.sk_buff14 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -443px -885px;
+}
+.sk_arrow1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -1px -919px;
+}
+.sk_arrow2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -35px -919px;
+}
+.sk_arrow3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -69px -919px;
+}
+.sk_arrow4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -103px -919px;
+}
+.sk_arrow5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -137px -919px;
+}
+.sk_arrow6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -171px -919px;
+}
+.sk_arrow7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -205px -919px;
+}
+.sk_arrow8 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -239px -919px;
+}
+.sk_arrow9 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -273px -919px;
+}
+.sk_arrow10 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -919px;
+}
+.sk_arrow11 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -341px -919px;
+}
+.sk_arrow12 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -375px -919px;
+}
+.sk_arrow13 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -409px -919px;
+}
+.sk_arrow14 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -443px -919px;
+}
+.sk_fire1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -1px -681px;
+}
+.sk_fire2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -35px -681px;
+}
+.sk_fire3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -69px -681px;
+}
+.sk_fire4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -103px -681px;
+}
+.sk_fire5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -137px -681px;
+}
+.sk_fire6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -171px -681px;
+}
+.sk_fire7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -205px -681px;
+}
+.sk_earth1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -239px -681px;
+}
+.sk_earth2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -273px -681px;
+}
+.sk_earth3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -681px;
+}
+.sk_earth4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -341px -681px;
+}
+.sk_earth5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -375px -681px;
+}
+.sk_earth6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -409px -681px;
+}
+.sk_earth7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -443px -681px;
+}
+.sk_death1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -1px -715px;
+}
+.sk_death2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -35px -715px;
+}
+.sk_death3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -69px -715px;
+}
+.sk_death4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -103px -715px;
+}
+.sk_death5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -137px -715px;
+}
+.sk_death6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -171px -715px;
+}
+.sk_death7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -205px -715px;
+}
+.sk_water1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -239px -715px;
+}
+.sk_water2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -273px -715px;
+}
+.sk_water3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -715px;
+}
+.sk_water4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -341px -715px;
+}
+.sk_water5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -375px -715px;
+}
+.sk_water6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -409px -715px;
+}
+.sk_water7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -443px -715px;
+}
+.sk_air1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -1px -749px;
+}
+.sk_air2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -35px -749px;
+}
+.sk_air3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -69px -749px;
+}
+.sk_air4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -103px -749px;
+}
+.sk_air5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -137px -749px;
+}
+.sk_air6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -171px -749px;
+}
+.sk_air7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -205px -749px;
+}
+.sk_heal1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -239px -749px;
+}
+.sk_heal2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -273px -749px;
+}
+.sk_heal3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -749px;
+}
+.sk_heal4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -341px -749px;
+}
+.sk_heal5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -375px -749px;
+}
+.sk_heal6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -409px -749px;
+}
+.sk_heal7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -443px -749px;
+}
+.sk_light1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -1px -749px;
+}
+.sk_light2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -35px -749px;
+}
+.sk_light3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -69px -749px;
+}
+.sk_light4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -103px -749px;
+}
+.sk_light5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -137px -749px;
+}
+.sk_light6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -171px -749px;
+}
+.sk_light7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -205px -749px;
+}
+.sk_cold1 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -239px -749px;
+}
+.sk_cold2 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -273px -749px;
+}
+.sk_cold3 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -307px -749px;
+}
+.sk_cold4 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -341px -749px;
+}
+.sk_cold5 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -375px -749px;
+}
+.sk_cold6 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -409px -749px;
+}
+.sk_cold7 {
+  background: url("../icons/icon_set11.png") no-repeat scroll -443px -749px;
+}

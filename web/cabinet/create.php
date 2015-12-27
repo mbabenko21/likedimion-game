@@ -105,17 +105,21 @@ PAGE;
                 "msg" => [],
                 "friends" => [],
                 "config" => [],
+                "buffs" => [],
             ];
             try {
                 $playerHelper = new \Likedimion\Helper\PlayerHelper($actor);
                 $itemHelper = new \Likedimion\Helper\ItemHelper($ld->items);
-                $playerHelper->addMagic("base.punch", 1, $magic);
+
                 switch($actor["class"]){
                     case \Likedimion\Game::CLASS_WAR:
                         $playerHelper->equip('rhand', $itemHelper->getItem('i.w.snov'));
+                        $playerHelper->addMagic("swords.hitstrike", 1, $magic);
                         break;
                     case \Likedimion\Game::CLASS_MAG:
-                        $playerHelper->equip('rhand', $itemHelper->getItem('i.w.booknov'));
+                        $playerHelper->equip('rhand', $itemHelper->getItem('i.w.booknov'))
+                        ->addMagic('fire.fire1', 1, $magic)
+                        ->addMagic('earth.earth1', 1, $magic);
                         break;
                     case \Likedimion\Game::CLASS_ASS:
                         $playerHelper->equip('rhand', $itemHelper->getItem('i.w.pairnov'));

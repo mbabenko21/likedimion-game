@@ -113,7 +113,7 @@ $locations = [
             ["к банку", "fail.bank3"],
             ["в академию", "fail.ak"],
             ["к дом лекаря", "fail.lek"],
-            ["на центральную улицу","fail.centr1"],
+            ["на центральную улицу","fail.centr0"],
             ["в жилой квартал", "fail.wgate1"]
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
@@ -270,6 +270,429 @@ $locations = [
         "global" => "Фаиль",
         "doors" => [
             ["к выходу", "fail.zkv3"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.centr1",
+        "title" => "Центральная улица",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к южным воротам", "fail.sgate"],
+            ["по улице на север", "fail.centr0"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.centr0",
+        "title" => "Центральная улица",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к перекрестку на северо-запад", "fail.per1"],
+            ["на центральную площадь", "fail.cpl"],
+            ["по улице на юг", "fail.centr1"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.sgate",
+        "title" => "Южные ворота",
+        "global" => "Фаиль",
+        "doors" => [
+            ["по центральной улице на север", "fail.centr1"],
+            ["к складу", "fail.sklad"],
+            ["на восток в рабочий квартал", "fail.rab1"],
+            ["выйти из города", "fail.sgate"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.rab1",
+        "title" => "Рабочий квартал",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на юго-восток по кварталу", "fail.rab3"],
+            ["на северо-восток по кварталу", "fail.rab2"],
+            ["к южным воротам", "fail.sgate"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.rab2",
+        "title" => "Рабочий квартал",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на север по кварталу", "fail.rab4"],
+            ["в кузницу", "fail.kuzn"],
+            ["на юго-запад по кварталу", "fail.rab1"],
+            ["на восток, в сторону ворот", "fail.vul1"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.rab4",
+        "title" => "Рабочий квартал",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на центральную площадь", "fail.cpl"],
+            ["в таверну", "fail.tavern"],
+            ["на юго по кварталу", "fail.rab2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.kuzn",
+        "title" => "Кузница",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.rab2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.tavern",
+        "title" => "Таверна",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.rab4"],
+            ["на второй этаж", "fail.tavern2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.tavern2",
+        "title" => "Таверна. Второй этаж",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на первый этаж", "fail.tavern"],
+            ["в комнату справа", "fail.tavern3"],
+            ["в комнату слева", "fail.tavern4"],
+            ["в дальнюю комнату", "fail.tavern5"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.tavern3",
+        "title" => "Таверна. Комната слева.",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.tavern2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.tavern4",
+        "title" => "Таверна. Комната справа.",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.tavern2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.tavern5",
+        "title" => "Таверна. Дальняя комната.",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.tavern2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.cpl",
+        "title" => "Центральная площадь",
+        "global" => "Фаиль",
+        "doors" => [
+            ["в банк", "fail.bank"],
+            ["на центральную улицу", "fail.centr0"],
+            ["в рабочий квартал", "fail.rab4"],
+            ["во двор рыцарей", "fail.dvor"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.dvor",
+        "title" => "Двор рыцарей",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на площадь", "fail.cpl"],
+            ["во внутренниц двор", "fail.dvor1"],
+            ["в главное здание", "fail.dvor5"],
+            ["в мэрию", "fail.dvor6"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.dvor5",
+        "title" => "Главное здание",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.dvor"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.dvor6",
+        "title" => "Мэрия",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.dvor"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.dvor1",
+        "title" => "Внутренниц двор",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.dvor"],
+            ["к ассасинам", "fail.dvor2"],
+            ["в рыцарям", "fail.dvor3"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.dvor2",
+        "title" => "Место тренировки ассасинов",
+        "global" => "Фаиль",
+        "doors" => [
+            ["во внутренний двор", "fail.dvor1"],
+            ["к рыцарям", "fail.dvor3"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.dvor3",
+        "title" => "Место тренировки рыцарей",
+        "global" => "Фаиль",
+        "doors" => [
+            ["во внутренний двор", "fail.dvor1"],
+            ["к ассасинам", "fail.dvor2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.vul1",
+        "title" => "Восточная улица",
+        "global" => "Фаиль",
+        "doors" => [
+            ["по улице на восток", "fail.vul2"],
+            ["в рабочий квартал", "fail.rab2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.vul2",
+        "title" => "Восточная улица",
+        "global" => "Фаиль",
+        "doors" => [
+            ["по улице на северо-восток", "fail.vul3"],
+            ["по улице на запад", "fail.vul1"],
+            ["в дом на юго-востоке", "fail.vdom1"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.vdom1",
+        "title" => "Старый дом",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на улицу", "fail.vul2"],
+            ["в дальний угол", "fail.vdom2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.vdom2",
+        "title" => "Старый дом",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.vdom1"],
+            ["на второй этаж", "fail.vdom3"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.vdom3",
+        "title" => "Старый дом. Второй этаж.",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на первый этаж", "fail.vdom2"],
+            ["в дальнюю комнату", "fail.vdom4"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.vdom4",
+        "title" => "Старый дом. Дальняя комната.",
+        "global" => "Фаиль",
+        "doors" => [
+            ["в корридор", "fail.vdom3"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.vul3",
+        "title" => "Восточная улица.",
+        "global" => "Фаиль",
+        "doors" => [
+            ["по улице на юго-запад", "fail.vul2"],
+            ["к восточным воротам", "fail.egate"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.egate",
+        "title" => "Восточные ворота.",
+        "global" => "Фаиль",
+        "doors" => [
+            ["выйти из города", "fail.vul3"],
+            ["по улице на юг", "fail.vul3"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.rab3",
+        "title" => "Рабочий квартал",
+        "global" => "Фаиль",
+        "doors" => [
+            ["по кварталу на северо-запад", "fail.rab2"],
+            ["в торговый переулок на восток", "fail.torg1"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.torg1",
+        "title" => "Торговый переулок",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на восток по переулку", "fail.torg2"],
+            ["в рабочий квартал на запад", "fail.rab3"],
+            ["в магазин 1000 мелочей", "fail.shop1"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.torg2",
+        "title" => "Торговый переулок",
+        "global" => "Фаиль",
+        "doors" => [
+            ["на запад по переулку", "fail.torg1"],
+            ["в магазин напитков", "fail.shop2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.shop1",
+        "title" => "Магазин \"1000\" мелочей",
+        "global" => "Фаиль",
+        "doors" => [
+            ["в торговый переулок", "fail.torg1"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [ ],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.shop2",
+        "title" => "Магазин напитков",
+        "global" => "Фаиль",
+        "doors" => [
+            ["в торговый переулок", "fail.torg2"],
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
