@@ -84,22 +84,42 @@ if($loc){
     $page .= "<ul class='list-group'>";
     foreach($loc["loc"] as $oid => $obj){
         if(substr($oid, 0, 4) == "npc_"){
-            $page .= "<li class='list-group-item little_block_center strong'>
-<a href='#' onclick='menu(\"menu_".str_replace(".", "_",$oid)."\")'>".$obj["title"]."</a>
-</li>
-<li id='menu_".str_replace(".", "_",$oid)."' class='list-group-item menu hidden'>
-<ul class=\"tabs tabs_mobile list-inline\">
-    <li class=\"tabs_item list-inline\">
-        <a class='tabs__link' href='/?game=dialog&dId=$oid'>говорить</a>
-    </li>
-    <li class=\"tabs_item list-inline\">
-        <a class='tabs__link' href='/?game=look&type=npc&nId=$oid'>инфо</a>
-    </li>
-</ul>
+            $skillsButtons = "<ul class='pagination pagination-sm'>";
+            for($i = 1; $i <= 5; $i++){
+                $skillsButtons .= "<li><a href='/?game=travel&a=use&section=skill&cell=".($i-1)."&to=".$oid."'>".$i."</a></li>";
+            }
+            $skillsButtons .= "</ul>";
+            $iItems = "<ul class='pagination pagination-sm'>";
+            for($i = 1; $i <= 5; $i++){
+                $iItems .= "<li><a href='/?game=travel&a=use&section=item&cell=".($i-1)."&to=".$oid."'>".$i."</a></li>";
+            }
+            $iItems .= "</ul>";
+            $nid = preg_split("/[_\.]/", $oid);
+            $speakLink = "";
+            if(\Likedimion\Dialog\Dialog::exists($nid[1])){
+                $speakLink = "<a href=\"/?game=dialog&dId=".$oid."\">говорить</a><div class='hr'></div>";
+            }
+            $page .= "<li class='list-group-item little_block_center strong'>";
+                $page .= <<<END_NPC
+    <div class="ui_player" id="ui_player{$oid}" onclick="menu('npc{$oid}_menu');">
+    <span>{$obj["title"]}</span>
+    </div>
+    <div id="npc{$oid}_menu" class="menu" style="display: none;">
+        {$speakLink}
+        <a href="/?game=travel&section=attack&to={$oid}">атаковать</a><br/>
+        использовать навык
+        {$skillsButtons}
+        <div class="hr"></div>
+        использовать предмет
+        {$iItems}
+        <div class="hr"></div>
+        <a href="/?game=look&type=player&pid={$oid}">инфо</a><br/>
+    </div>
+END_NPC;
 
-</li>
-";
+            $page .= "</li>";
         }
+
         if(substr($oid, 0, 7) == "player_"){
             $plId = substr($oid, 7);
             if($plId != $player["_id"]) {

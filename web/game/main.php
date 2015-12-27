@@ -5,6 +5,7 @@
  * Date: 06.12.2015
  * Time: 15:58
  */
+use Likedimion\Game;
 use Likedimion\Helper\View;
 
 if (!defined('ROOT')) {
@@ -18,9 +19,12 @@ if (!empty($_GET["admin"])) {
     $adminSession = true;
 }
 if ($_SESSION["pid"]) {
-    \Likedimion\Game::init()->setDb($ld);
-    \Likedimion\Game::init()->setPlayer($_SESSION["pid"]);
-    \Likedimion\Game::init()->ai();
+    $vision = Likedimion\Ai\Vision::init();
+    $vision->setDb($ld);
+    Game::init()->setDb($ld);
+    Game::init()->setPlayer($_SESSION["pid"]);
+    Game::init()->setVision($vision);
+    Game::init()->ai();
     $player = $ld->players->findOne(["_id" => $_SESSION["pid"]]);
     $loc = $ld->locations->findOne(["lid" => $player["loc"]]);
     $locationHelper = new \Likedimion\Helper\LocationHelper($loc);

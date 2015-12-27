@@ -1,6 +1,7 @@
 <?php
 
 namespace Likedimion;
+use Likedimion\Ai\Vision;
 use Likedimion\Helper\LocationHelper;
 use Likedimion\Helper\PlayerHelper;
 use Likedimion\Plugin\MongoDB;
@@ -32,6 +33,14 @@ class Game
     const SEX_WMAN = "w";
 
     //Рассы
+    const RACE_MAN = "mans",
+    RACE_ELF = "elf",
+    RACE_ORK = "ork",
+    RACE_GNOME = "gnome",
+    RACE_UNDEAD = "undead",
+    RACE_MONSTER = "monster",
+    RACE_ANIMAL = "animal"
+    ;
 
     protected static $game = null;
     /**
@@ -42,6 +51,11 @@ class Game
      * @var array
      */
     protected $player;
+    /**
+     * @var Vision
+     */
+    protected $vision;
+
 
 
     public function ai(){
@@ -120,7 +134,19 @@ class Game
      */
     public function getPlayer()
     {
+        if(!is_array($this->player)) {
+            $player = $this->getDb()->players->findOne(["_id" => $this->player]);
+            return $player;
+        }
         return $this->player;
+    }
+
+    /**
+     * @return \MongoCursor
+     */
+    public function getLastNews(){
+        $collection = $this->getDb()->news;
+        return $collection->find()->limit(1)->sort(["create"=>-1]);
     }
 
     /**
@@ -129,5 +155,21 @@ class Game
     public function setPlayer($player)
     {
         $this->player = $player;
+    }
+
+    /**
+     * @return Vision
+     */
+    public function getVision()
+    {
+        return $this->vision;
+    }
+
+    /**
+     * @param Vision $vision
+     */
+    public function setVision($vision)
+    {
+        $this->vision = $vision;
     }
 }

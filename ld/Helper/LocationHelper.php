@@ -94,7 +94,11 @@ class LocationHelper
 
     public function update(){
         if($this->_collection){
-            $this->_collection->update(["lid" => $this->_loc["lid"]], $this->getLoc());
+            if(is_array($this->_collection->findOne(["lid" => $this->_loc["lid"]]))) {
+                $this->_collection->update(["lid" => $this->_loc["lid"]], $this->getLoc());
+            } else {
+                $this->_collection->insert($this->getLoc());
+            }
         }
     }
 
@@ -102,9 +106,56 @@ class LocationHelper
      * @param $npc
      * @return $this
      */
-    public function addNpc($npc){
-        $this->_loc["loc"][$npc["nid"]."_".View::generateRandomString(rand(5,7))] = $npc;
+    public function addNpc($npcId, $npc){
+        $this->_loc["loc"][$npcId] = $npc;
         return $this;
+    }
+
+    public function removeNpc($npcId){
+        if(isset($this->_loc["loc"][$npcId])){
+            unset($this->_loc["loc"][$npcId]);
+        }
+    }
+
+    /**
+     * @param $objectId
+     * @param $toLocId
+     * @return bool
+     */
+    public function moveLocObject($objectId, $toLocId){
+
+        if(isset($this->_loc["loc"][$objectId])){
+            $toLoc = $this->getCollection()->findOne(["lid" => $toLocId]);
+            if($toLoc){
+                $toLocHelper = new static($toLoc);
+                $toLocHelper->setCollection($this->getCollection());
+                $toLocHelper->addObject($objectId, $this->_loc["loc"][$objectId]);
+                if($toLocHelper->update()) {
+                    unset($this->_loc["loc"][$objectId]);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function addObject($objectId, $object){
+        $this->_loc["loc"][$objectId] = $object;
+        return $this;
+    }
+
+    /**
+     * @param $objectId
+     * @return bool
+     */
+    public function objectExists($objectId){
+        $isset = isset($this->_loc["loc"][$objectId]);
+        return $isset;
     }
 
     /**

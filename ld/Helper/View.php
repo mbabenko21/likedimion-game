@@ -79,7 +79,7 @@ EOFF;
         } else {
             $card = "";
         }
-        $card = preg_replace('/<a(.*)?href="(\.?\/)?\?(.*)">/i', '<a$1href="$2?$3&r=' . self::generateRandomString(rand(2, 9)) . '">', $card);
+        $card = preg_replace("/<a(.*)?href=[\"\'](\.?\/)?\?(.*)[\"\']>(.*)<\/a>/i", '<a$1href="$2?$3&' . self::generateRandomString(rand(2, 9)) . '">$4</a>', $card);
         $stmp = $stmp . $card . "</div>" . self::footerBlock() . $footBlock;
         echo $stmp;
     }

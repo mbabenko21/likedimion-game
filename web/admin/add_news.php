@@ -18,7 +18,7 @@ EOT;
 
 } else {
     $news = [
-        "create" => time(),
+        "create" => new MongoDate(),
         "title" =>  $_POST["news"]["title"],
         "content" => $_POST["news"]["content"],
         "author" => $playerHelper->getPlayer()["title"]
