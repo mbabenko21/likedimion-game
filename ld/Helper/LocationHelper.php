@@ -149,13 +149,8 @@ class LocationHelper
         return $this;
     }
 
-    /**
-     * @param $objectId
-     * @return bool
-     */
     public function objectExists($objectId){
-        $isset = isset($this->_loc["loc"][$objectId]);
-        return $isset;
+        return isset( $this->_loc["loc"][$objectId]);
     }
 
     /**

@@ -91,11 +91,11 @@ class Vision
      * @param array $blackList
      * @return string
      */
-    public function getRandomDoor($blackList = []){
+    public function getRandomDoor($blackList = [], $getTitle = false){
         $doors = $this->getDoors();
         $randomKey = array_rand($doors);
         if(!in_array($doors[$randomKey][1], $blackList)){
-            return $doors[$randomKey][1];
+            return ($getTitle === false) ? $doors[$randomKey][1] : $doors[$randomKey][0];
         } else {
             return $this->getRandomDoor($blackList);
         }

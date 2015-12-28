@@ -16,20 +16,18 @@ if ($locHelper->objectExists($_GET["dId"])) {
             $section = $dialog->getSection($sectionId);
             $title = $dialog->getOption("title", "Диалог");
             $text = $section->getReply()->getText();
-            $page = "<div class='alert alert-info'>".$text."</div>";
+            $page = "<div class='alert alert-info'>" . $text . "</div>";
 
             $answers = $section->getAnswersIterator();
             $page .= "<div class='list-group'>";
-            if($answers->count() < 1){
-                $page .= "<div class='list-group-item little_block_center strong'><a href='/?'>конец диалога</a></div>";
-            } else {
-                while($answers->valid()){
-                    /** @var \Likedimion\Dialog\DialogAnswer $answer */
-                    $answer = $answers->current();
-                    $page .= "<div class='list-group-item little_block_center strong'><a href='/?game=dialog&dId=".$_GET["dId"]."&sId=".$answer->getSectionId()."'>".$answer->getReply()->getText()."</a></div>";
-                    $answers->next();
-                }
+            while ($answers->valid()) {
+                /** @var \Likedimion\Dialog\DialogAnswer $answer */
+                $answer = $answers->current();
+                $page .= "<div class='list-group-item little_block_center strong'><a href='/?game=dialog&dId=" . $_GET["dId"] . "&sId=" . $answer->getSectionId() . "'>" . $answer->getReply()->getText() . "</a></div>";
+                $answers->next();
             }
+            $page .= "<div class='list-group-item little_block_center hr'></div>";
+            $page .= "<div class='list-group-item little_block_center strong'><a href='/?'>конец диалога</a></div>";
             $page .= "</div>";
             \Likedimion\Helper\View::display($page, $title);
         } catch (Exception $e) {

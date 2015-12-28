@@ -35,10 +35,10 @@ return [
                 "end" => "До встречи"
             ]
         ],
-        "find" => "mixin.find.init",
-        "do" => "mixin.help.init",
+        "find" => "mixin.find.find",
+        "do" => "mixin.help.do",
         "end" => [
-            "reply" => "Еще увидимся, {%title%}.",
+            "reply" => "Хорошо, я всегда буду здесь, если что-то понадобится, приходи в любое время.",
             "answers" => [],
         ]
     ]
