@@ -1,5 +1,6 @@
 <?php
 define("ROOT", __DIR__);
+error_reporting(E_WARNING|E_ERROR);
 require "../vendor/autoload.php";
 require "config.php";
 require ROOT."/../data/lang.php";
