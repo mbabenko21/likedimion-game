@@ -33,4 +33,18 @@ class DialogSection
         }
         return $iterator;
     }
+
+    /**
+     * @param $option
+     * @param $default
+     * @return string
+     */
+    public function getOption($option, $default = ""){
+        $section = $this->section;
+        if(isset($section[$option])){
+            return $section[$option];
+        } else {
+            return $default;
+        }
+    }
 }

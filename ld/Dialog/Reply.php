@@ -29,7 +29,8 @@ class Reply
         $text = preg_replace("/[\t\n\r]/", "", $text);
         $match = preg_match("/{php}(.*){\/php}/i", $text);
         $text = preg_replace_callback("/{php}(.*){\/php}/", array($this, 'replacePHP'), $text);
-        $text = preg_replace_callback("/{html}(.*){\/html}/", array($this, 'replaceHTML'), $text);
+        //$text = preg_replace_callback("/{html}(.*){\/html}/", array($this, 'replaceHTML'), $text);
+        $text = $this->replaceHTML($text);
         $text = preg_replace_callback("/{%([^(%})]+)%}/", array($this, 'replaceCharField'), $text);
         $text = str_replace('{#br#}', '<br/>', $text);
         return $text;
@@ -54,7 +55,7 @@ class Reply
     }
 
     private function replaceHTML($text){
-        $text = str_replace(["[", "]"], ["<",">"], $text);
+        $text = str_replace(["{html}", "{/html}", "[", "]"], ["", "", "<", ">"], $text);
         return $text;
     }
 }

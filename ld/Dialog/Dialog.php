@@ -13,6 +13,7 @@ class Dialog
 {
     const MIXIN = 'mixin';
     const PLUGIN = 'plugin';
+    const TELEPORT = 'teleport';
     protected $dialog;
 
     public function __construct($dialogId)
@@ -32,7 +33,7 @@ class Dialog
         $dialog = $this->compileDialog();
         if(isset($dialog[$sectionId])){
             if(!is_array($dialog[$sectionId])){
-                $sect = preg_split("/[_\.:]/", $this->dialog["dialog"][$sectionId]);
+                $sect = preg_split("/[\.:]/", $this->dialog["dialog"][$sectionId]);
                 switch($sect[0]){
                     case self::MIXIN:
                         $newDialog = new Dialog($sect[1]);
@@ -40,6 +41,9 @@ class Dialog
                         $dialog = array_merge($dialog, $mixin);
                         break;
                     case self::PLUGIN:
+
+                        break;
+                    case self::TELEPORT:
 
                         break;
                 }

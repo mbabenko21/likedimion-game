@@ -25,16 +25,13 @@ class EventDispatcher
         return isset($this->_listeners[$event]);
     }
 
-    public function dispatch(Event $event){
-        if($this->hasEventListener($event->getName())){
-            $listeners = $this->_listeners[$event->getName()];
+    public function dispatch($listenerId, Event $event){
+        if($this->hasEventListener($listenerId)){
+            $listeners = $this->_listeners[$listenerId];
             foreach($listeners as $callable){
                 $className = $callable["class"];
                 $method = $callable["method"];
-                $class = new $className();
-                if(method_exists($class, $method)){
-                    $class->{$method}($event);
-                }
+                call_user_func_array([new $className, $method], [$event]);
             }
         }
     }

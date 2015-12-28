@@ -29,6 +29,9 @@ class Game
     const CLASS_MAG = "mag";
     const CLASS_ASS = "ass";
 
+    const CITIZEN_IMPERY = 'impery';
+    const CITIZEN_ARCHER = 'archer';
+
     const SEX_MAN = "m";
     const SEX_WMAN = "w";
 
@@ -55,12 +58,24 @@ class Game
      * @var Vision
      */
     protected $vision;
+    /**
+     * @var EventDispatcher
+     */
+    protected $dispatcher;
+    /**
+     * @var array
+     */
+    protected $container = [];
 
 
 
     public function ai(){
-        $plr = $this->getDb()->players->findOne(["_id" => $this->player]);
-        $this->setPlayer($plr);
+        if($this->player instanceof \MongoId) {
+            $plr = $this->getDb()->players->findOne(["_id" => $this->player]);
+            $this->setPlayer($plr);
+        } else {
+            $plr = $this->player;
+        }
         $locId = $this->player["loc"];
         if($location = $this->getDb()->locations->findOne(["lid" => $locId])) {
             $locationHelper = new LocationHelper($location);
@@ -141,6 +156,10 @@ class Game
         return $this->player;
     }
 
+    public function getLoc(){
+
+    }
+
     /**
      * @return \MongoCursor
      */
@@ -171,5 +190,39 @@ class Game
     public function setVision($vision)
     {
         $this->vision = $vision;
+    }
+
+    /**
+     * @return EventDispatcher
+     */
+    public function getDispatcher()
+    {
+        return $this->dispatcher;
+    }
+
+    /**
+     * @param EventDispatcher $dispatcher
+     */
+    public function setDispatcher($dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
+    /**
+     * @param $serviceId
+     * @param $service
+     * @return $this
+     */
+    public function addService($serviceId, $service){
+        $this->container[$serviceId] = $service;
+        return $this;
+    }
+
+    /**
+     * @param $serviceId
+     * @return object|null
+     */
+    public function getService($serviceId){
+        return (isset($this->container[$serviceId])) ? $this->container[$serviceId] : NULL;
     }
 }

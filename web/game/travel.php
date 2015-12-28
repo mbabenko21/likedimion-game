@@ -120,6 +120,32 @@ END_NPC;
             $page .= "</li>";
         }
 
+        if(substr($oid, 0, 5) == "item_"){
+            $page .= "<li class='list-group-item little_block_center strong'>";
+            $itemTitle = $obj["titles"]["nom"];
+            if($obj["count"] > 0){
+                $itemTitle = $obj["titles"]["plural"]." <span class='label'>".$obj["count"]."</span>";
+            }
+            if(isset($obj["ai"]["on_use"])){
+                $takeLink = "<a href=\"/?game=travel&section=take&id={$oid}&from=loc\">использовать</a><div class=\"hr\"></div>";
+            } elseif($obj["type"] != \Likedimion\Helper\ItemHelper::ITEM_SET){
+                $takeLink = "<a href=\"/?game=travel&section=take&id={$oid}&from=loc\">взять</a><div class=\"hr\"></div>";
+            } else {
+                $takeLink = "";
+            }
+            $page .= <<<END_NPC
+    <div class="ui_player" id="ui_item{$oid}" onclick="menu('{$oid}_menu');">
+    <span>{$itemTitle}</span>
+    </div>
+    <div id="{$oid}_menu" class="menu" style="display: none;">
+        {$takeLink}
+        <a href="/?game=look&type=item&iId={$oid}&from=loc_{$player["loc"]}">инфо</a><br/>
+    </div>
+END_NPC;
+
+            $page .= "</li>";
+        }
+
         if(substr($oid, 0, 7) == "player_"){
             $plId = substr($oid, 7);
             if($plId != $player["_id"]) {

@@ -45,7 +45,7 @@ if (!is_null($player)) {
             $slotName = (isset($lang["equip"][$slot])) ? $lang["equip"][$slot] : $slot;
             $page .= "<li class='list-group-item'><h6 class='list-group-item-heading strong text-uppercase'>" . $slotName . "</h6>";
             if (!empty($item)) {
-                $page .= "<a href='/?game=look&type=item&iId=" . $item["iid"] . "&from=equip." . $slot . "'>" . $item["titles"]["nom"] . "</a>";
+                $page .= "<a href='/?game=look&type=item&iId=" . $item["iid"] . "&from=equip_" . $slot . "'>" . $item["titles"]["nom"] . "</a>";
             } else {
                 $page .= "<span class='text-muted strong'>ничего не одето</span>";
             }

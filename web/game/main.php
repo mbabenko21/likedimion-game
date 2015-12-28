@@ -12,26 +12,40 @@ if (!defined('ROOT')) {
     header("Location: /?");
 }
 $adminSession = false;
-if (empty($_GET["game"])) {
-    $_GET["game"] = "travel";
-}
-if (!empty($_GET["admin"])) {
-    $adminSession = true;
-}
+
 if ($_SESSION["pid"]) {
     $vision = Likedimion\Ai\Vision::init();
     $vision->setDb($ld);
     Game::init()->setDb($ld);
+    Game::init()->setDispatcher(require "event_dispatcher.php");
     Game::init()->setPlayer($_SESSION["pid"]);
     Game::init()->setVision($vision);
     Game::init()->ai();
-    $player = $ld->players->findOne(["_id" => $_SESSION["pid"]]);
+    $player = Game::init()->getPlayer();
     $loc = $ld->locations->findOne(["lid" => $player["loc"]]);
-    $locationHelper = new \Likedimion\Helper\LocationHelper($loc);
-    $locationHelper->setCollection($ld->locations);
+    if($loc) {
+        $locationHelper = new \Likedimion\Helper\LocationHelper($loc);
+        $locationHelper->setCollection($ld->locations);
+        Game::init()->addService('loc.helper', $locationHelper);
+    }
+    if(count($player["event"]) > 0){
+        foreach($_GET as $key => $value){
+            if(isset($player["event"][$key])){
+                $player["event"][$key] = $value;
+            }
+        }
+        $_GET = array_merge($_GET, $player["event"]);
+    }
+    if (empty($_GET["game"])) {
+        $_GET["game"] = "travel";
+    }
+    if (!empty($_GET["admin"])) {
+        $adminSession = true;
+    }
     if ($player) {
         $playerHelper = new \Likedimion\Helper\PlayerHelper($player);
         $playerHelper->setCollection($ld->players);
+        Game::init()->addService('player.helper', $playerHelper);
         if (!$playerHelper->isTimed("online")) {
             $playerHelper->setDispatcher($eventDispatcher);
             $playerHelper->calcParams();

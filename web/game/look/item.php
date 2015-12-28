@@ -9,8 +9,8 @@
 $title = "О предмете";
 $item = [];
 if ($_GET["from"]) {
-    $player = $playerHelper->getPlayer();
-    $from = preg_split("/[\._\-#:]/", $_GET["from"]);
+    $player = \Likedimion\Game::init()->getService('player.helper')->getPlayer();
+    $from = preg_split("/[_\-#:]/", $_GET["from"]);
     switch ($from[0]) {
         case "equip":
             $item = $player["equip"][$from[1]];
@@ -18,6 +18,14 @@ if ($_GET["from"]) {
         case "inventory":
             if (isset($player["inventory"][$_GET["iId"]])) {
                 $item = $player["inventory"][$_GET["iId"]];
+            }
+            break;
+        case "loc":
+            /** @var \Likedimion\Helper\LocationHelper $locHelper */
+            $locHelper = \Likedimion\Game::init()->getService('loc.helper');
+            $loc = $locHelper->getCollection()->findOne(["lid" => $from[1]]);
+            if($loc){
+                $item = $loc["loc"][$_GET["iId"]];
             }
             break;
         default:

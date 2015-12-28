@@ -7,25 +7,39 @@
  */
 
 
-function addNpc($nId){
-    if(file_exists(ROOT."/../data/npc/".$nId.".php")){
-        $npc = require ROOT."/../data/npc/".$nId.".php"; 
+function addNpc($nId)
+{
+    if (file_exists(ROOT . "/../data/npc/" . $nId . ".php")) {
+        $npc = require ROOT . "/../data/npc/" . $nId . ".php";
     } else {
         throw new Exception("Npc $nId not found");
     }
     return $npc;
 }
 
-function addItem($iId){
+function addItem($iId)
+{
     global $ld;
     $itemCollection = $ld->items;
-    if($item = $itemCollection->findOne(["iid" => $iId])){
+    if ($item = $itemCollection->findOne(["iid" => $iId])) {
         return $item;
     }
     throw new Exception("Npc $iId not found");
 }
 
 $locations = [
+    [
+        "lid" => "ld.950.250",
+        "title" => "Разрушеная деревня Арчеров",
+        "global" => "Долина Фаиль",
+        "doors" => [
+            ["осмореться", "ld.950.250"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
     [
         "lid" => "ld.790.1370",
         "title" => "У северных ворот города Фаиль",
@@ -102,7 +116,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -113,12 +127,12 @@ $locations = [
             ["к банку", "fail.bank3"],
             ["в академию", "fail.ak"],
             ["к дом лекаря", "fail.lek"],
-            ["на центральную улицу","fail.centr0"],
+            ["на центральную улицу", "fail.centr0"],
             ["в жилой квартал", "fail.wgate1"]
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -131,7 +145,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -144,7 +158,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -156,7 +170,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -168,7 +182,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -182,7 +196,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -196,7 +210,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -210,7 +224,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -222,7 +236,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -236,7 +250,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -248,7 +262,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -261,7 +275,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -273,7 +287,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -286,7 +300,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -300,7 +314,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -315,7 +329,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -329,7 +343,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -344,7 +358,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -358,7 +372,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -370,7 +384,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -383,7 +397,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -398,7 +412,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -410,7 +424,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -422,7 +436,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -434,7 +448,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -449,7 +463,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -464,7 +478,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -476,7 +490,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -488,7 +502,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -502,7 +516,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -515,7 +529,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -528,7 +542,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -541,7 +555,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -555,7 +569,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -568,7 +582,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -581,7 +595,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -594,7 +608,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -606,7 +620,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -619,7 +633,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -632,7 +646,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -645,7 +659,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -659,7 +673,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -672,7 +686,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -684,7 +698,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
     [
@@ -696,7 +710,7 @@ $locations = [
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],
-        "loc_add" => [ ],
+        "loc_add" => [],
         "loc_t" => []
     ],
 ];

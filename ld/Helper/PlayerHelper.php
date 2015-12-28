@@ -11,7 +11,9 @@ namespace Likedimion\Helper;
 
 use Likedimion\EventDispatcher;
 use Likedimion\Events\JournalEvent;
+use Likedimion\Events\QuestEvent;
 use Likedimion\Game;
+use Likedimion\Quest\QuestHelper;
 
 class PlayerHelper
 {
@@ -19,6 +21,7 @@ class PlayerHelper
     const STATUS_GHOST = "ghost";
     const STATUS_CRIM = "crim";
     const STATUS_MARADEUR = "maradeur";
+
 
     private $_player = [];
     /**
@@ -77,7 +80,8 @@ class PlayerHelper
      * @param $loc
      * @return $this
      */
-    public function move($loc){
+    public function move($loc)
+    {
         $this->_player["loc"] = $loc;
         return $this;
     }
@@ -350,7 +354,8 @@ class PlayerHelper
      * @param string $msg
      * @return $this
      */
-    public function addJournal($msg){
+    public function addJournal($msg)
+    {
         $this->_player["journal"][] = [
             "msg" => $msg,
             "time" => time(),
@@ -361,7 +366,8 @@ class PlayerHelper
     /**
      * @return $this
      */
-    public function clearJournal(){
+    public function clearJournal()
+    {
         $this->_player["journal"] = [];
         return $this;
     }
@@ -369,7 +375,8 @@ class PlayerHelper
     /**
      * @return array
      */
-    public function getJournal(){
+    public function getJournal()
+    {
         return (is_array($this->_player["journal"])) ? $this->_player["journal"] : [];
     }
 
@@ -378,7 +385,8 @@ class PlayerHelper
      * @param $msg
      * @return $this
      */
-    public function addMsg(array $from, $msg){
+    public function addMsg(array $from, $msg)
+    {
         //$id = View::generateRandomString(8);
         $this->_player["msg"][] = [
             "title" => $from["title"],
@@ -392,10 +400,11 @@ class PlayerHelper
     /**
      * @return int
      */
-    public function getCountNewMsg(){
+    public function getCountNewMsg()
+    {
         $count = 0;
-        foreach($this->_player["msg"] as $msg){
-            if($msg["is_read"] === false){
+        foreach ($this->_player["msg"] as $msg) {
+            if ($msg["is_read"] === false) {
                 $count++;
             }
         }
@@ -406,8 +415,9 @@ class PlayerHelper
      * @param $id
      * @return $this
      */
-    public function markMsgIsRead($id){
-        if($this->isMsg($id)){
+    public function markMsgIsRead($id)
+    {
+        if ($this->isMsg($id)) {
             $this->_player["msg"][$id]["is_read"] = true;
         }
         return $this;
@@ -416,8 +426,9 @@ class PlayerHelper
     /**
      * @return $this
      */
-    public function markAllMsgIsRead(){
-        while(list($id, $msg) = each($this->_player["msg"])){
+    public function markAllMsgIsRead()
+    {
+        while (list($id, $msg) = each($this->_player["msg"])) {
             $this->markMsgIsRead($id);
         }
         return $this;
@@ -427,7 +438,8 @@ class PlayerHelper
      * @param $id
      * @return bool
      */
-    public function isMsg($id){
+    public function isMsg($id)
+    {
         return isset($this->_player["msg"][$id]);
     }
 
@@ -436,21 +448,24 @@ class PlayerHelper
      * @param $id
      * @return $this
      */
-    public function removeMsg($id){
-        if(isset($this->_player["msg"][$id])){
+    public function removeMsg($id)
+    {
+        if (isset($this->_player["msg"][$id])) {
             unset($this->_player["msg"][$id]);
         }
         return $this;
     }
 
-    public function getMsg(){
+    public function getMsg()
+    {
         return (is_array($this->_player["msg"])) ? $this->_player["msg"] : [];
     }
 
     /**
      * Очистка сообщений
      */
-    public function clearMsg(){
+    public function clearMsg()
+    {
         $this->_player["msg"] = [];
     }
 
@@ -459,8 +474,9 @@ class PlayerHelper
      * @param $player
      * @return $this
      */
-    public function addFriend($player){
-        if(!in_array($player["_id"], $this->_player["friends"])){
+    public function addFriend($player)
+    {
+        if (!in_array($player["_id"], $this->_player["friends"])) {
             $this->_player["friends"][] = $player["_id"];
         }
         return $this;
@@ -470,7 +486,8 @@ class PlayerHelper
      * @param array $player
      * @return bool
      */
-    public function isFriend($player){
+    public function isFriend($player)
+    {
         return (in_array($player["_id"], $this->_player["friends"]));
     }
 
@@ -478,10 +495,11 @@ class PlayerHelper
      * @param $player
      * @return bool
      */
-    public function removeFriend($player){
-        if($this->isFriend($player)){
-            while(list($key, $fid) = each($this->_player["friends"])){
-                if($fid == $player["_id"]){
+    public function removeFriend($player)
+    {
+        if ($this->isFriend($player)) {
+            while (list($key, $fid) = each($this->_player["friends"])) {
+                if ($fid == $player["_id"]) {
                     unset($this->_player["friends"][$key]);
                     return true;
                 }
@@ -494,16 +512,19 @@ class PlayerHelper
     /**
      * @return $this
      */
-    public function clearFriendList(){
+    public function clearFriendList()
+    {
         $this->_player["friends"] = [];
         return $this;
     }
 
-    public function getFriendList(){
+    public function getFriendList()
+    {
         return (is_array($this->_player["friends"])) ? $this->_player["friends"] : [];
     }
 
-    public function getGameConfig(){
+    public function getGameConfig()
+    {
         $cfg = (isset($this->_player["config"])) ? $this->_player["config"] : [];
         return new GameConfig($cfg);
     }
@@ -513,9 +534,10 @@ class PlayerHelper
      * @param $milliseconds
      * @return $this
      */
-    public function addTimer($timerId, $milliseconds){
+    public function addTimer($timerId, $milliseconds)
+    {
         $t = microtime(true);
-        $tmr = $t + $milliseconds/1000;
+        $tmr = $t + $milliseconds / 1000;
         $this->_player["timers"][$timerId] = $tmr;
         return $this;
     }
@@ -524,7 +546,8 @@ class PlayerHelper
      * @param $timerId
      * @return bool
      */
-    public function isTimer($timerId){
+    public function isTimer($timerId)
+    {
         return (isset($this->_player["timers"][$timerId]));
     }
 
@@ -532,9 +555,10 @@ class PlayerHelper
      * @param $timerId
      * @return bool
      */
-    public function isTimed($timerId){
+    public function isTimed($timerId)
+    {
         $t = microtime(true);
-        if($this->isTimer($timerId)){
+        if ($this->isTimer($timerId)) {
             $timer = $this->getTimer($timerId);
             $time = $t - $timer;
             return ($time >= 0);
@@ -546,14 +570,16 @@ class PlayerHelper
      * @param $timerId
      * @return $this
      */
-    public function removeTimer($timerId){
-        if($this->isTimer($timerId)){
+    public function removeTimer($timerId)
+    {
+        if ($this->isTimer($timerId)) {
             unset($this->_player["timers"][$timerId]);
         }
         return $this;
     }
 
-    public function clearTimers(){
+    public function clearTimers()
+    {
         $this->_player["timers"] = [];
     }
 
@@ -561,18 +587,21 @@ class PlayerHelper
      * @param $timerId
      * @return float
      */
-    public function getTimer($timerId){
-        if($this->isTimer($timerId)){
+    public function getTimer($timerId)
+    {
+        if ($this->isTimer($timerId)) {
             return $this->_player["timers"][$timerId];
         }
         return DateHelper::microtimeFloat(microtime());
     }
 
-    public function getTimers(){
+    public function getTimers()
+    {
         return $this->_player["timers"];
     }
 
-    public function update(){
+    public function update()
+    {
         return $this->getCollection()->update(
             ["_id" => $this->_player["_id"]],
             $this->_player
@@ -598,7 +627,8 @@ class PlayerHelper
     /**
      * @return string
      */
-    public function getStatus(){
+    public function getStatus()
+    {
         $status = ($this->_player["status"]) ? $this->_player["status"] : self::STATUS_ALIVE;
         return $status;
     }
@@ -607,8 +637,137 @@ class PlayerHelper
      * @param string $status
      * @return $this
      */
-    public function setStatus($status = self::STATUS_ALIVE){
+    public function setStatus($status = self::STATUS_ALIVE)
+    {
         $this->_player["status"] = $status;
         return $this;
+    }
+
+    /**
+     * @param array $event
+     * @return $this
+     */
+    public function setEvent($event)
+    {
+        $this->_player["event"] = $event;
+        return $this;
+    }
+
+    public function teleport($toLocId, $teleportMsg)
+    {
+
+    }
+
+    /**
+     * @param string $citizen
+     */
+    public function setCitizen($citizen)
+    {
+        $this->_player["citizen"] = $citizen;
+        switch ($citizen) {
+            case Game::CITIZEN_ARCHER:
+                $msg = "Теперь вы подданный гильдии Арчеров";
+                break;
+            case Game::CITIZEN_IMPERY:
+                $msg = "Вы доказали свое подданство империи";
+                break;
+        }
+        $this->addJournal($msg);
+    }
+
+    /**
+     * @param string $questId
+     */
+    public function startQuest($questId)
+    {
+        $questHelper = new QuestHelper(Game::init()->getDb()->quests);
+        if ($questHelper->questExists($questId)) {
+            $this->_player["quests"][$questId] = [
+                "state" => "start"
+            ];
+            $event = new QuestEvent();
+            $event->setQuestId($questId);
+            $event->setPlayerHelper($this);
+            $event->setQuestHelper($questHelper);
+            Game::init()->getDispatcher()->dispatch('quest.start', $event);
+        }
+    }
+
+    /**
+     * Остановка квеста (удаление оного)
+     * @param $questId
+     */
+    public function questStop($questId)
+    {
+        //$questHelper = new QuestHelper(Game::init()->getDb()->quests);
+        if (isset($this->_player["quests"][$questId])) {
+            unset($this->_player["quests"][$questId]);
+        }
+    }
+
+    public function changeState($questId, $newStateId)
+    {
+        $questHelper = new QuestHelper(Game::init()->getDb()->quests);
+        if (isset($this->_player["quests"][$questId]) and $questHelper->questExists($questId)) {
+            $event = new QuestEvent();
+            $event->setQuestId($questId);
+            $event->setPlayerHelper($this);
+            $event->setQuestHelper($questHelper);
+            $event->setState($newStateId);
+            Game::init()->getDispatcher()->dispatch('quest.change', $event);
+        }
+    }
+
+    /**
+     * Добавить последователя, который будет везде бродить за игроком
+     * @param $followId
+     * @return $this
+     */
+    public function addFollower($followId)
+    {
+        $this->_player["followers"][] = $followId;
+        return $this;
+    }
+
+    /**
+     * @param $followerId
+     * @return $this
+     */
+    public function removeFollower($followerId)
+    {
+        if ($this->isFollow($followerId)) {
+            while (list($key, $fId) = each($this->_player["followers"])) {
+                if ($fId == $followerId) {
+                    unset($this->_player["followers"][$key]);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function cleanFollowers()
+    {
+        $this->_player["followers"] = [];
+        return $this;
+    }
+
+    /**
+     * @param $followerId
+     * @return bool
+     */
+    public function isFollow($followerId)
+    {
+        return in_array($followerId, $this->_player["followers"]);
+    }
+
+    /**
+     * @param array $player
+     */
+    public function setPlayer($player)
+    {
+        $this->_player = $player;
     }
 }

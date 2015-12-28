@@ -23,10 +23,7 @@ if (empty($_POST)) {
 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 <span class="small">Сторона выбирается один раз и навсегда</span>
 </p>
-<select class="input" name="race">
-    <option class="text-uppercase text-danger strong" value="1" selected>свет</option>
-    <option class="strong text-uppercase" value="2">тьма</option>
-</select>
+
 <p class="strong text-uppercase">
 Класс героя<br/>
 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -78,9 +75,9 @@ PAGE;
                 "role" => ($acc["email"] == $admin) ? \Likedimion\Game::ROLE_ADMIN : \Likedimion\Game::ROLE_USER,
                 "class" => $_POST["class"],
                 "sex" => $_POST["sex"],
-                "race" => $_POST["race"],
+                "race" => \Likedimion\Game::RACE_MAN,
                 "create" => time(),
-                "loc" => "ld.790.1370",
+                "loc" => "ld.950.250",
                 "level" => 1,
                 "game_status" => "alive",
                 "base_stats" => $baseStats,
@@ -106,6 +103,11 @@ PAGE;
                 "friends" => [],
                 "config" => [],
                 "buffs" => [],
+                "event" => [
+                    "game" => "roller",
+                    "dId" => "start",
+                    "sId" => "start",
+                ]
             ];
             try {
                 $playerHelper = new \Likedimion\Helper\PlayerHelper($actor);
@@ -114,7 +116,7 @@ PAGE;
                 switch($actor["class"]){
                     case \Likedimion\Game::CLASS_WAR:
                         $playerHelper->equip('rhand', $itemHelper->getItem('i.w.snov'));
-                        $playerHelper->addMagic("swords.hitstrike", 1, $magic);
+                        $playerHelper->addMagic("swords.swords1", 1, $magic);
                         break;
                     case \Likedimion\Game::CLASS_MAG:
                         $playerHelper->equip('rhand', $itemHelper->getItem('i.w.booknov'))
