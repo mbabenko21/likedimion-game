@@ -41,8 +41,8 @@ foreach ($locations as $key => $location) {
                             $npcCompiler = new \Likedimion\Helper\NpcCompiler();
                             $npc = $npc_lib[$id[1]];
                             $manNames = str_replace(",", "", $manNames);
-                            $mNames = preg_split("/[(\r\n)|(\n)]/", $manNames);
-                            $wNames = preg_split("/[(\r\n)|(\n)]/",$womanNames);
+                            $mNames = preg_split("/(\r\n)|(\n)/", $manNames);
+                            $wNames = preg_split("/(\r\n)|(\n)/",$womanNames);
                             $npcCompiler->setNpc($npc)
                             ->setManNames($mNames)
                             ->setWomanNames($wNames);

@@ -69,19 +69,21 @@ if ($_SESSION["pid"]) {
             } else {
                 require ROOT . "/503.php";
             }
-
+            $playerHelper = Game::init()->getService("player.helper");
             $playerHelper->calcParams();
             $playerHelper->addTimer('last_action', 0)
                 ->addTimer("online", $config["online_time"]);
+
             if (!$ld->players->update(["_id" => $_SESSION["pid"]], $playerHelper->getPlayer())) {
                 throw new MongoException("Not update");
             };
         } else {
+            $pid = $_SESSION["pid"];
             $locationHelper->removePlayer($_SESSION["pid"])
                 ->update();
             $playerHelper->clearJournal()->update();
             $msg = $player["title"] . (($player["sex"] == "m") ? " исчез " : " исчезла ");
-            //$locationHelper->addJournal($msg, $ld->players);
+            //$locationHelper->addJournal($msg, $ld->players, $pid);
             $page = <<<EOT
         <p class="tabs__link tabs__link_active">Ваш персонаж покинул игру.</p>
         <div class="hr"></div>
@@ -94,7 +96,6 @@ EOT;
         if ($_SESSION["pid"]) {
             unset($_SESSION["pid"]);
         }
-
         header("Location: /?");
     }
 } else {

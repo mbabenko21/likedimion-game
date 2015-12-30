@@ -298,7 +298,20 @@ $locations = [
         "title" => "Внутри склада",
         "global" => "Фаиль",
         "doors" => [
-            ["к выходу", "fail.sklad"],
+            ["на улицу", "fail.sklad"],
+            ["в глубь склада", "fail.sklad3"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.sklad3",
+        "title" => "Внутри склада",
+        "global" => "Фаиль",
+        "doors" => [
+            ["к выходу", "fail.sklad2"],
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
         "loc" => [],

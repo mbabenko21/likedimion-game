@@ -9,6 +9,8 @@
 namespace Likedimion\Helper;
 
 
+use Likedimion\Game;
+
 class LocationHelper
 {
     const DOOR_N = "n", //север обычный шаг
@@ -216,6 +218,10 @@ class LocationHelper
                 ]
             ]
         ]);
+        $pid = Game::init()->getPlayer()["_id"];
+        if($pid != $noPlayer1 and $pid != $noPlayer2 and $this->objectExists("player_".$pid)) {
+            Game::init()->getService("player.helper")->addJournal($msg);
+        }
         return $this;
     }
 

@@ -5,6 +5,7 @@ namespace Likedimion;
 use Likedimion\Ai\NpcAi;
 use Likedimion\Ai\Supervision;
 use Likedimion\Ai\Vision;
+use Likedimion\Events\JournalEvent;
 use Likedimion\Helper\CalculateHelper;
 use Likedimion\Helper\ItemHelper;
 use Likedimion\Helper\LocationHelper;
@@ -119,7 +120,9 @@ class Game
             $this->getService('supervision')->eachLocations(function ($locHelper) {
                 $this->doai($locHelper);
             });
-
+            $this->getService('supervision')->eachLocations(function ($locHelper) {
+                $locHelper->update();
+            });
             return;
         } else {
             return;
@@ -184,6 +187,7 @@ class Game
 
     /**
      * @param LocationHelper $locHelper
+     * @return LocationHelper
      */
     private function _locAi($locHelper)
     {
@@ -196,14 +200,23 @@ class Game
                     $obj = $caclHelper->getObject();
                     if (!isset($obj["move"])) {
                         $obj = $this->_moveAi($obj, $locHelper);
-                        if($obj["ai"]["move"]["status"][0] == "in_move"){
-                            $locHelper->addObject($objId, $obj);
+                        if($obj["ai"]["move"]["status"][0] == "in_move" and count($obj["ai"]["move"]["list"]) > 0){
+                            //$locHelper->addObject($objId, $obj);
                             $locId = array_pop($obj["ai"]["move"]["list"]);
                             $outMsg = $obj["title"]." ".$obj["ai"]["move"]["data"]["move"][1]." ".$locHelper->getDoorName($locId);
                             $inMsg = $obj["ai"]["move"]["data"]["move"][0]." ".$obj["title"];
-                            $locHelper->moveLocObject($objId, $locId);
-                            $locHelper->addJournal($outMsg, $this->getDb()->players);
-                            $locHelper->factory($locId)->addJournal($inMsg, $this->getDb()->players);
+                            $jEvent1 = new JournalEvent($outMsg);
+                            $jEvent1->setLocId($locHelper->getLoc()["lid"])
+                                ->setPlayers($this->getDb()->players);
+                            $jEvent2 = new JournalEvent($inMsg);
+                            $jEvent2->setLocId($locId)
+                                ->setPlayers($this->getDb()->players);
+                            $this->getService("supervision")->getLocation($locId)->addObject($objId, $obj);
+                            $locHelper->removeObject($objId);
+                            $this->getDispatcher()->dispatch("addjournal.all", $jEvent1);
+                            $this->getDispatcher()->dispatch("addjournal.all", $jEvent2);
+                            //$locHelper->addJournal($outMsg, $this->getDb()->players);
+                            //$locHelper->factory($locId)->addJournal($inMsg, $this->getDb()->players);
                         } else {
                             $locHelper->addObject($objId, $obj);
                         }

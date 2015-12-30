@@ -45,6 +45,15 @@ class Supervision
     }
 
     /**
+     * @param LocationHelper $locHelper
+     * @return $this
+     */
+    public function addLocHelper(LocationHelper $locHelper){
+        $this->locations->offsetSet($locHelper->getLoc()["lid"], $locHelper);
+            return $this;
+    }
+
+    /**
      * @return array
      */
     public function getLocations(){
@@ -57,6 +66,7 @@ class Supervision
     public function eachLocations(callable $callable){
         foreach($this->locations as $locHelper){
             $callable($locHelper);
+            $this->addLocHelper($locHelper);
         }
     }
 
