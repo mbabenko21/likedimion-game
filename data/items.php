@@ -7,7 +7,7 @@
  */
 
 $items = [
-    [
+    "mmoney" => [
         "iid" => "i.m.money",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_MISC,
         "titles" => [
@@ -21,7 +21,7 @@ $items = [
         ],
         "info" => "Серебрянные монеты, за них можно что-нибудь купить у торговцев"
     ],
-    [
+    "abnov" => [
         "iid" => "i.a.bnov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_BODYARM,
         "titles" => [
@@ -42,7 +42,7 @@ $items = [
             "slots" => []
         ]
     ],
-    [
+    "alnov" => [
         "iid" => "i.a.lnov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_LEGS,
         "titles" => [
@@ -64,7 +64,7 @@ $items = [
             "slots" => []
         ]
     ],
-    [
+    "asnov" => [
         "iid" => "i.a.snov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_SHOES,
         "titles" => [
@@ -86,7 +86,7 @@ $items = [
             "slots" => []
         ]
     ],
-    [
+    "wsnov" => [
         "iid" => "i.w.snov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_SWORD,
         "titles" => [
@@ -107,7 +107,7 @@ $items = [
             "war_stats" => [8, 0, 2, 3, 1],
         ]
     ],
-    [
+    "wbooknov" => [
         "iid" => "i.w.booknov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_BOOK,
         "titles" => [
@@ -128,7 +128,7 @@ $items = [
             "war_stats" => [0, 8, 2, 3, 1],
         ]
     ],
-    [
+    "wpairnov" => [
         "iid" => "i.w.pairnov",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_PAIR_KNIFES,
         "titles" => [
@@ -149,7 +149,7 @@ $items = [
             "war_stats" => [10, 0, 1, 4, 0],
         ]
     ],
-    [
+    "snews" => [
         "iid" => "i.s.news",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_PLUGIN,
         "titles" => [
@@ -164,7 +164,7 @@ $items = [
         "plugin" => "ad",
         "info" => "Большая доска объявлений, на ней наклеено много различных объявлений. Здесь вы можете продать или купить б/у вещи.",
     ],
-    [
+    "sdfacilnuir" => [
         "iid" => "s.d.facilnuir",
         "type" => \Likedimion\Helper\ItemHelper::ITEM_SET,
         "titles" => [
@@ -178,11 +178,66 @@ $items = [
         ],
         "ai" => [
             "respawn" => [
-                "loc" => ["ld.950.250"],
+                //"loc" => ["ld.950.250"],
                 "time" => [30, 60]
             ],
         ],
         "plugin" => "ad",
         "info" => "Труп Фасилнуира, который хотел казнить вас.",
-    ]
+    ],
+    "spovfail" => [
+        "iid" => "s.povfail",
+        "type" => \Likedimion\Helper\ItemHelper::ITEM_WAGON,
+        "titles" => [
+            "nom" => "повозка",
+            "gen" => "повозки",
+            "dat" => "повозке",
+            "acc" => "повозку",
+            "inst" => "повозкой",
+            "prep" => "о повозке",
+            "plural" => "повозки"
+        ],
+        "ai" => [
+            "respawn" => [
+                //"loc" => ["ld.950.260"],
+                "time" => [30, 60],
+                "messages" => [
+                    "повозка куда-то уехала",
+                    "приехала повозка",
+                ]
+            ],
+            "on_use" => [
+                "type" => "event",
+                "id" => "move.wagon",
+                "run" => "ld.790.1370",
+                "message" => [
+                    "повозка с %s куда-то поехала",
+                    "приехала повозка с %s"
+                ],
+                "wagon_id" => "povfail",
+                "wagon_msg" => []
+            ],
+        ],
+        "info" => "Повозка, видимо на ней вас привез охотник в эту деревню. Можно использовать ее, чтобы добраться до города Фаиль.",
+    ],
+    "sbox" => [
+        "type" => \Likedimion\Helper\ItemHelper::ITEM_WAGON,
+        "titles" => [
+            "nom" => "ящик",
+            "gen" => "ящика",
+            "dat" => "ящику",
+            "acc" => "ящик",
+            "inst" => "ящиком",
+            "prep" => "о ящике",
+            "plural" => "ящики"
+        ],
+        "ai" => [
+            "respawn" => [
+                //"loc" => ["ld.950.260"],
+                "time" => [30, 60],
+            ],
+            "on_take" => [],
+        ],
+        "info" => "Ящик со склада.",
+    ],
 ];

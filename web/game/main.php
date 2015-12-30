@@ -14,13 +14,9 @@ if (!defined('ROOT')) {
 $adminSession = false;
 
 if ($_SESSION["pid"]) {
-    $vision = Likedimion\Ai\Vision::init();
-    $vision->setDb($ld);
     Game::init()->setDb($ld);
     Game::init()->setDispatcher(require "event_dispatcher.php");
     Game::init()->setPlayer($_SESSION["pid"]);
-    Game::init()->setVision($vision);
-    Game::init()->ai();
     $player = Game::init()->getPlayer();
     $loc = $ld->locations->findOne(["lid" => $player["loc"]]);
     if($loc) {
@@ -28,6 +24,8 @@ if ($_SESSION["pid"]) {
         $locationHelper->setCollection($ld->locations);
         Game::init()->addService('loc.helper', $locationHelper);
     }
+
+
     if(count($player["event"]) > 0){
         foreach($_GET as $key => $value){
             if(isset($player["event"][$key])){
@@ -45,7 +43,11 @@ if ($_SESSION["pid"]) {
     if ($player) {
         $playerHelper = new \Likedimion\Helper\PlayerHelper($player);
         $playerHelper->setCollection($ld->players);
+        $supervision = new \Likedimion\Ai\Supervision();
+        $supervision->setLocHelper($locationHelper);
         Game::init()->addService('player.helper', $playerHelper);
+        Game::init()->addService('supervision', $supervision);
+        Game::init()->ai();
         if (!$playerHelper->isTimed("online")) {
             $playerHelper->setDispatcher($eventDispatcher);
             $playerHelper->calcParams();

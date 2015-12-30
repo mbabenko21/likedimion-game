@@ -39,7 +39,8 @@ class ItemHelper
             ITEM_PLUGIN         = "plugin",
             ITEM_BOTTLE         = "bottle",
             ITEM_GEM            = "gem",
-            ITEM_BELT           = "belt"
+            ITEM_BELT           = "belt",
+            ITEM_WAGON          = 'wagon'
     ;
     /**
      * @var \MongoCollection

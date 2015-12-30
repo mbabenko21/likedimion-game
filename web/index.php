@@ -5,6 +5,7 @@ require "../vendor/autoload.php";
 require "config.php";
 require ROOT."/../data/lang.php";
 $magic = require ROOT . "/../data/magic.php";
+//set_error_handler('\\Likedimion\\Helper\\View::errorHandler');
 require "dispatcher.php";
 define("START_TIME", \Likedimion\Helper\DateHelper::microtimeFloat(microtime()));
 //session_start();

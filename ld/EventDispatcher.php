@@ -13,6 +13,8 @@ class EventDispatcher
 {
     protected $_listeners = [];
 
+    protected $injects = [];
+
     public function addEventListener($event, $class, $method){
         $this->_listeners[$event][] = [
             "class" => $class,
@@ -31,8 +33,19 @@ class EventDispatcher
             foreach($listeners as $callable){
                 $className = $callable["class"];
                 $method = $callable["method"];
-                call_user_func_array([new $className, $method], [$event]);
+                $class = new $className();
+                foreach($this->injects as $methodName => $object){
+                    if(method_exists($class, $methodName)){
+                        $class->{$methodName}($object);
+                    }
+                }
+                call_user_func_array([$class, $method], [$event]);
             }
         }
+    }
+
+    public function addInject($id, $object){
+        $this->injects[$id] = $object;
+        return $this;
     }
 }

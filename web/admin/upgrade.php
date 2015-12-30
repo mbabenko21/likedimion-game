@@ -9,6 +9,8 @@ require ROOT . "/../data/blank.php";
 require ROOT . "/../data/npc.php";
 require ROOT . "/../data/quests.php";
 require ROOT . "/../data/items.php";
+require ROOT . "/../data/respawns.php";
+require ROOT . "/../data/names.php";
 
 try {
     $ld->locations->remove();
@@ -29,18 +31,41 @@ $it->createIndex(["iid" => 1], ["unique" => true]);
 foreach ($locations as $key => $location) {
     $locHelper = new \Likedimion\Helper\LocationHelper($location);
     //$locHelper->setCollection($ld->locations);
-    foreach($npc_lib as $npcId => $npc){
-        if(in_array($location["lid"], $npc["ai"]["respawn"]["loc"])){
-            $nId = "npc_".$npcId."_".\Likedimion\Helper\View::generateRandomString(3);
-            $locHelper->addObject($nId, $npc);
-        }
-    }
-    while(list($itemkey, $item) = each($items)){
-        if(isset($item["ai"]["respawn"]) and in_array($location["lid"], $item["ai"]["respawn"]["loc"])){
-            $item["iid"] = preg_replace("/[\.:]/", "_", $item["iid"]);
-            $itemId = "item_".$item["iid"]."_".\Likedimion\Helper\View::generateRandomString(rand(3,5));
-            $item["iid"] = $itemId;
-            $locHelper->addObject($itemId, $item);
+    foreach($respawns as $locId => $respawn){
+        if($locId == $location["lid"]){
+            for($i = 0; $i <count($respawn); $i++){
+                $id = preg_split("/[_\.]/", $respawn[$i]);
+                switch($id[0]){
+                    case "npc":
+                        if(isset($npc_lib[$id[1]])){
+                            $npcCompiler = new \Likedimion\Helper\NpcCompiler();
+                            $npc = $npc_lib[$id[1]];
+                            $manNames = str_replace(",", "", $manNames);
+                            $mNames = preg_split("/(\r\n)/", $manNames);
+                            $wNames = preg_split("/(\r\n)/",$womanNames);
+                            $npcCompiler->setNpc($npc)
+                            ->setManNames($mNames)
+                            ->setWomanNames($wNames);
+                            $npcCompiler->compile();
+                            $npc = $npcCompiler->getNpc();
+                            $npc["ai"]["respawn"]["loc"] = $locId;
+                            $npcId = "npc_".$id[1]."_".\Likedimion\Helper\View::generateRandomString(rand(3,5));
+                            $locHelper->addObject($npcId, $npc);
+                        }
+                        break;
+                    case "item":
+                        if(isset($items[$id[1]])){
+                            $iid = $id;
+                            unset($iid[0]);
+                            $iid = implode("_", $iid);
+                            $item = $items[$iid];
+                            $item["ai"]["respawn"]["loc"] = $locId;
+                            $itemId = "item_".$id[1]."_".\Likedimion\Helper\View::generateRandomString(rand(3,5));
+                            $locHelper->addObject($itemId, $item);
+                        }
+                        break;
+                }
+            }
         }
     }
     $locations[$key] = $locHelper->getLoc();

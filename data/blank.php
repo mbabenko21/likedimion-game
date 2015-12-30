@@ -30,10 +30,76 @@ function addItem($iId)
 $locations = [
     [
         "lid" => "ld.950.250",
-        "title" => "Разрушеная деревня Арчеров",
+        "title" => "Разрушеная деревня Арчеров. Эшафот.",
         "global" => "Долина Фаиль",
+        "messages" => [
+            "Это разрушенная деревня Арчеров. Вы стоите перед эшафотом, где недавно вас чуть было не казнили, перед вам труп Фасилнуира, человека, который хотел вас казнить",
+        ],
         "doors" => [
-            ["осмореться", "ld.950.250"],
+            ["к выходу на юге", "ld.950.260"],
+            ["к выходу на севере", "ld.950.240"],
+            ["к выходу на востоке", "ld.960.250"],
+            ["к выходу на западе", "ld.940.250"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "ld.950.240",
+        "title" => "Северный выход из деревни.",
+        "global" => "Долина Фаиль",
+        "messages" => [
+            "Северный выход из деревни забаррикадирован",
+        ],
+        "doors" => [
+            ["к эшафоту", "ld.950.250"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "ld.950.260",
+        "title" => "Южный выход из деревни.",
+        "global" => "Долина Фаиль",
+        "messages" => [
+            "Чудо, здесь осталась повозка с лошадью, я должен скорее ехать в безопасное место.",
+        ],
+        "doors" => [
+            ["к эшафоту", "ld.950.250"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "ld.940.250",
+        "title" => "Западный выход из деревни",
+        "global" => "Долина Фаиль",
+        "messages" => [
+            "Западный выход из деревни забаррикадирован",
+        ],
+        "doors" => [
+            ["к эшафоту", "ld.950.250"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "ld.960.250",
+        "title" => "Восточный выход из деревни",
+        "global" => "Долина Фаиль",
+        "messages" => [
+            "Восточный выход из деревни забаррикадирован",
+        ],
+        "doors" => [
+            ["к эшафоту", "ld.950.250"],
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD,
         "loc" => [],
@@ -88,7 +154,7 @@ $locations = [
             ["в западную дверь", "fail.bank3"],
             ["в южную дверь", "fail.cpl"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -143,7 +209,7 @@ $locations = [
             ["ко входу", "fail.per1"],
             ["на второй этаж", "fail.ak2"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -180,7 +246,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.per1"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -260,7 +326,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.zkv2"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -285,7 +351,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.zkv3"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -382,7 +448,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.rab2"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -422,7 +488,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.tavern2"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -434,7 +500,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.tavern2"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -446,7 +512,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.tavern2"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -488,7 +554,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.dvor"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -500,7 +566,7 @@ $locations = [
         "doors" => [
             ["к выходу", "fail.dvor"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -580,7 +646,7 @@ $locations = [
             ["на улицу", "fail.vul2"],
             ["в дальний угол", "fail.vdom2"],
         ],
-        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_BUILD,
         "loc" => [],
         "loc_add" => [],
         "loc_t" => []
@@ -707,6 +773,18 @@ $locations = [
         "global" => "Фаиль",
         "doors" => [
             ["в торговый переулок", "fail.torg2"],
+        ],
+        "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
+        "loc" => [],
+        "loc_add" => [],
+        "loc_t" => []
+    ],
+    [
+        "lid" => "fail.wgate",
+        "title" => "Западные ворота",
+        "global" => "Фаиль",
+        "doors" => [
+            ["назад", "fail.wgate1"],
         ],
         "terr" => \Likedimion\Helper\LocationHelper::TERRITORY_GUARD,
         "loc" => [],

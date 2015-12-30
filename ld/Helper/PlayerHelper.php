@@ -46,6 +46,14 @@ class PlayerHelper
         return $this->_player;
     }
 
+    /**
+     * @return string|\MongoId
+     */
+    public function getPlayerId($toString = true)
+    {
+        return (false !== $toString) ? "player_" . $this->_player["_id"] : $this->_player["_id"];
+    }
+
     public function addMagic($mid, $level, $magic)
     {
         //global $magic;
@@ -769,5 +777,29 @@ class PlayerHelper
     public function setPlayer($player)
     {
         $this->_player = $player;
+    }
+
+    /**
+     * @param $pid
+     * @return PlayerHelper
+     * @throws \Exception
+     */
+    public function factory($pid)
+    {
+        if ($pid instanceof \MongoId === false) {
+            $pid = new \MongoId(substr($pid, 7));
+        }
+        if ($this->getPlayerId(false) != $pid) {
+            $player = $this->getCollection()->findOne(["_id" => $pid]);
+            if ($player) {
+                $helper = new PlayerHelper($player);
+                $helper->setCollection($this->getCollection());
+            } else {
+                throw new \Exception("Player $pid not found");
+            }
+        } else {
+            $helper = $this;
+        }
+        return $helper;
     }
 }

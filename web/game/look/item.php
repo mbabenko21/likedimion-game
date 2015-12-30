@@ -24,7 +24,7 @@ if ($_GET["from"]) {
             /** @var \Likedimion\Helper\LocationHelper $locHelper */
             $locHelper = \Likedimion\Game::init()->getService('loc.helper');
             $loc = $locHelper->getCollection()->findOne(["lid" => $from[1]]);
-            if($loc){
+            if($loc and isset($loc["loc"][$_GET["iId"]])){
                 $item = $loc["loc"][$_GET["iId"]];
             }
             break;

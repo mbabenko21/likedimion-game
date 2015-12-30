@@ -29,6 +29,10 @@ if($_GET["go"] and $_GET["go"] != $player["loc"]){
         $newLocHelper->addJournal($inmsg, $ld->players, $player["_id"]);
         $oldLocHelper->update();
         $newLocHelper->update();
+        $comeEvent = new \Likedimion\Events\MoveEvent();
+        $comeEvent->addObject($playerHelper->getPlayerId(), $player);
+        $comeEvent->setLocHelper($newLocHelper);
+        \Likedimion\Game::init()->getDispatcher()->dispatch('come_player', $comeEvent);
     } else {
         $playerHelper->addJournal("Некуда идти.");
     }

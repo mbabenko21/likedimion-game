@@ -141,13 +141,13 @@ EOFF;
         {
             if ($i > 0) {
                 if ($i == $num_page) //если страница в цикле = текущей то нам не нужно на нее указывать ссылку, а просто выводим текстом
-                    $page .= '<li class="active"><a href="'.$url.$i.'">'.$i.'</a></li>';
-                else $page .= "<li><a href='".$url.$i."'>".$i."</a></li>"; //А на все остальные страницы выводим ссылку
+                    $page .= '<li class="active"><a href="' . $url . $i . '">' . $i . '</a></li>';
+                else $page .= "<li><a href='" . $url . $i . "'>" . $i . "</a></li>"; //А на все остальные страницы выводим ссылку
             }
         } // закрываем цикл вывода страниц
         if ($num_page != $count && ($num_page + $page_nav) < $count) // Если текущая страница не = максимально возможной $count и меньше чем на количество страниц определянный ограничителем $page_nav = 3; (то есть не показана в цикле выше), мы добавляем ссылку на последнюю страницу $count
         {
-            $page .= "<li><a href='" . $url . $count. "'>&raquo;</a></li>"; //вот она
+            $page .= "<li><a href='" . $url . $count . "'>&raquo;</a></li>"; //вот она
         }
         $page .= "</ul>";
         return $page;
@@ -311,7 +311,7 @@ CARD;
 
     /**
      * @param int $number
-     * @param array $endingArray  Массив слов или окончаний для чисел (1, 4, 5),
+     * @param array $endingArray Массив слов или окончаний для чисел (1, 4, 5),
      *          апример array('яблоко', 'яблока', 'яблок')
      * @return string
      */
@@ -319,15 +319,21 @@ CARD;
     {
         $number = $number % 100;
         if ($number >= 11 && $number <= 19) {
-            $ending=$endingArray[2];
+            $ending = $endingArray[2];
         } else {
             $i = $number % 10;
-            switch ($i){
-                case (1): $ending = $endingArray[0]; break;
+            switch ($i) {
+                case (1):
+                    $ending = $endingArray[0];
+                    break;
                 case (2):
                 case (3):
-                case (4): $ending = $endingArray[1]; break;
-                default: $ending=$endingArray[2]; break;
+                case (4):
+                    $ending = $endingArray[1];
+                    break;
+                default:
+                    $ending = $endingArray[2];
+                    break;
             }
         }
         return $ending;
@@ -337,21 +343,23 @@ CARD;
      * @param $n
      * @return bool|string
      */
-    public static function numberFormat($n){
-        if(!is_numeric($n)) return false;
-        if($n>1000000000000) return round(($n/1000000000000),2).' Т';
-        else if($n>1000000000) return round(($n/1000000000),2).' М';
-        else if($n>1000000) return round(($n/1000000),2).' КК';
-        else if($n>1000) return round(($n/1000),2).' К';
+    public static function numberFormat($n)
+    {
+        if (!is_numeric($n)) return false;
+        if ($n > 1000000000000) return round(($n / 1000000000000), 2) . ' Т';
+        else if ($n > 1000000000) return round(($n / 1000000000), 2) . ' М';
+        else if ($n > 1000000) return round(($n / 1000000), 2) . ' КК';
+        else if ($n > 1000) return round(($n / 1000), 2) . ' К';
     }
 
     /**
      * @param $player
      * @return string
      */
-    public static function compilePlayerTitle($player){
+    public static function compilePlayerTitle($player)
+    {
         $title = "";
-        switch($player["role"]){
+        switch ($player["role"]) {
             case Game::ROLE_ADMIN:
                 $title .= "<span class='label label-info'>админ</span>";
                 break;
@@ -365,6 +373,59 @@ CARD;
                 $title .= "<span class='label label-danger'>разработчик</span>";
                 break;
         }
-        return $player["title"]." ".$title;
+        return $player["title"] . " " . $title;
+    }
+
+    /**
+     * @param string $npc
+     * @return string
+     */
+    public static function compileNpcTitle($npc, $player = false)
+    {
+        $calcService = new CalculateHelper($npc);
+        if (false !== $player) {
+            $playerCalc = new CalculateHelper($player);
+            $playerStats = $playerCalc->getStatSumm();
+            $stats = round($calcService->getStatSumm() / $playerStats * 100);
+            if($stats > 100) $stats = 100;
+            if($stats < 25){$label = "default";}
+            elseif($stats >= 25 and $stats < 50){$label = "success";}
+            elseif($stats >= 50 and $stats < 75){$label = "warning";}
+            else{$label = "danger";}
+                $title = "<span class='label label-".$label."'>" .$stats. " %</span> ";
+        } else {
+            $title = "";
+        }
+        $title .= $npc["title"];
+        if ($npc["prof"]) {
+            switch ($npc["prof"]) {
+                case NpcHelper::PROF_GID:
+                    $title .= " [гид]";
+                    break;
+                case NpcHelper::PROF_BANKIR:
+                    $title .= " [банкир]";
+                    break;
+                case NpcHelper::PROF_HEALER:
+                    $title .= " [лекарь]";
+                    break;
+                case NpcHelper::PROF_TRADER:
+                    $title .= " [торговец]";
+                    break;
+                case NpcHelper::PROF_TEACHER:
+                    $title .= " [учитель]";
+                    break;
+                case NpcHelper::PROF_HOUSE_MAN:
+                    $title .= " [хозяин дома]";
+                    break;
+            }
+        }
+        return $title;
+    }
+
+    public static function errorHandler($errno, $errStr, $errfile, $errline, $errcontext){
+        if (!(error_reporting() & $errno)) {
+            // Этот код ошибки не включен в error_reporting
+            return;
+        }
     }
 }

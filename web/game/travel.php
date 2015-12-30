@@ -5,13 +5,17 @@ if(!defined('ROOT')){header("Location: /?");}
  * User: babenoff
  * Date: 07.12.2015
  * Time: 0:43
+ * @var \Likedimion\Helper\LocationHelper $locHelper
  */
 
 use Likedimion\Helper\View;
 require "travel_router.php";
 
 $page = "<script src=\"/js/jquery.slimscroll.min.js\"></script>";
+$playerHelper = \Likedimion\Game::init()->getService('player.helper');
+$player = $playerHelper->getPlayer();
 $loc = $ld->locations->findOne(["lid" => $playerHelper->getPlayer()["loc"]]);
+$locHelper = \Likedimion\Game::init()->getService('loc.helper');
 $title = $loc["title"] ? $loc["title"] : "Likedimion";
 //$snap = file_get_contents(ROOT."/public/likedimion.svg");
 $lifePercent = $player["char_params"][0] / $player["char_params"][1] * 100;
@@ -20,7 +24,6 @@ $expirPercent = $player["experience"] / $playerHelper->getNeedExp($player["level
 $exp = $player["experience"];
 $needExp = $playerHelper->getNeedExp($player["level"]+1);
 $regen = $playerHelper->getRegen(4)[1]*1000;
-$loc = $ld->locations->findOne(["lid" => $playerHelper->getPlayer()["loc"]]);
 if($playerHelper->getCountNewMsg() > 0){
     $msgTitle = $playerHelper->getCountNewMsg() . " " .
         View::getNumEnding($playerHelper->getCountNewMsg(), ["новое", "новых", "новых"]) . " " .
@@ -55,54 +58,60 @@ $page .= <<<PAGE
     </div>
 </div>
 PAGE;
-//БАФФЫ
 
-if($loc){
-    $locHelper = new \Likedimion\Helper\LocationHelper($loc);
-    $journalAll = $playerHelper->getJournal();
-    $size = count($journalAll);
-    for ($i = $size; $i>=0; $i--) {
-        for ($j = 0; $j<=($i-1); $j++)
-            if ($journalAll[$j]["time"]>$journalAll[$j+1]["time"]) {
-                $k = $journalAll[$j]["time"];
-                $journalAll[$j]["time"] = $journalAll[$j+1]["time"];
-                $journalAll[$j+1]["time"] = $k;
-            }
-    }
-    //ЖУРНАЛ
-    if(count($journalAll) > 0) {
-        $page .= '<div id="journalContainer"><div id="journal">';
-        while (list($key, $journalMsg) = each($journalAll)) {
-            if($journalMsg["no_player_1"] != $player["_id"] and $journalMsg["no_player_2"] != $player["_id"]){
-                $page .= "<div>".$journalMsg["msg"]."</div>";
-            }
-            //next($journalAll);
+//БАФФЫ
+    if ($loc["messages"]) {
+        while (list($i, $msg) = each($loc["messages"])) {
+            $playerHelper->addJournal($msg);
         }
-        $page .= "</div><div class='hr'></div><a onclick='$(\"#journalContainer\").hide();' href='#'>дальше</a></div>";
     }
-    //npc
-    $page .= "<ul class='list-group'>";
-    foreach($loc["loc"] as $oid => $obj){
-        if(substr($oid, 0, 4) == "npc_"){
-            $skillsButtons = "<ul class='pagination pagination-sm'>";
-            for($i = 1; $i <= 5; $i++){
-                $skillsButtons .= "<li><a href='/?game=travel&a=use&section=skill&cell=".($i-1)."&to=".$oid."'>".$i."</a></li>";
+    if ($loc) {
+            $locHelper = new \Likedimion\Helper\LocationHelper($loc);
+            $journalAll = $playerHelper->getJournal();
+            $size = count($journalAll);
+            for ($i = $size; $i >= 0; $i--) {
+                for ($j = 0; $j <= ($i - 1); $j++)
+                    if ($journalAll[$j]["time"] > $journalAll[$j + 1]["time"]) {
+                        $k = $journalAll[$j]["time"];
+                        $journalAll[$j]["time"] = $journalAll[$j + 1]["time"];
+                        $journalAll[$j + 1]["time"] = $k;
+                    }
             }
-            $skillsButtons .= "</ul>";
-            $iItems = "<ul class='pagination pagination-sm'>";
-            for($i = 1; $i <= 5; $i++){
-                $iItems .= "<li><a href='/?game=travel&a=use&section=item&cell=".($i-1)."&to=".$oid."'>".$i."</a></li>";
+            //ЖУРНАЛ
+            if (count($journalAll) > 0) {
+                $page .= '<div id="journalContainer"><div id="journal">';
+                while (list($key, $journalMsg) = each($journalAll)) {
+                    if ($journalMsg["no_player_1"] != $player["_id"] and $journalMsg["no_player_2"] != $player["_id"]) {
+                        $page .= "<div>" . $journalMsg["msg"] . "</div>";
+                    }
+                    //next($journalAll);
+                }
+                $page .= "</div><div class='hr'></div><a onclick='$(\"#journalContainer\").hide();' href='#'>дальше</a></div>";
             }
-            $iItems .= "</ul>";
-            $nid = preg_split("/[_\.]/", $oid);
-            $speakLink = "";
-            if(\Likedimion\Dialog\Dialog::exists($nid[1])){
-                $speakLink = "<a href=\"/?game=dialog&dId=".$oid."\">говорить</a><div class='hr'></div>";
-            }
-            $page .= "<li class='list-group-item little_block_center strong'>";
-                $page .= <<<END_NPC
+            //npc
+            $page .= "<ul class='list-group'>";
+            foreach ($loc["loc"] as $oid => $obj) {
+                if (substr($oid, 0, 4) == "npc_") {
+                    $skillsButtons = "<ul class='pagination pagination-sm'>";
+                    for ($i = 1; $i <= 5; $i++) {
+                        $skillsButtons .= "<li><a href='/?game=travel&a=use&section=skill&cell=" . ($i - 1) . "&to=" . $oid . "'>" . $i . "</a></li>";
+                    }
+                    $skillsButtons .= "</ul>";
+                    $iItems = "<ul class='pagination pagination-sm'>";
+                    for ($i = 1; $i <= 5; $i++) {
+                        $iItems .= "<li><a href='/?game=travel&a=use&section=item&cell=" . ($i - 1) . "&to=" . $oid . "'>" . $i . "</a></li>";
+                    }
+                    $iItems .= "</ul>";
+                    $nid = preg_split("/[_\.]/", $oid);
+                    $speakLink = "";
+                    if (\Likedimion\Dialog\Dialog::exists($nid[1])) {
+                        $speakLink = "<a href=\"/?game=dialog&dId=" . $oid . "\">говорить</a><div class='hr'></div>";
+                    }
+                    $page .= "<li class='list-group-item little_block_center strong'>";
+                    $npcTitle = View::compileNpcTitle($obj, $player);
+                    $page .= <<<END_NPC
     <div class="ui_player" id="ui_player{$oid}" onclick="menu('npc{$oid}_menu');">
-    <span>{$obj["title"]}</span>
+    <span>{$npcTitle}</span>
     </div>
     <div id="npc{$oid}_menu" class="menu" style="display: none;">
         {$speakLink}
@@ -117,23 +126,23 @@ if($loc){
     </div>
 END_NPC;
 
-            $page .= "</li>";
-        }
+                    $page .= "</li>";
+                }
 
-        if(substr($oid, 0, 5) == "item_"){
-            $page .= "<li class='list-group-item little_block_center strong'>";
-            $itemTitle = $obj["titles"]["nom"];
-            if($obj["count"] > 0){
-                $itemTitle = $obj["titles"]["plural"]." <span class='label'>".$obj["count"]."</span>";
-            }
-            if(isset($obj["ai"]["on_use"])){
-                $takeLink = "<a href=\"/?game=travel&section=take&id={$oid}&from=loc\">использовать</a><div class=\"hr\"></div>";
-            } elseif($obj["type"] != \Likedimion\Helper\ItemHelper::ITEM_SET){
-                $takeLink = "<a href=\"/?game=travel&section=take&id={$oid}&from=loc\">взять</a><div class=\"hr\"></div>";
-            } else {
-                $takeLink = "";
-            }
-            $page .= <<<END_NPC
+                if (substr($oid, 0, 5) == "item_") {
+                    $page .= "<li class='list-group-item little_block_center strong'>";
+                    $itemTitle = $obj["titles"]["nom"];
+                    if ($obj["count"] > 0) {
+                        $itemTitle = $obj["titles"]["plural"] . " <span class='label'>" . $obj["count"] . "</span>";
+                    }
+                    if (isset($obj["ai"]["on_use"])) {
+                        $takeLink = "<a href=\"/?game=travel&section=use&id={$oid}&from=loc_" . $player["loc"] . "\">использовать</a><div class=\"hr\"></div>";
+                    } elseif ($obj["type"] != \Likedimion\Helper\ItemHelper::ITEM_SET) {
+                        $takeLink = "<a href=\"/?game=travel&section=take&id={$oid}&from=loc_" . $player["loc"] . "\">взять</a><div class=\"hr\"></div>";
+                    } else {
+                        $takeLink = "";
+                    }
+                    $page .= <<<END_NPC
     <div class="ui_player" id="ui_item{$oid}" onclick="menu('{$oid}_menu');">
     <span>{$itemTitle}</span>
     </div>
@@ -143,47 +152,47 @@ END_NPC;
     </div>
 END_NPC;
 
-            $page .= "</li>";
-        }
+                    $page .= "</li>";
+                }
 
-        if(substr($oid, 0, 7) == "player_"){
-            $plId = substr($oid, 7);
-            if($plId != $player["_id"]) {
-                $owner = $playerHelper->getCollection()->findOne(["_id" => new MongoId($plId)]);
-                $page .= "<li class='list-group-item little_block_center strong'>";
-                $skillsButtons = "<ul class='pagination pagination-sm'>";
-                for($i = 1; $i <= 5; $i++){
-                    $skillsButtons .= "<li><a href='/?game=travel&a=use&section=skill&cell=".($i-1)."&to=".$owner["_id"]."'>".$i."</a></li>";
-                }
-                $skillsButtons .= "</ul>";
-                $iItems = "<ul class='pagination pagination-sm'>";
-                for($i = 1; $i <= 5; $i++){
-                    $iItems .= "<li><a href='/?game=travel&a=use&section=item&cell=".($i-1)."&to=".$owner["_id"]."'>".$i."</a></li>";
-                }
-                $iItems .= "</ul>";
-                $r = $player["level"] - $owner["level"];
-                $add = "primary";
-                if($r >= 10) {
-                    $add = "success";
-                }
-                if($r >= -5 and $r < 10){
-                    $add = "warning";
-                }
-                if($r < -5){
-                    $add = "danger";
-                }
-                $ownerTitle = View::compilePlayerTitle($owner);
-                $oTitle = "<span class='label label-".$add."'>".$owner["level"]."</span> ".$ownerTitle;
-                switch ($owner["status"]){
-                    case \Likedimion\Helper\PlayerHelper::STATUS_GHOST:
-                        $oTitle.=" <span class='label label-success'>[!]</span>";
-                        break;
-                    case \Likedimion\Helper\PlayerHelper::STATUS_CRIM;
-                    case \Likedimion\Helper\PlayerHelper::STATUS_MARADEUR;
-                        $oTitle.=" <span class='label label-danger'>[#]</span>";
-                        break;
-                }
-                $page .= <<<END_PLAYER
+                if (substr($oid, 0, 7) == "player_") {
+                    $plId = substr($oid, 7);
+                    if ($plId != $player["_id"]) {
+                        $owner = $playerHelper->getCollection()->findOne(["_id" => new MongoId($plId)]);
+                        $page .= "<li class='list-group-item little_block_center strong'>";
+                        $skillsButtons = "<ul class='pagination pagination-sm'>";
+                        for ($i = 1; $i <= 5; $i++) {
+                            $skillsButtons .= "<li><a href='/?game=travel&a=use&section=skill&cell=" . ($i - 1) . "&to=" . $owner["_id"] . "'>" . $i . "</a></li>";
+                        }
+                        $skillsButtons .= "</ul>";
+                        $iItems = "<ul class='pagination pagination-sm'>";
+                        for ($i = 1; $i <= 5; $i++) {
+                            $iItems .= "<li><a href='/?game=travel&a=use&section=item&cell=" . ($i - 1) . "&to=" . $owner["_id"] . "'>" . $i . "</a></li>";
+                        }
+                        $iItems .= "</ul>";
+                        $r = $player["level"] - $owner["level"];
+                        $add = "primary";
+                        if ($r >= 10) {
+                            $add = "success";
+                        }
+                        if ($r >= -5 and $r < 10) {
+                            $add = "warning";
+                        }
+                        if ($r < -5) {
+                            $add = "danger";
+                        }
+                        $ownerTitle = View::compilePlayerTitle($owner);
+                        $oTitle = "<span class='label label-" . $add . "'>" . $owner["level"] . "</span> " . $ownerTitle;
+                        switch ($owner["status"]) {
+                            case \Likedimion\Helper\PlayerHelper::STATUS_GHOST:
+                                $oTitle .= " <span class='label label-success'>[!]</span>";
+                                break;
+                            case \Likedimion\Helper\PlayerHelper::STATUS_CRIM;
+                            case \Likedimion\Helper\PlayerHelper::STATUS_MARADEUR;
+                                $oTitle .= " <span class='label label-danger'>[#]</span>";
+                                break;
+                        }
+                        $page .= <<<END_PLAYER
     <div class="ui_player" id="ui_player{$owner["_id"]}" onclick="menu('player{$owner["_id"]}_menu');">
     <span class="game_ui_icon icon_{$owner["class"]}"></span>
     <span>{$oTitle}</span>
@@ -210,43 +219,43 @@ END_NPC;
     </div>
 END_PLAYER;
 
-                $page .= "</li>";
+                        $page .= "</li>";
+                    }
+                }
             }
-        }
-    }
-    $page .= "</ul>";
-    //выходы
-    if($loc["doors"]){
-        $locHelper->setCollection($ld->locations);
-        $page .= "<div class='list-group'>";
-        for($i = 0; $i < count($loc["doors"]); $i++){
-            $added = str_repeat("!", $locHelper->getCountNpc($loc["doors"][$i][1]));
-            $doorData = $locHelper->getCollection()->findOne(["lid" => $loc["doors"][$i][1]], ["terr"]);
-            if($doorData["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD and $locHelper->getLoc()["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_GUARD){
-                $guard = "<span class='label label-danger'>#</span>";
-            } elseif($doorData["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_GUARD and $locHelper->getLoc()["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD) {
-                $guard = "<span class='label label-success'>!</span>";
-            } else {
-                $guard = "";
-            }
-            $page .= "<div class='list-group-item little_block_center'>".$guard."
-<a id='center' class='strong' href='/?game=travel&go=".$loc["doors"][$i][1]."'>".$loc["doors"][$i][0]."</a> <span class='label label-warning'>".substr($added, 0, 3)."</span>
+            $page .= "</ul>";
+            //выходы
+            if ($loc["doors"]) {
+                $locHelper->setCollection($ld->locations);
+                $page .= "<div class='list-group'>";
+                for ($i = 0; $i < count($loc["doors"]); $i++) {
+                    $added = str_repeat("!", $locHelper->getCountNpc($loc["doors"][$i][1]));
+                    $doorData = $locHelper->getCollection()->findOne(["lid" => $loc["doors"][$i][1]], ["terr"]);
+                    if ($doorData["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD and $locHelper->getLoc()["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_GUARD) {
+                        $guard = "<span class='label label-danger'>#</span>";
+                    } elseif ($doorData["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_GUARD and $locHelper->getLoc()["terr"] == \Likedimion\Helper\LocationHelper::TERRITORY_UNGUARD) {
+                        $guard = "<span class='label label-success'>!</span>";
+                    } else {
+                        $guard = "";
+                    }
+                    $page .= "<div class='list-group-item little_block_center'>" . $guard . "
+<a id='center' class='strong' href='/?game=travel&go=" . $loc["doors"][$i][1] . "'>" . $loc["doors"][$i][0] . "</a> <span class='label label-warning'>" . substr($added, 0, 3) . "</span>
 </div>";
-        }
-        $page .= "</div>";
+                }
+                $page .= "</div>";
+            }
+            //$locHelper->clearJournal();
+            $playerHelper->clearJournal();
+            $ld->locations->update(["_id" => new MongoId($loc["_id"])], $locHelper->getLoc());
+    } else {
+        $page .= "<div class='alert alert-warning'>Какая-то безжизненная пустыня</div>";
     }
-    //$locHelper->clearJournal();
-    $playerHelper->clearJournal();
-    $ld->locations->update(["_id" => new MongoId($loc["_id"])], $locHelper->getLoc());
-} else {
-    $page.="<div class='alert alert-warning'>Какая-то безжизненная пустыня</div>";
-}
-
 //$playerHelper->addBaseStat(4, 40);
 $page .= View::toMainButton('обновить')."<div class='hr'></div>";
 if($player["role"] == \Likedimion\Game::ROLE_ADMIN or $player["role"] == \Likedimion\Game::ROLE_RAZRAB){
     $page .= View::link("/?admin=main", "админка")."<div class='hr'></div>";
 }
+
 
 $page .= <<<EOF
 <script type='text/javascript'>

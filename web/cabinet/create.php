@@ -85,6 +85,10 @@ PAGE;
                 "war_p_skills" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 "war_p_skills_add" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 "war_stats" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+                "base_stats_buffs" => [],
+                "base_stats_effects" => [],
+                "war_p_skills_buffs" => [],
+                "war_p_skills_effects" => [],
                 "experience" => 0,
                 "inventory" => [],
                 "equip" => [

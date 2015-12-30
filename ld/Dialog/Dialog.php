@@ -32,7 +32,7 @@ class Dialog
     public function getSection($sectionId){
         $dialog = $this->compileDialog();
         if(isset($dialog[$sectionId])){
-            if(!is_array($dialog[$sectionId])){
+            /*if(!is_array($dialog[$sectionId])){
                 $sect = preg_split("/[\.:]/", $this->dialog["dialog"][$sectionId]);
                 switch($sect[0]){
                     case self::MIXIN:
@@ -47,7 +47,7 @@ class Dialog
 
                         break;
                 }
-            }
+            }*/
             return new DialogSection($dialog[$sectionId]);
         } else {
             throw new \Exception("Section $sectionId not found");
